@@ -2,8 +2,11 @@
 An application that will allow users to easily create flowcharts. 
 
 Sam Messina
+
 Taylor Flatt
+
 Michael Easton
+
 Reid Trevonian
 
 ## Functionality
@@ -16,11 +19,11 @@ Reid Trevonian
 
 ## Technology
 
-  The application will be implemented as a web application. Users will be able to access the application through a public server. The technology stack will include solutions for:
+The application will be implemented as a web application. Users will be able to access the application through a public server. The technology stack will include solutions for:
 
   1. A backend to process data
   2. A frontend to provide a clear user interface
   3. Public hosting to provide public access
   4. A database to persistently store data (optional pending design choices)
 
-  The specific design and language choices are at the teams discretion. Frameworks, plugins, and similar tools are allowed, license permitting.  Optional features include alternate styles, additional export options, and links to task management applications (e.g. Trello, Google Calendar, etc.). 
+The specific design and language choices are at the team's discretion. Frameworks, plugins, and similar tools are allowed, license permitting.  Optional features include alternate styles, additional export options, and links to task management applications (e.g. Trello, Google Calendar, etc.). 
