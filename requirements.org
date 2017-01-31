@@ -1,20 +1,24 @@
 * Functional
-1. user can create flowcharts
-2. users can delete flowcharts
-2. users can edit flowcharts
-3. users can add steps
-4. users can removed a step
-5. users can modify a step
-6. users can drag and drop steps
-7. users can export to XML/JSON
+1. Users can create new flowcharts.
+2. Users can delete existing flowcharts.
+/////this seems superfleuous. didn't want to delete without consulting so I just sectioned it off
+2. Users can edit steps in an existing flowchart.
+////////
+3. Users can add steps to an existing flowchart. 
+4. Users can remove a step from an existing flowchart.
+5. Users can modify a step in a flowchart.
+6. Users can drag and drop steps to new locations in a flowchart.
+7. Users can export to XML/JSON formats.
+//still needs to be done
 8. users can import XML/JSON applications
-9. users can use conditionals in their flowchart
-10. users can use loops in their flowchart
-11. users can create accounts
-12. users can log in to their account
-13. users can delete accounts
-14. users can access saved flowcharts while logged in
-15. flowcharts can be copied from one account to another
+
+9. Users can use conditional statments in flowcharts.
+10. Users can use conditional loops in their flowcharts.
+11. Users can create a personal account.
+12. Users can log in to their account.
+13. Users can freely delete their account.
+14. Users can access saved copies of flowcharts while logged in.
+15. Flowcharts can be shared between multiple accounts.
 16. users can publish completed charts via publicly-accessible URL
 17. Users can recover forgotten passwords via email
 18. users can save charts as private, preventing them from being viewed or edited by other users
