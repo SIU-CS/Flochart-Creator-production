@@ -11,6 +11,7 @@
 7. Users can export to XML/JSON formats.
 //still needs to be done
 8. users can import XML/JSON applications
+//////
 
 9. Users can use conditional statments in flowcharts.
 10. Users can use conditional loops in their flowcharts.
@@ -19,6 +20,7 @@
 13. Users can freely delete their account.
 14. Users can access saved copies of flowcharts while logged in.
 15. Flowcharts can be shared between multiple accounts.
+/////end of my work
 16. users can publish completed charts via publicly-accessible URL
 17. Users can recover forgotten passwords via email
 18. users can save charts as private, preventing them from being viewed or edited by other users
