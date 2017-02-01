@@ -52,6 +52,10 @@ Members:
 |                   | NFR9. When a user deletes their account, all associated data is also removed |
 
 
+------
+SAM
+------
+
 FR3. Users can add steps to an existing flowchart.
 Description: 
 
@@ -67,10 +71,12 @@ Description:
 FR7. Users can export to XML/JSON formats.
 Description: 
 
-
 FR8. Users can use conditional statments in flowcharts.
 Description: 
 
+------
+REID
+------
 
 FR9. Users can use conditional loops in their flowcharts.
 Description: 
@@ -87,10 +93,12 @@ Description:
 FR14. Flowcharts can be shared between multiple accounts.
 Description: 
 
-
 FR15. users can publish completed charts via publicly-accessible URL
 Description: 
 
+------
+TAYLOR
+------
 
 FR15. Users can recover forgotten passwords via email
 Description: 
@@ -111,6 +119,9 @@ Description:
 FR19. Interface allows for keyboard shortcuts
 Description: 
 
+------
+MICHAEL
+------
 
 NFR4. all user input is validated
 Description: 
