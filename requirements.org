@@ -117,27 +117,27 @@ TAYLOR
 
 FR15. Users can recover forgotten passwords via email
 
-Description: 
+Description: Through the web-interface, authenticated users can send a reset password link to their email if their account already exists from a reset passwords link. This will allow the user to reset their password if forgotten to a different password. The user must have access to the email account that they used to create their account.
 
 
 FR17. users can save charts as private, preventing them from being viewed or edited by other users
 
-Description: 
+Description: Through the flowchart interface, authenticated users can save their charts as private allowing no one but themselves to view or edit the flowchart. This option is not permanent and a user can set their flowchart to private or public at any time.
 
 
 FR13. Users can access saved copies of flowcharts while logged in.
 
-Description: 
+Description: Through the flowchart interface, authenticated users can open previously created flowcharts allowing them to edit the contents or options of the flowchart. Any changes made to existing flowcharts will overwrite those flowcharts.
 
 
 FR18. users can save flowcharts in different view styles by choosing from a list of templates
 
-Description: 
+Description: Through the flowchart interface, authenticated users can apply different visual templates to their flowchart changing the style. This cosmetic option can be changed as many times as the user would like. This option should only change the way in which the content is displayed, not the content itself.
 
 
 FR19. Interface allows for keyboard shortcuts
 
-Description: 
+Description: Through the web-interface, authenticated users can use keyboard shortcuts to perform different actions such as saving and exporting. These actions should override any pre-existing keyboard shortcut that may exist within the browser.
 
 ------
 MICHAEL
