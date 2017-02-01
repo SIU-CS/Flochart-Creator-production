@@ -146,25 +146,25 @@ MICHAEL
 
 NFR4. all user input is validated
 
-Description: 
-
+Description:
+We will perform input validation to minimize malformed data from entering the system.
 
 NFR5. Errors should not include relevant security information
 
 Description: 
+When a user tries to login if they enter their information incorrectly it will say username/password combination is incorrect rather than stating the username is incorrect or the password is incorrect.
 
-
-NFR7. any new flowcharts or changes to existing flowcharts are saved as non-public drafts until published
+NFR7. Any new flowcharts or changes to existing flowcharts are saved as non-public drafts until published
 
 Description: 
-
+When a user saves a new flowchart or makes changes to an existing flowchart it is saved as a non-public draft until they decide to publish it.
 
 NFR8. Editor displays changes immediately
 
 Description: 
-
+The editor window will display changes you make to the flowchart as soon as you make them.
 
 NFR9. When a user deletes their account, all associated data is also removed
 
 Description: 
-
+When a user deletes their account all the data associated with that account will be removed. Allowing users to do this helps prevent hacking and lets the user have control over their data.
