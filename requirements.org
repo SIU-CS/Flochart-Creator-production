@@ -28,7 +28,7 @@ Members:
 |                   | FR9. Users can use conditional loops in their flowcharts.                    |
 |                   | FR13. Users can access saved copies of flowcharts while logged in.           |
 |                   | FR18. users can save flowcharts in different view styles by                  |
-|                   | \hspace{5em} choosing from a list of templates                                           |
+|                   | \hspace{5em} choosing from a list of templates                               |
 |                   | FR19. Interface allows for keyboard shortcuts                                |
 |                   | NFR5. Errors should not include relevant security information                |
 |                   | NFR6. keyboard commands allow user to save                                   |
@@ -42,12 +42,92 @@ Members:
 |                   | FR15. users can publish completed charts via publicly-accessible URL         |
 |                   | FR15. Users can recover forgotten passwords via email                        |
 |                   | FR17. users can save charts as private, preventing them from                 |
-|                   | \hspace{5em} being viewed or edited by other users                                    |
+|                   | \hspace{5em} being viewed or edited by other users                           |
 |                   | NFR1. User passwords are securely stored with ISO/IEC 27034-1:2011           |
 |                   | NFR2. Server should be publicly accessible                                   |
 |                   | NFR3. Must be 100% operational with 99% uptime                               |
 |                   | NFR4. all user input is validated                                            |
 |                   | NFR7. any new flowcharts or changes to existing flowcharts are               |
-|                   | \hspace{5em} saved as non-public drafts until published                                   |
+|                   | \hspace{5em} saved as non-public drafts until published                      |
 |                   | NFR9. When a user deletes their account, all associated data is also removed |
+
+
+FR3. Users can add steps to an existing flowchart.
+Description: 
+
+
+FR4. Users can edit steps in an existing flowchart.
+Description: 
+
+
+FR6. Users can drag and drop steps to new locations in a flowchart.
+Description: 
+
+
+FR7. Users can export to XML/JSON formats.
+Description: 
+
+
+FR8. Users can use conditional statments in flowcharts.
+Description: 
+
+
+FR9. Users can use conditional loops in their flowcharts.
+Description: 
+
+
+FR10. Users can create a personal account.
+Description: 
+
+
+FR12. Users can freely delete their account.
+Description: 
+
+
+FR14. Flowcharts can be shared between multiple accounts.
+Description: 
+
+
+FR15. users can publish completed charts via publicly-accessible URL
+Description: 
+
+
+FR15. Users can recover forgotten passwords via email
+Description: 
+
+
+FR17. users can save charts as private, preventing them from being viewed or edited by other users
+Description: 
+
+
+FR13. Users can access saved copies of flowcharts while logged in.
+Description: 
+
+
+FR18. users can save flowcharts in different view styles by choosing from a list of templates
+Description: 
+
+
+FR19. Interface allows for keyboard shortcuts
+Description: 
+
+
+NFR4. all user input is validated
+Description: 
+
+
+NFR5. Errors should not include relevant security information
+Description: 
+
+
+NFR7. any new flowcharts or changes to existing flowcharts are saved as non-public drafts until published
+Description: 
+
+
+NFR8. Editor displays changes immediately
+Description: 
+
+
+NFR9. When a user deletes their account, all associated data is also removed
+Description: 
 
