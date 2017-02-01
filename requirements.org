@@ -57,25 +57,30 @@ SAM
 ------
 
 FR3. Users can add steps to an existing flowchart.
+
 Description: 
 Steps can be added to the flowchart, and include a title, description, and type. Steps may be of conditional, loop, terminal, or non-terminal types.
 
 
 FR4. Users can edit steps in an existing flowchart.
+
 Description: 
 Once a step is created, it may be edited. Users can change the type, description, or title of the step at any time.
 
 
 FR6. Users can drag and drop steps to new locations in a flowchart.
+
 Description: 
 Steps can be moved after creation by dragging them to a new location. Further prompts may be necessary, depending on the type of step being moved.
 
 
 FR7. Users can export to XML/JSON formats.
+
 Description: 
 Users will be able to export their flowchart in a portable, flat document format. The exact format will be decided on during development.
 
 FR8. Users can use conditional statments in flowcharts.
+
 Description: 
 All major flowchart features will be available. Conditional statements allow a step to have >1 options following it. Based on a given condition, users will be able to branch the flowchart into different options.
 
@@ -84,21 +89,26 @@ REID
 ------
 
 FR9. Users can use conditional loops in their flowcharts.
+
 Description: 
 
 
 FR10. Users can create a personal account.
+
 Description: 
 
 
 FR12. Users can freely delete their account.
+
 Description: 
 
 
 FR14. Flowcharts can be shared between multiple accounts.
+
 Description: 
 
 FR15. users can publish completed charts via publicly-accessible URL
+
 Description: 
 
 ------
@@ -106,22 +116,27 @@ TAYLOR
 ------
 
 FR15. Users can recover forgotten passwords via email
+
 Description: 
 
 
 FR17. users can save charts as private, preventing them from being viewed or edited by other users
+
 Description: 
 
 
 FR13. Users can access saved copies of flowcharts while logged in.
+
 Description: 
 
 
 FR18. users can save flowcharts in different view styles by choosing from a list of templates
+
 Description: 
 
 
 FR19. Interface allows for keyboard shortcuts
+
 Description: 
 
 ------
@@ -129,21 +144,26 @@ MICHAEL
 ------
 
 NFR4. all user input is validated
+
 Description: 
 
 
 NFR5. Errors should not include relevant security information
+
 Description: 
 
 
 NFR7. any new flowcharts or changes to existing flowcharts are saved as non-public drafts until published
+
 Description: 
 
 
 NFR8. Editor displays changes immediately
+
 Description: 
 
 
 NFR9. When a user deletes their account, all associated data is also removed
+
 Description: 
 
