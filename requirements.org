@@ -40,7 +40,7 @@ Members:
 |                   | FR12. Users can freely delete their account.                                 |
 |                   | FR14. Flowcharts can be shared between multiple accounts.                    |
 |                   | FR15. users can publish completed charts via publicly-accessible URL         |
-|                   | FR15. Users can recover forgotten passwords via email                        |
+|                   | FR16. Users can recover forgotten passwords via email                        |
 |                   | FR17. users can save charts as private, preventing them from                 |
 |                   | \hspace{5em} being viewed or edited by other users                           |
 |                   | NFR1. User passwords are securely stored with ISO/IEC 27034-1:2011           |
@@ -64,7 +64,7 @@ Members:
 |----------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                |
 |----------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017  Priority: 1                 |
+| version: 1.0 Date: 2/1/2017                   |
 
 
 | FR4. Users can edit steps in an existing flowchart.       |
@@ -75,7 +75,7 @@ Members:
 |-----------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                 |
 |-----------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                   |
+| version: 1.0 Date: 2/1/2017                    |
 
 
 | FR6. Users can drag and drop steps to new locations in a flowchart.       |
@@ -86,7 +86,7 @@ Members:
 |---------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                 |
 |---------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                   |
+| version: 1.0 Date: 2/1/2017                                    |
 
 
 | FR7. Users can export to XML/JSON formats.       |
@@ -97,7 +97,7 @@ Members:
 |--------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017        |
 |--------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1          |
+| version: 1.0 Date: 2/1/2017           |
 
 
 | FR8. Users can use conditional statments in flowcharts.       |
@@ -108,7 +108,7 @@ Members:
 |---------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                     |
 |---------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                       |
+| version: 1.0 Date: 2/1/2017                        |
 
 
 | FR9. Users can use conditional loops in their flowcharts.       |
@@ -119,7 +119,7 @@ Members:
 |-----------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                       |
 |-----------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                         |
+| version: 1.0 Date: 2/1/2017                          |
 
 
 | FR10. Users can create a personal account.       |
@@ -130,7 +130,7 @@ Members:
 |--------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017        |
 |--------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1          |
+| version: 1.0 Date: 2/1/2017           |
 
 
 | FR12. Users can freely delete their account.       |
@@ -141,7 +141,7 @@ Members:
 |----------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017          |
 |----------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1            |
+| version: 1.0 Date: 2/1/2017             |
 
 
 | FR14. Flowcharts can be shared between multiple accounts.       |
@@ -152,7 +152,7 @@ Members:
 |-----------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                       |
 |-----------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                         |
+| version: 1.0 Date: 2/1/2017                          |
 
 
 | FR15. users can publish completed charts via publicly-accessible URL       |
@@ -163,62 +163,62 @@ Members:
 |----------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                  |
 |----------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                    |
+| version: 1.0 Date: 2/1/2017                                     |
 
 
-| FR15. Users can recover forgotten passwords via email       |
+| FR16. Users can recover forgotten passwords via email       |
 |-------------------------------------------------------------|
-| Goal:  FR15. Users can recover forgotten passwords via email|
+| Goal:  FR16. Users can recover forgotten passwords via email|
 |-------------------------------------------------------------|
-|                                                             |
+| Description: Through the web-interface, authenticated users can send a reset password link to their email if their account already exists from a reset passwords link. This will allow the user to reset their password if forgotten to a different password. The user must have access to the email account that they used to create their account.|
 |-------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                   |
 |-------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                     |
+| version: 1.0 Date: 2/1/2017                      |
 
 
 | FR17. users can save charts as private, preventing them from being viewed or edited by other users       |
 |----------------------------------------------------------------------------------------------------------|
 | Goal:  FR17. users can save charts as private, preventing them from being viewed or edited by other users|
 |----------------------------------------------------------------------------------------------------------|
-|                                                                                                          |
+| Description: Through the flowchart interface, authenticated users can save their charts as private allowing no one but themselves to view or edit the flowchart. This option is not permanent and a user can set their flowchart to private or public at any time.|
 |----------------------------------------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                                                |
 |----------------------------------------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                                                  |
+| version: 1.0 Date: 2/1/2017                                                                   |
 
 
 | FR13. Users can access saved copies of flowcharts while logged in.       |
 |--------------------------------------------------------------------------|
 | Goal:  FR13. Users can access saved copies of flowcharts while logged in.|
 |--------------------------------------------------------------------------|
-|                                                                          |
+| Description: Through the flowchart interface, authenticated users can open previously created flowcharts allowing them to edit the contents or options of the flowchart. Any changes made to existing flowcharts will overwrite those flowcharts.|
 |--------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                |
 |--------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                  |
+| version: 1.0 Date: 2/1/2017                                   |
 
 
 | FR18. users can save flowcharts in different view styles by choosing from a list of templates       |
 |-----------------------------------------------------------------------------------------------------|
 | Goal:  FR18. users can save flowcharts in different view styles by choosing from a list of templates|
 |-----------------------------------------------------------------------------------------------------|
-|                                                                                                     |
+| Description: Through the flowchart interface, authenticated users can apply different visual templates to their flowchart changing the style. This cosmetic option can be changed as many times as the user would like. This option should only change the way in which the content is displayed, not the content itself.|
 |-----------------------------------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                                           |
 |-----------------------------------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                                             |
+| version: 1.0 Date: 2/1/2017                                                              |
 
 
 | FR19. Interface allows for keyboard shortcuts       |
 |-----------------------------------------------------|
 | Goal:  FR19. Interface allows for keyboard shortcuts|
 |-----------------------------------------------------|
-|                                                     |
+| Description: Through the web-interface, authenticated users can use keyboard shortcuts to perform different actions such as saving and exporting. These actions should override any pre-existing keyboard shortcut that may exist within the browser.|
 |-----------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017           |
 |-----------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1             |
+| version: 1.0 Date: 2/1/2017              |
 
 
 
@@ -230,7 +230,7 @@ Members:
 |------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017|
 |------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1  |
+| version: 1.0 Date: 2/1/2017   |
 
 
 | NFR5. Errors should not include relevant security information       |
@@ -241,7 +241,7 @@ Members:
 |---------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                           |
 |---------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                             |
+| version: 1.0 Date: 2/1/2017                              |
 
 
 | NFR7. any new flowcharts or changes to existing flowcharts are saved as non-public drafts until published       |
@@ -252,7 +252,7 @@ Members:
 |-----------------------------------------------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                                                       |
 |-----------------------------------------------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                                                         |
+| version: 1.0 Date: 2/1/2017                                                                          |
 
 
 | NFR8. Editor displays changes immediately       |
@@ -263,7 +263,7 @@ Members:
 |-------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017       |
 |-------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1         |
+| version: 1.0 Date: 2/1/2017          |
 
 
 | NFR9. When a user deletes their account, all associated data is also removed       |
@@ -274,7 +274,7 @@ Members:
 |------------------------------------------------------------------------------------|
 | Origin: Requirements meeting on 1/20/2017                                          |
 |------------------------------------------------------------------------------------|
-| version: 1.0 Date: 2/1/2017 Priority: 1                                            |
+| version: 1.0 Date: 2/1/2017                                             |
 
 
 
