@@ -58,21 +58,26 @@ SAM
 
 FR3. Users can add steps to an existing flowchart.
 Description: 
+Steps can be added to the flowchart, and include a title, description, and type. Steps may be of conditional, loop, terminal, or non-terminal types.
 
 
 FR4. Users can edit steps in an existing flowchart.
 Description: 
+Once a step is created, it may be edited. Users can change the type, description, or title of the step at any time.
 
 
 FR6. Users can drag and drop steps to new locations in a flowchart.
 Description: 
+Steps can be moved after creation by dragging them to a new location. Further prompts may be necessary, depending on the type of step being moved.
 
 
 FR7. Users can export to XML/JSON formats.
 Description: 
+Users will be able to export their flowchart in a portable, flat document format. The exact format will be decided on during development.
 
 FR8. Users can use conditional statments in flowcharts.
 Description: 
+All major flowchart features will be available. Conditional statements allow a step to have >1 options following it. Based on a given condition, users will be able to branch the flowchart into different options.
 
 ------
 REID
