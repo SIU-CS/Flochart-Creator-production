@@ -1,0 +1,39 @@
+* Flowchart Creator
+  - Sam Messina
+  - Taylor Flatt
+  - Michael Easton
+  - Reid Trevonian
+
+* Problem
+  - Mind map are too much of a headache
+
+* Advantages
+  - Simplicity
+    - Don't think about the flowchart, think about the project
+    - fewer options - only a select handful of potential boxes to choose from
+  - Collaboration
+
+* Solution
+  - IMAGE: Mock up of a potential layout/tamplate
+
+** Features 
+   - Save charts
+     - Export final chart in XML format
+     - Save to user account
+   - Share completed charts
+   - Add levels of privacy to charts
+     - publicly available
+     - private to one user
+
+* Audience
+
+  - Agile Development
+    - Favors implementation over design
+    - In a perfect world, it's great
+    - More often than not, things get lost in the agile shuffle
+  - The flowchart creator can help ensure that agile development is used to its full potential
+
+* Templates
+  - New step
+  - Login Screen
+  - Share

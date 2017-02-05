@@ -1,0 +1,26 @@
+* Create Flowchart
+  Implements FR1
+** Description
+   As a user, I want to e able to create a flowchart, so that I can map out my idesa
+** Acceptance Criteria
+   Create a new flowchart can be done with a button or the ctrl-n keyboard shortcut
+** Priority
+   Must have
+** Time
+   Two weeks
+* Add A Step
+  Implements FR3
+** Description
+   As a user, I want to add a step so I can expand the flowchart
+** Acceptance Criteria
+   - Should be a 300x500px popup box
+   - There should be two buttons to add a step
+     - One on an existing step
+     - Another within the edit menu of an existing step
+   - Only one box can be added at a time
+   - Box should contain all necessary components for a step
+   - Upon adding the step, it is rendered on the chart with all the information supplied
+** Priority
+   Must have
+** Time
+   One week
