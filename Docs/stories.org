@@ -1,0 +1,255 @@
+* Create Flowchart
+  Implements FR1
+** Description
+   As a user, I want to be able to create a flowchart, so that I can map out my ides.
+** Acceptance Criteria
+   Create a new flowchart can be done with a button or the ctrl-n keyboard shortcut
+** Priority
+   Must have
+** Time
+   Two weeks
+* Add A Step
+  Implements FR3
+** Description
+   As a user, I want to add a step so I can expand the flowchart
+** Acceptance Criteria
+   - Should be a 300x500px popup box
+   - There should be two buttons to add a step
+     - One on an existing step
+     - Another within the edit menu of an existing step
+   - Only one box can be added at a time
+   - Box should contain all necessary components for a step
+   - Upon adding the step, it is rendered on the chart with all the information supplied
+** Priority
+   Must have
+** Time
+   One week
+
+   MICHAEL START HERE
+
+* delete existing flowcharts.
+  Implements FR2.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* edit steps in an existing flowchart.
+  Implements FR4.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* remove a step from an existing flowchart.
+  Implements FR5.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* drag and drop steps to new locations in a flowchart.
+  Implements FR6.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* export to XML/JSON formats.
+  Implements FR7.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* use conditional statments in flowcharts.
+  Implements FR8.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* use conditional loops in their flowcharts.
+  Implements FR9.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+  MICHAEL END HERE
+
+  REID START HERE
+* create a personal account.
+  Implements FR10.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* log in to their account.
+  Implements FR11.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* freely delete their account.
+  Implements FR12.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* Flowcharts can be shared between multiple accounts.
+  Implements FR14.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* publish completed charts via publicly-accessible URL
+  Implements FR15.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* recover forgotten passwords via email
+  Implements FR16.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+* save charts as private, preventing them from being viewed or edited by other users
+  Implements FR17.
+** Description
+** Acceptance Criteria
+** Priority
+** Time
+
+   REID END HERE
+
+
+* Access saved copies of flowcharts while logged in.
+  Implements FR13.
+** Description
+   As a user, I want to save flowcharts to my account.
+** Acceptance Criteria
+   - Users can save flowcharts to their account when logged in.
+   - Users can access flowcharts that they have saved.
+   - Users can open flowcharts they have saved
+   - Users can edit flowcharts that they have saved
+** Priority
+   Must have
+** Time
+   Two weeks
+* Save flowcharts in different view styles by choosing from a list of templates
+  Implements FR18.
+** Description
+   As a user, I want to style my flowcharts in different ways depending on my use for them.
+** Acceptance Criteria
+   - There should be an edit template button available in the flowchart's edit window
+   - When the "edit template" button is pressed, the user should see a list of templates to choose from.
+   - After choosing a template, changes should be reflected on the flowchart.
+** Priority
+   Could have
+** Time
+   4 days
+* User passwords are securely stored
+  Implements NFR1.
+** Description
+   As a user, I want to be sure that my passwords are safely stored without potential for compromise
+** Acceptance Criteria
+   - User passwords are stored in a database
+   - User passwords are properly encrypted
+   - User passwords are properly salted
+   - Plain text passwords are nowhere to be found in the application
+** Priority
+   Must have
+** Time
+   One week
+* Server should be publicly accessible
+  Implements NFR2.
+** Description
+   As a user, I want to access the website
+** Acceptance Criteria
+   - Application is hosted on a server with a public IP
+   - A domain name is set up to point to the public IP
+   - Typing in the domain name in a browser redirects to the application.
+** Priority
+   Must have
+** Time
+   One day
+* Must be 100% operational with 99% uptime
+  Implements NFR3.
+** Description
+   As a user, I want to be sure that the application will be available when I need it.
+** Acceptance Criteria
+   - Server does not crash when under stress of <1000 users
+   - More users does not have any effect on application's operations
+   - If server does crash, notifications will be sent to the team immediately so that they can fix the problem
+   - Server implements proper caching to reduce stress
+** Priority
+   Should have
+** Time
+   One week
+
+* User Input Validation
+  Implements NFR4.
+** Description
+   As a user, I want my input to the website to be correct, because it will check for errors early and make working with the website easy.
+** Acceptance Criteria
+   - User input to forms should be type checked.
+   - Common errors should be checked such as making sure an email address during registration contains an @email.com at the end.
+** Priority
+   S
+** Time
+   1 day
+
+* Errors should be informative
+  Implements NFR5.
+** Description
+   As a user, I want any error messages to display helpful information, because I don't want to think about where the error is only how to fix it.
+** Acceptance Criteria
+   - Messages should be helpful and informative.
+   - No error messages should display any sensitive data.
+   - No error messages should supply users with more information than they need (such as saying "incorrect password" because that informs the user that the account is in the database).
+** Priority
+   M
+** Time
+   1 hour
+
+* Keyboard commands allow saving
+  Implements NFR6.
+** Description
+   As a user, I want to be able to use a keyboard macro such as ctrl+s to save, because it is very easy to do and allows me to save often.
+** Acceptance Criteria
+   - The keyboard combination should override any browser-based keyboard macro.
+   - The keyboard combination should have high (> 90%) success rate or else display an error message immediately.
+** Priority
+   S
+** Time
+   6 hours
+
+* Creation or modification to a flowchart is saved as a non-public draft until publication
+  Implements NFR7.
+** Description
+   As a user, I want to be able to save my flowcharts to a draft, because I don't want everyone being able to see my changes as I make them.
+** Acceptance Criteria
+   - Make a new, unique, draft for the flowchart edits.
+   - Any changes are saved to that draft rather than the published (public/private) version.
+   - Publication should overwrite the published version and remove the draft.
+** Priority
+   S
+** Time
+   6 hours
+
+* Editor displays changes immediately
+  Implements NFR8.
+** Description
+   As a user, I want to be able to see my modifications immediately after making them, because I want to see the finished product quickly and know if I need to make further changes to the flowchart element.
+** Acceptance Criteria
+   - Any modification should be displayed on the main flowchart canvas after the user applies it.
+** Priority
+   M
+** Time
+   6 days
+
+* When a user deletes their account, all associated data is also removed
+  Implements NFR9.
+** Description
+   As a user, I want to be able to delete my account along with all my details, because I don't want my information persisting for others to see.
+** Acceptance Criteria
+   - If a user opts to delete their account, ALL associated information should be removed. This includes any database reference as well as their created flowcharts.
+** Priority
+   M
+** Time
+   2 hours
