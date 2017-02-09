@@ -30,45 +30,83 @@
 * delete existing flowcharts.
   Implements FR2.
 ** Description
+   As a user, I want to be able to delete my flowcharts.
 ** Acceptance Criteria
+   - Users can delete flowcharts from their account when logged in.
+   - User should be prompted with a confirmation window when deleting flowcharts.
+   - Should be a button on the page when they view their flowchart.
 ** Priority
+   Must have
 ** Time
+   One week
 * edit steps in an existing flowchart.
   Implements FR4.
 ** Description
+   As a user, I want to be able to edit existing steps in my flowchart.
 ** Acceptance Criteria
+   - Users can edit their flowcharts when logged in.
+   - Only one box can be edited at a time.
+   - Should be in a 300x500px popup box.
+   - Should be a button in the popup box.
 ** Priority
+   Must have
 ** Time
+   Two weeks
 * remove a step from an existing flowchart.
   Implements FR5.
 ** Description
+   As a user, I want to be able to remove steps in my flowchart.
 ** Acceptance Criteria
+   - Users can remove steps from their flowchart when logged in.
+   - Should be in a 300x500px popup box.
+   - Should be a button in the popup box.
 ** Priority
+   Must have
 ** Time
+   Two weeks
 * drag and drop steps to new locations in a flowchart.
   Implements FR6.
 ** Description
+   As a user, I want to be able to drag and drop steps in my flowchart.
 ** Acceptance Criteria
+   - Users can drag and drop steps to new locations in their flowchart when logged in.
 ** Priority
+   Could have
 ** Time
+   Two weeks
 * export to XML/JSON formats.
   Implements FR7.
 ** Description
+   As a user, I want to be able to export my flowcharts.
 ** Acceptance Criteria
+   - Users can export their flowcharts when logged in.
+   - Users can export their flowcharts in different formats.
 ** Priority
+   Must have
 ** Time
-* use conditional statments in flowcharts.
+   One week
+* use conditional statements in flowcharts.
   Implements FR8.
 ** Description
+   As a user, I want to be able to add conditional statements in my flowchart.
 ** Acceptance Criteria
+   - Users can add conditional statements in their flowcharts when logged in.
+   - Can add conditional statements through a popup box.
 ** Priority
+   Should have
 ** Time
+   One week
 * use conditional loops in their flowcharts.
   Implements FR9.
 ** Description
+   As a user, I want to be able to add conditional loops in my flowchart.
 ** Acceptance Criteria
+   - Users can add conditional loops in their flowcharts when logged in.
+   - Can add conditional loops through a popup box.
 ** Priority
+   Should have
 ** Time
+   One week
   MICHAEL END HERE
 
   REID START HERE
