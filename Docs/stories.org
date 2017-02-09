@@ -109,51 +109,105 @@
    One week
   MICHAEL END HERE
 
-  REID START HERE
-* create a personal account.
-  Implements FR10.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
-* log in to their account.
-  Implements FR11.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
-* freely delete their account.
-  Implements FR12.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
-* Flowcharts can be shared between multiple accounts.
-  Implements FR14.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
-* publish completed charts via publicly-accessible URL
-  Implements FR15.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
-* recover forgotten passwords via email
-  Implements FR16.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
-* save charts as private, preventing them from being viewed or edited by other users
-  Implements FR17.
-** Description
-** Acceptance Criteria
-** Priority
-** Time
+ REID START HERE
 
-   REID END HERE
+
+Implements FR10.
+** Description
+As a user, I want to create an account so that I may access the programs features.
+** Acceptance Criteria
+	- should have text boxes for username, password, and e-mail
+	- should validate that username is available
+	- should validate that password is at least 6 characters
+	- should check for valid e-mail address
+	- username, email, and password should all be stored in database
+	
+** Priority
+must have
+** Time
+2 weeks
+* log in to their account.
+Implements FR11.
+** Description
+As a user, I want to log in to my account so that I may access my personal flowcharts or create new ones.
+** Acceptance Criteria
+	- should validate that both password and username were entered
+	- should check if username exists in database
+		. if yes then check if password matches corresponding username
+	- if either username or password is incorrect an error should be displayed
+** Priority
+must have
+** Time
+1 week
+* freely delete their account.
+Implements FR12.
+** Description
+As a user, I want to delete my account and all charts contained in that account.
+** Acceptance Criteria
+	- username, email, and password of account holder should be removed from database
+	- all charts connected to that account should be deleted from storage
+	- should prompt to make sure this is what the user wants to do
+** Priority
+should have
+** Time
+2 days
+* Flowcharts can be shared between multiple accounts.
+Implements FR14.
+** Description
+As a user, I want to share a flowchart across multiple accounts to that I may collaborate with other users on the same chart.
+** Acceptance Criteria
+	- should not be able to share a chart if it has been marked as private
+	- link should be given that can be shared with other users to enable them to copy a chart to their own storage
+	- changes made in one account should be reflected in all other accounts with access to the same chart
+		. this could be done similarly to a git pull
+** Priority
+should have
+** Time
+2 weeks
+* publish completed charts via publicly-accessible URL
+Implements FR15.
+** Description
+As a user, I want to publish my charts so that others can view them by entering the given URL.
+** Acceptance Criteria
+	- A URL must be generated
+	- URL should be verified to be unique to a specific chart
+	- Entering the URL should take the user to a webpage that displays the published chart
+	- If a shared chart is deleted then that URL should be considered free for any other chart
+	
+** Priority
+should have
+** Time
+1 week
+* recover forgotten passwords via email
+Implements FR16.
+** Description
+As a user, I want to be able to retrieve my password should I forget it so that I may still login to my account.
+** Acceptance Criteria
+	- one button should be on login screen to request password
+	- should prompt for either the username or email of the account.
+	- should look up the given information and send an email with the accounts password to the corresponding email address given by the account holder
+	- if wrong information is given then an error should be displayed
+** Priority
+should have
+** Time
+1 week
+* save charts as private, preventing them from being viewed or edited by other users
+Implements FR17.
+** Description
+As a user, I want the option to specify my charts as private so that only I may view and edit them.
+** Acceptance Criteria
+	- chart should include a flag that can be set to indicate that it is private
+	- private charts should not have the option to publish
+	- user can change chart to public or protected should the choose to
+	- if the creator of a shared chart decides to make it private all others who previously had access may lose the ability to view or edit the chart
+	- if a chart is shared then anyone who has access but is not the original creator should not be able to change the setting to private.
+	
+** Priority
+should have
+** Time
+2 weeks
+
+
 
 
 * Access saved copies of flowcharts while logged in.
