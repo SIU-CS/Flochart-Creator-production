@@ -1,3 +1,11 @@
+Sam Messina
+
+Taylor Flatt
+
+Michael Easton
+
+Reid Tevonian
+
 * Create Flowchart
   Implements FR1
 ** Description
@@ -24,8 +32,6 @@
    Must have
 ** Time
    One week
-
-   MICHAEL START HERE
 
 * delete existing flowcharts.
   Implements FR2.
@@ -107,10 +113,6 @@
    Should have
 ** Time
    One week
-  MICHAEL END HERE
-
- REID START HERE
-
 
 Implements FR10.
 ** Description
