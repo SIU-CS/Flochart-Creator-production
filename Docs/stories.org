@@ -7,7 +7,7 @@ Michael Easton
 Reid Tevonian
 
 
-1. Create Flowchart.
+* Create Flowchart.
 
   Implements FR1
 ** Description
@@ -19,7 +19,7 @@ Reid Tevonian
    Must have
 ** Time
    Two weeks
-2. Add a Step.
+* Add a Step.
   Implements FR3
 ** Description
    As a user, I want to add a step so I can expand the flowchart
@@ -39,7 +39,7 @@ Reid Tevonian
 
    MICHAEL START HERE
 
-3. Delete Existing Flowcharts.
+* Delete Existing Flowcharts.
 
   Implements FR2.
 ** Description
@@ -53,7 +53,7 @@ Reid Tevonian
    Must have
 ** Time
    One week
-4. Edit Steps in an Existing Flowchart.
+* Edit Steps in an Existing Flowchart.
   Implements FR4.
 ** Description
    As a user, I want to be able to edit existing steps in my flowchart.
@@ -66,7 +66,7 @@ Reid Tevonian
    Must have
 ** Time
    Two weeks
-5. Remove a Step from an Existing Flowchart.
+* Remove a Step from an Existing Flowchart.
   Implements FR5.
 ** Description
    As a user, I want to be able to remove steps in my flowchart.
@@ -78,7 +78,7 @@ Reid Tevonian
    Must have
 ** Time
    Two weeks
-6. Drag and Drop Steps to New Locations in a Flowchart.
+* Drag and Drop Steps to New Locations in a Flowchart.
   Implements FR6.
 ** Description
    As a user, I want to be able to drag and drop steps in my flowchart.
@@ -88,7 +88,7 @@ Reid Tevonian
    Could have
 ** Time
    Two weeks
-7. Export to XML/JSON Formats.
+* Export to XML/JSON Formats.
   Implements FR7.
 ** Description
    As a user, I want to be able to export my flowcharts.
@@ -99,7 +99,7 @@ Reid Tevonian
    Must have
 ** Time
    One week
-8. Use Conditional Statements in Flowcharts.
+* Use Conditional Statements in Flowcharts.
   Implements FR8.
 ** Description
    As a user, I want to be able to add conditional statements in my flowchart so that I can plan a step with multiple possible outcomes.
@@ -111,7 +111,7 @@ Reid Tevonian
    Should have
 ** Time
    One week
-9. Use Conditional Loops in Their Flowcharts.
+* Use Conditional Loops in Their Flowcharts.
   Implements FR9.
 ** Description
    As a user, I want to be able to add conditional loops in my flowchart so that I can plan for a possibly repeated step.
@@ -128,7 +128,7 @@ Reid Tevonian
 
  REID START HERE
 
-10. Create Account.
+* Create Account.
 
 Implements FR10.
 ** Description
@@ -144,7 +144,7 @@ As a user, I want to create an account so that I may access the programs feature
 must have
 ** Time
 2 weeks
-11. Log in to Their Account.
+* Log in to Their Account.
 Implements FR11.
 ** Description
 As a user, I want to log in to my account so that I may access my personal flowcharts or create new ones.
@@ -157,7 +157,7 @@ As a user, I want to log in to my account so that I may access my personal flowc
 must have
 ** Time
 1 week
-12. Freely Delete Their Account.
+* Freely Delete Their Account.
 Implements FR12.
 ** Description
 As a user, I want to delete my account and all charts contained in that account.
@@ -169,7 +169,7 @@ As a user, I want to delete my account and all charts contained in that account.
 should have
 ** Time
 2 days
-13. Flowcharts can be Shared Between Multiple Accounts.
+* Flowcharts can be Shared Between Multiple Accounts.
 Implements FR14.
 ** Description
 As a user, I want to share a flowchart across multiple accounts to that I may collaborate with other users on the same chart.
@@ -182,7 +182,7 @@ As a user, I want to share a flowchart across multiple accounts to that I may co
 should have
 ** Time
 2 weeks
-14. Publish Completed Charts via Publicly-Accessible URL.
+* Publish Completed Charts via Publicly-Accessible URL.
 Implements FR15.
 ** Description
 As a user, I want to publish my charts so that others can view them by entering the given URL.
@@ -196,7 +196,7 @@ As a user, I want to publish my charts so that others can view them by entering 
 should have
 ** Time
 1 week
-15. Recover Forgotten Passwords via Email
+* Recover Forgotten Passwords via Email
 Implements FR16.
 ** Description
 As a user, I want to be able to retrieve my password should I forget it so that I may still login to my account.
@@ -209,7 +209,7 @@ As a user, I want to be able to retrieve my password should I forget it so that 
 should have
 ** Time
 1 week
-16. Save Charts as Private, Preventing Them from Being Viewed or Edited by Other Users
+* Save Charts as Private, Preventing Them from Being Viewed or Edited by Other Users
 Implements FR17.
 ** Description
 As a user, I want the option to specify my charts as private so that only I may view and edit them.
@@ -228,7 +228,7 @@ should have
 
 
 
-17. Access Saved Copies of Flowcharts While Logged In.
+* Access Saved Copies of Flowcharts While Logged In.
   Implements FR13.
 ** Description
    As a user, I want to save flowcharts to my account so that I may edit them later.
@@ -241,7 +241,7 @@ should have
    Must have
 ** Time
    Two weeks
-18. Save Flowcharts in Different View Styles by Choosing from a List of Templates
+* Save Flowcharts in Different View Styles by Choosing from a List of Templates
   Implements FR18.
 ** Description
    As a user, I want to style my flowcharts in different ways depending on my use for them.
@@ -253,7 +253,7 @@ should have
    Could have
 ** Time
    4 days
-19. User Passwords are Securely Stored
+* User Passwords are Securely Stored
   Implements NFR1.
 ** Description
    As a user, I want to be sure that my passwords are safely stored without potential for compromise.
@@ -266,7 +266,7 @@ should have
    Must have
 ** Time
    One week
-20. Server Should be Publicly Accessible
+* Server Should be Publicly Accessible
   Implements NFR2.
 ** Description
    As a user, I want to access the website
@@ -278,7 +278,7 @@ should have
    Must have
 ** Time
    One day
-21. Must be 100% Operational with 99% Uptime
+* Must be 100% Operational with 99% Uptime
   Implements NFR3.
 ** Description
    As a user, I want to be sure that the application will be available when I need it.
@@ -292,7 +292,7 @@ should have
 ** Time
    One week
 
-22. User Input Validation
+* User Input Validation
   Implements NFR4.
 ** Description
    As a user, I want my input to the website to be correct, because it will check for errors early and make working with the website easy.
@@ -304,7 +304,7 @@ should have
 ** Time
    1 day
 
-23. Errors Should be Informative
+* Errors Should be Informative
   Implements NFR5.
 ** Description
    As a user, I want any error messages to display helpful information, because I don't want to think about where the error is only how to fix it.
@@ -317,7 +317,7 @@ should have
 ** Time
    1 hour
 
-24. Keyboard Commands Allow Saving
+* Keyboard Commands Allow Saving
   Implements NFR6.
 ** Description
    As a user, I want to be able to use a keyboard macro such as ctrl+s to save, because it is very easy to do and allows me to save often.
@@ -329,7 +329,7 @@ should have
 ** Time
    6 hours
 
-25. Creation or Modification to a Flowchart is Saved as a Non-public Draft Until Publication
+* Creation or Modification to a Flowchart is Saved as a Non-public Draft Until Publication
   Implements NFR7.
 ** Description
    As a user, I want to be able to save my flowcharts to a draft, because I don't want everyone being able to see my changes as I make them.
@@ -342,7 +342,7 @@ should have
 ** Time
    6 hours
 
-26. Editor Displays Changes Immediately
+* Editor Displays Changes Immediately
   Implements NFR8.
 ** Description
    As a user, I want to be able to see my modifications immediately after making them, because I want to see the finished product quickly and know if I need to make further changes to the flowchart element.
@@ -353,7 +353,7 @@ should have
 ** Time
    6 days
 
-27. When a User Deletes Their Account, all Associated Data is also Removed
+* When a User Deletes Their Account, all Associated Data is also Removed
   Implements NFR9.
 ** Description
    As a user, I want to be able to delete my account along with all my details, because I don't want my information persisting for others to see.
