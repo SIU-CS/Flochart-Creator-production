@@ -1,14 +1,15 @@
-* Create Flowchart
+1. Create Flowchart.
   Implements FR1
 ** Description
-   As a user, I want to be able to create a flowchart, so that I can map out my ides.
+   As a user, I want to be able to create a flowchart, so that I can map out my ideas.
 ** Acceptance Criteria
-   Create a new flowchart can be done with a button or the ctrl-n keyboard shortcut
+  - Create a new flowchart can be done with a button or the ctrl-n keyboard shortcut
+  - Should not be able to create a chart with exact same name as an existing one
 ** Priority
    Must have
 ** Time
    Two weeks
-* Add A Step
+2. Add a Step.
   Implements FR3
 ** Description
    As a user, I want to add a step so I can expand the flowchart
@@ -27,7 +28,7 @@
 
    MICHAEL START HERE
 
-* delete existing flowcharts.
+3. Delete Existing Flowcharts.
   Implements FR2.
 ** Description
    As a user, I want to be able to delete my flowcharts.
@@ -35,11 +36,12 @@
    - Users can delete flowcharts from their account when logged in.
    - User should be prompted with a confirmation window when deleting flowcharts.
    - Should be a button on the page when they view their flowchart.
+   - Should remove all references to deleted chart from the database
 ** Priority
    Must have
 ** Time
    One week
-* edit steps in an existing flowchart.
+4. Edit Steps in an Existing Flowchart.
   Implements FR4.
 ** Description
    As a user, I want to be able to edit existing steps in my flowchart.
@@ -52,7 +54,7 @@
    Must have
 ** Time
    Two weeks
-* remove a step from an existing flowchart.
+5. Remove a Step from an Existing Flowchart.
   Implements FR5.
 ** Description
    As a user, I want to be able to remove steps in my flowchart.
@@ -64,7 +66,7 @@
    Must have
 ** Time
    Two weeks
-* drag and drop steps to new locations in a flowchart.
+6. Drag and Drop Steps to New Locations in a Flowchart.
   Implements FR6.
 ** Description
    As a user, I want to be able to drag and drop steps in my flowchart.
@@ -74,7 +76,7 @@
    Could have
 ** Time
    Two weeks
-* export to XML/JSON formats.
+7. Export to XML/JSON Formats.
   Implements FR7.
 ** Description
    As a user, I want to be able to export my flowcharts.
@@ -85,24 +87,26 @@
    Must have
 ** Time
    One week
-* use conditional statements in flowcharts.
+8. Use Conditional Statements in Flowcharts.
   Implements FR8.
 ** Description
-   As a user, I want to be able to add conditional statements in my flowchart.
+   As a user, I want to be able to add conditional statements in my flowchart so that I can plan a step with multiple possible outcomes.
 ** Acceptance Criteria
    - Users can add conditional statements in their flowcharts when logged in.
    - Can add conditional statements through a popup box.
+   - Step should have at least two children branching off of it.
 ** Priority
    Should have
 ** Time
    One week
-* use conditional loops in their flowcharts.
+9. Use Conditional Loops in Their Flowcharts.
   Implements FR9.
 ** Description
-   As a user, I want to be able to add conditional loops in my flowchart.
+   As a user, I want to be able to add conditional loops in my flowchart so that I can plan for a possibly repeated step.
 ** Acceptance Criteria
    - Users can add conditional loops in their flowcharts when logged in.
    - Can add conditional loops through a popup box.
+   - Step should have one child and point back to a previous step.
 ** Priority
    Should have
 ** Time
@@ -111,7 +115,7 @@
 
  REID START HERE
 
-
+10. Create Account.
 Implements FR10.
 ** Description
 As a user, I want to create an account so that I may access the programs features.
@@ -126,59 +130,59 @@ As a user, I want to create an account so that I may access the programs feature
 must have
 ** Time
 2 weeks
-* log in to their account.
+11. Log in to Their Account.
 Implements FR11.
 ** Description
 As a user, I want to log in to my account so that I may access my personal flowcharts or create new ones.
 ** Acceptance Criteria
-	- should validate that both password and username were entered
-	- should check if username exists in database
-		. if yes then check if password matches corresponding username
-	- if either username or password is incorrect an error should be displayed
+	- should validate that both password and username were entered.
+	- should check if username exists in database.
+		. if yes then check if password matches corresponding username.
+	- if either username or password is incorrect an error should be displayed.
 ** Priority
 must have
 ** Time
 1 week
-* freely delete their account.
+12. Freely Delete Their Account.
 Implements FR12.
 ** Description
 As a user, I want to delete my account and all charts contained in that account.
 ** Acceptance Criteria
-	- username, email, and password of account holder should be removed from database
-	- all charts connected to that account should be deleted from storage
-	- should prompt to make sure this is what the user wants to do
+	- username, email, and password of account holder should be removed from database.
+	- all charts connected to that account should be deleted from storage.
+	- should prompt to make sure this is what the user wants to do.
 ** Priority
 should have
 ** Time
 2 days
-* Flowcharts can be shared between multiple accounts.
+13. Flowcharts can be Shared Between Multiple Accounts.
 Implements FR14.
 ** Description
 As a user, I want to share a flowchart across multiple accounts to that I may collaborate with other users on the same chart.
 ** Acceptance Criteria
-	- should not be able to share a chart if it has been marked as private
-	- link should be given that can be shared with other users to enable them to copy a chart to their own storage
-	- changes made in one account should be reflected in all other accounts with access to the same chart
-		. this could be done similarly to a git pull
+	- should not be able to share a chart if it has been marked as private.
+	- link should be given that can be shared with other users to enable them to copy a chart to their own storage.
+	- changes made in one account should be reflected in all other accounts with access to the same chart.
+		. this could be done similarly to a git pull.
 ** Priority
 should have
 ** Time
 2 weeks
-* publish completed charts via publicly-accessible URL
+14. Publish Completed Charts via Publicly-Accessible URL.
 Implements FR15.
 ** Description
 As a user, I want to publish my charts so that others can view them by entering the given URL.
 ** Acceptance Criteria
-	- A URL must be generated
-	- URL should be verified to be unique to a specific chart
-	- Entering the URL should take the user to a webpage that displays the published chart
-	- If a shared chart is deleted then that URL should be considered free for any other chart
+	- A URL must be generated.
+	- URL should be verified to be unique to a specific chart.
+	- Entering the URL should take the user to a webpage that displays the published chart.
+	- If a shared chart is deleted then that URL should be considered free for any other chart.
 	
 ** Priority
 should have
 ** Time
 1 week
-* recover forgotten passwords via email
+15. Recover Forgotten Passwords via Email
 Implements FR16.
 ** Description
 As a user, I want to be able to retrieve my password should I forget it so that I may still login to my account.
@@ -191,90 +195,90 @@ As a user, I want to be able to retrieve my password should I forget it so that 
 should have
 ** Time
 1 week
-* save charts as private, preventing them from being viewed or edited by other users
+16. Save Charts as Private, Preventing Them from Being Viewed or Edited by Other Users
 Implements FR17.
 ** Description
 As a user, I want the option to specify my charts as private so that only I may view and edit them.
 ** Acceptance Criteria
-	- chart should include a flag that can be set to indicate that it is private
-	- private charts should not have the option to publish
-	- user can change chart to public or protected should the choose to
-	- if the creator of a shared chart decides to make it private all others who previously had access may lose the ability to view or edit the chart
+	- chart should include a flag that can be set to indicate that it is private.
+	- private charts should not have the option to publish.
+	- user can change chart to public or protected should the choose to.
+	- if the creator of a shared chart decides to make it private all others who previously had access may lose the ability to view or edit the chart.
 	- if a chart is shared then anyone who has access but is not the original creator should not be able to change the setting to private.
 	
 ** Priority
 should have
 ** Time
-2 weeks
+4 weeks
 
 
 
 
-* Access saved copies of flowcharts while logged in.
+17. Access Saved Copies of Flowcharts While Logged In.
   Implements FR13.
 ** Description
-   As a user, I want to save flowcharts to my account.
+   As a user, I want to save flowcharts to my account so that I may edit them later.
 ** Acceptance Criteria
    - Users can save flowcharts to their account when logged in.
    - Users can access flowcharts that they have saved.
-   - Users can open flowcharts they have saved
-   - Users can edit flowcharts that they have saved
+   - Users can open flowcharts they have saved.
+   - Users can edit flowcharts that they have saved.
 ** Priority
    Must have
 ** Time
    Two weeks
-* Save flowcharts in different view styles by choosing from a list of templates
+18. Save Flowcharts in Different View Styles by Choosing from a List of Templates
   Implements FR18.
 ** Description
    As a user, I want to style my flowcharts in different ways depending on my use for them.
 ** Acceptance Criteria
-   - There should be an edit template button available in the flowchart's edit window
+   - There should be an edit template button available in the flowchart's edit window.
    - When the "edit template" button is pressed, the user should see a list of templates to choose from.
    - After choosing a template, changes should be reflected on the flowchart.
 ** Priority
    Could have
 ** Time
    4 days
-* User passwords are securely stored
+19. User Passwords are Securely Stored
   Implements NFR1.
 ** Description
-   As a user, I want to be sure that my passwords are safely stored without potential for compromise
+   As a user, I want to be sure that my passwords are safely stored without potential for compromise.
 ** Acceptance Criteria
-   - User passwords are stored in a database
-   - User passwords are properly encrypted
-   - User passwords are properly salted
-   - Plain text passwords are nowhere to be found in the application
+   - User passwords are stored in a database.
+   - User passwords are properly encrypted.
+   - User passwords are properly salted.
+   - Plain text passwords are nowhere to be found in the application.
 ** Priority
    Must have
 ** Time
    One week
-* Server should be publicly accessible
+20. Server Should be Publicly Accessible
   Implements NFR2.
 ** Description
    As a user, I want to access the website
 ** Acceptance Criteria
-   - Application is hosted on a server with a public IP
-   - A domain name is set up to point to the public IP
+   - Application is hosted on a server with a public IP.
+   - A domain name is set up to point to the public IP.
    - Typing in the domain name in a browser redirects to the application.
 ** Priority
    Must have
 ** Time
    One day
-* Must be 100% operational with 99% uptime
+21. Must be 100% Operational with 99% Uptime
   Implements NFR3.
 ** Description
    As a user, I want to be sure that the application will be available when I need it.
 ** Acceptance Criteria
-   - Server does not crash when under stress of <1000 users
-   - More users does not have any effect on application's operations
-   - If server does crash, notifications will be sent to the team immediately so that they can fix the problem
-   - Server implements proper caching to reduce stress
+   - Server does not crash when under stress of <1000 users.
+   - More users does not have any effect on application's operations.
+   - If server does crash, notifications will be sent to the team immediately so that they can fix the problem.
+   - Server implements proper caching to reduce stress.
 ** Priority
    Should have
 ** Time
    One week
 
-* User Input Validation
+22. User Input Validation
   Implements NFR4.
 ** Description
    As a user, I want my input to the website to be correct, because it will check for errors early and make working with the website easy.
@@ -282,11 +286,11 @@ should have
    - User input to forms should be type checked.
    - Common errors should be checked such as making sure an email address during registration contains an @email.com at the end.
 ** Priority
-   S
+   Should have
 ** Time
    1 day
 
-* Errors should be informative
+23. Errors Should be Informative
   Implements NFR5.
 ** Description
    As a user, I want any error messages to display helpful information, because I don't want to think about where the error is only how to fix it.
@@ -295,11 +299,11 @@ should have
    - No error messages should display any sensitive data.
    - No error messages should supply users with more information than they need (such as saying "incorrect password" because that informs the user that the account is in the database).
 ** Priority
-   M
+   Must Have
 ** Time
    1 hour
 
-* Keyboard commands allow saving
+24. Keyboard Commands Allow Saving
   Implements NFR6.
 ** Description
    As a user, I want to be able to use a keyboard macro such as ctrl+s to save, because it is very easy to do and allows me to save often.
@@ -307,11 +311,11 @@ should have
    - The keyboard combination should override any browser-based keyboard macro.
    - The keyboard combination should have high (> 90%) success rate or else display an error message immediately.
 ** Priority
-   S
+   Should have
 ** Time
    6 hours
 
-* Creation or modification to a flowchart is saved as a non-public draft until publication
+25. Creation or Modification to a Flowchart is Saved as a Non-public Draft Until Publication
   Implements NFR7.
 ** Description
    As a user, I want to be able to save my flowcharts to a draft, because I don't want everyone being able to see my changes as I make them.
@@ -320,28 +324,28 @@ should have
    - Any changes are saved to that draft rather than the published (public/private) version.
    - Publication should overwrite the published version and remove the draft.
 ** Priority
-   S
+   Should have
 ** Time
    6 hours
 
-* Editor displays changes immediately
+26. Editor Displays Changes Immediately
   Implements NFR8.
 ** Description
    As a user, I want to be able to see my modifications immediately after making them, because I want to see the finished product quickly and know if I need to make further changes to the flowchart element.
 ** Acceptance Criteria
    - Any modification should be displayed on the main flowchart canvas after the user applies it.
 ** Priority
-   M
+   Must have
 ** Time
    6 days
 
-* When a user deletes their account, all associated data is also removed
+27. When a User Deletes Their Account, all Associated Data is also Removed
   Implements NFR9.
 ** Description
    As a user, I want to be able to delete my account along with all my details, because I don't want my information persisting for others to see.
 ** Acceptance Criteria
    - If a user opts to delete their account, ALL associated information should be removed. This includes any database reference as well as their created flowcharts.
 ** Priority
-   M
+   Must have
 ** Time
    2 hours
