@@ -1,3 +1,11 @@
+Sam Messina
+
+Taylor Flatt
+
+Michael Easton
+
+Reid Tevonian
+
 1. Create Flowchart.
   Implements FR1
 ** Description
