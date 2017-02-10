@@ -2,11 +2,18 @@
 An application that will allow users to easily create flowcharts. 
 
 Sam Messina
-Taylor Flatt
-Michael Easton
-Reid Tevonian
 
 samuel.messina@siu.edu
+
+Taylor Flatt
+
 taylorjflatt@gmail.com
+
+Michael Easton
+
 michael.easton@siu.edu
+
+Reid Tevonian
+
 rtevonian@siu.edu
+
