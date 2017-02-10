@@ -6,7 +6,9 @@ Michael Easton
 
 Reid Tevonian
 
+
 1. Create Flowchart.
+
   Implements FR1
 ** Description
    As a user, I want to be able to create a flowchart, so that I can map out my ideas.
@@ -34,9 +36,11 @@ Reid Tevonian
 ** Time
    One week
 
+
    MICHAEL START HERE
 
 3. Delete Existing Flowcharts.
+
   Implements FR2.
 ** Description
    As a user, I want to be able to delete my flowcharts.
@@ -119,11 +123,13 @@ Reid Tevonian
    Should have
 ** Time
    One week
+
   MICHAEL END HERE
 
  REID START HERE
 
 10. Create Account.
+
 Implements FR10.
 ** Description
 As a user, I want to create an account so that I may access the programs features.
