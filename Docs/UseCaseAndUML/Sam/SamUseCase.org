@@ -1,0 +1,62 @@
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+* Use Case: Use conditional statements in flowcharts
+** Description
+   This use case describes how users can add conditional statements to their flowcharts.
+** Actors
+*** User
+*** Flowchart
+** Preconditions
+*** A user is viewing a step's edit window
+** Basic Flow of Events
+   1. The use case begins when a user opens the window to either edit or add a step
+   2. Use Case: display edit/new step window with either dummy information or saved information
+   3. The form displayed has an option for choosing the step to follow the one being edited
+   4. Part of choosing the next step allows for users to specify a conditional
+   5. Users will be prompted for the condition being checked and the possible choices
+   6. After saving the step, a template will be shown that branches steps as dictated by the conditional
+** Alternative Flows
+*** Cancel action
+    If in steps 1-5 the user decides not to add a conditional, user can simply close the edit window and no edits will be made
+*** No conditional supplied
+    The conditional will not be applied if no conditional are supplied. Edit window will inform users of the requirement if they try to submit a step without the requisite information.
+*** No choices supplied
+    The conditional will not be applied if no choices are supplied. Edit window will inform users of the requirement if they try to submit a step without the requisite information.
+** Post Conditions
+*** Success
+    If the conditional is added, it will be displayed on the canvas
+*** Failure
+    If the conditional is not added, user will be informed with an error message.
+** Special Requirements
+   1. A maximum of 5 possible choices can be added
+** Add Conditional Flowchart
+   [[./ConditionalChart.png]]
+
+* Use Case: Remove a step from an existing flowchart
+** Description
+   This use case allows users to remove steps from a flowchart
+** Actors
+*** User
+*** Flowchart
+** Preconditions
+   User must be in the edit window of a step
+** Basic Flow of Events
+   1. User opens the edit window for a step
+   2. User clicks the "Remove Step" button
+   3. User is prompted to either delete the step's children or to apply them to the parent
+   4. "Are you sure" message is displayed
+   5. When user clicks submit, step is deleted and user is take back to the canvas
+** Alternative Flows
+*** User cancels removal
+    If a user decides at any point that they do not want to remove a step, they can cancel the request
+*** There are children to the step being removed
+    If the step being removed has children, user will have the choice to apply those children to the step's parent, or to delete them as well.
+** Post Conditions
+*** Success
+    When the step is removed, user is taken back to the canvas and shown the new version of the flowchart
+*** Failure
+    If the step fails to be removes, an error message will be displayed
+** Special Requirements
+   1. If applying a step's children to its parent causes the parent to have >5 children, user will be prompted to delete children.
+** Step Removal Flowchart
+   [[./RemovalChart.png]]
