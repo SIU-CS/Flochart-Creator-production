@@ -1,4 +1,12 @@
-$blue:  blue;
-body {
-    background-color: $blue;
+.step-container {
+    padding: 0 20px;
+    width: 200px;
+    border: 1px solid black;
+}
+
+.step-title {
+    font-size:200%;
+}
+
+step-description {
 }
