@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import '../assets/index.css';
+import Step from './Step';
+import '../assets/index.scss';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+    render() {
+        return (
+            <div className="App">
+                <Step title="My new step"
+                      description="I want to show you my new step" >
+                </Step>
+            </div>
+        );
+    }
 }
 
 export default App;
