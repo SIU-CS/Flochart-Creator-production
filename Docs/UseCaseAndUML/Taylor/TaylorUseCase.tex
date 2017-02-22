@@ -29,7 +29,9 @@ Southern Illinois University of Carbondale
 \maketitle
 \tableofcontents
 
-% Start Section 1
+%%%%%%%%%%%%%%%%%%%
+% Start Section 1 %
+%%%%%%%%%%%%%%%%%%%
 \section{Use Case 1}
 \subsection{Description}
 This use case describes how a Flowchart User would register for an account to access the website.
@@ -100,12 +102,17 @@ The user is directed to the proper resource allowing them to rectify the issue.
 [SpReq:WC-1] The Flowchart System shall only allow one email address to be associated with a single user. Multiple registrations with the same email are not allowed.
 
 \subsection{Diagram}
+See \hyperref[fig:use-case-1]{Figure 1} below.
+
 \texttt{\begin{figure}[hbtp]
-\includegraphics[scale=0.75]{use-case-1.png}
+\label{fig:use-case-1}
+\includegraphics[scale=0.85]{use-case-1a.png}
 \caption{Use Case 1 UML Diagram}
 \end{figure}}
 
-% Start Section 2
+%%%%%%%%%%%%%%%%%%%
+% Start Section 2 %
+%%%%%%%%%%%%%%%%%%%
 \section{Use Case 2}
 \subsection{Description}
 This use case describes how a User will login to the Flowchart Creator with their account.
@@ -175,17 +182,17 @@ If the System fails to validate the user more than 5 times within 10 minutes, th
 
 \subsection{Post-Conditions}
 \subsubsection{Successful Completion}
-The user was able to login successfully and is now able to access the Flowchart website.
+The user was able to login successfully and is now able to access the Flowchart website. The logs have been updated reflecting the successful login.
 
 \subsubsection{Failure Condition}
-The user is directed to the proper resource allowing them to rectify the issue.
+The user is directed to the proper resource allowing them to rectify the issue. The logs have been updated reflecting the unsuccessful login.
 
 \subsection{Special Requirements}
 [SpReq:WC-1] The Flowchart System shall maintain a log of all authentication attempts which will include IP, email, timestamp, and authentication outcome.
 
 \subsection{Diagram}
 \texttt{\begin{figure}[hbtp]
-\includegraphics[scale=0.75]{use-case-2.png}
+\includegraphics[scale=0.85]{use-case-2a.png}
 \caption{Use Case 2 UML Diagram}
 \end{figure}}
 
