@@ -1,0 +1,74 @@
+Use Case: Add a step to a flowchart
+Description:
+This use case determines how a user adds a step to a flowchart
+
+Actors:
+User
+Flowchart
+
+Preconditions:
+User is viewing canvas
+
+Basic Flow of Events:
+	* Use case begins when the user opens the window to add a step
+	* Display edit window, can include saved information
+	* The user selects the type of step desired
+	* The user enters the description of the step
+	* After saving, a template will be shown
+	* After clicking submit the change will be added and the user will be taken back to the canvas
+	
+Alternative Flow:
+	at any point user can cancel a step and no change will be made to the chart
+	
+Postconditions:
+	Success
+	step is added to chart
+	Failure
+	if user does not enter a discription then an error will be displayed and no change will happen to the chart
+Special Requirements:
+none
+Add  Add step Flowchart
+[[./AddStep.png]]
+
+Use Case: Add conditional loops to a flowchart
+
+Description:
+User can add a step which may point to a farther step or a previous one depending of a conditon
+
+Actors:
+User
+Flowchart
+
+Preconditions:
+User is vewing window to edit or add a step
+
+Basic Flow of Events:
+	* Use case begins when user opens window to edit or add a step
+	* Display edit window with saved info or a blank window
+	* Form has the option to choose a conditional
+	* Form has an option to state the next step to follow
+	* User will be prompted for the condition to be checked as well as all outcomes
+	* One choice must be a previous step
+	* After making selections a template will appear showing the step
+	
+Alternative Flow:
+	Cancel
+	If user decides to cancel the action they can close the edit window without making a change
+	
+	No condition supplied
+	If no condition is supplied error will be displayed stating that one must be present
+	
+	Does not loop
+	If user does not select a previous step to loop back to than an error is displayed
+	
+Postconditions:
+	Success
+	If the conditional loop is added then it will be displayed on the canvas
+	Failure
+	If the loop is not added then the user will receive an error message
+
+Special Requirements:
+	* One child must be an existing step
+
+Add Conditional Flowchart:
+[[./ConditionalLoop.png]]
