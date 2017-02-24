@@ -24917,10 +24917,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Taylor\\Source\\Repos\\Flowchart-Creator-production\\Flowchart\\Flowchart\\Flowchart.csproj",
+      "projectUniqueName": "C:\\Users\\Taylor\\Source\\Repos\\Flowchart-Creator-production\\Flowchart\\Flowchart.csproj",
       "projectName": "Flowchart",
-      "projectPath": "C:\\Users\\Taylor\\Source\\Repos\\Flowchart-Creator-production\\Flowchart\\Flowchart\\Flowchart.csproj",
-      "outputPath": "C:\\Users\\Taylor\\Source\\Repos\\Flowchart-Creator-production\\Flowchart\\Flowchart\\obj\\",
+      "projectPath": "C:\\Users\\Taylor\\Source\\Repos\\Flowchart-Creator-production\\Flowchart\\Flowchart.csproj",
+      "outputPath": "C:\\Users\\Taylor\\Source\\Repos\\Flowchart-Creator-production\\Flowchart\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.0"
