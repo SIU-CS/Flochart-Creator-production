@@ -1,0 +1,11 @@
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.deps.json
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.runtimeconfig.json
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.runtimeconfig.dev.json
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.dll
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\Flowchart.csprojResolveAssemblyReference.cache
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\Flowchart.AssemblyInfo.cs
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.deps.json
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.runtimeconfig.json
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\bin\Debug\netcoreapp1.0\Flowchart.runtimeconfig.dev.json
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\Flowchart.AssemblyInfo.cs
