@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Flowchart.Models;
-using Flowchart.Models.ManageViewModels;
-using Flowchart.Services;
+using FlowchartCreator.Models;
+using FlowchartCreator.Models.ManageViewModels;
+using FlowchartCreator.Services;
 
-namespace Flowchart.Controllers
+namespace FlowchartCreator.Controllers
 {
     [Authorize]
     public class ManageController : Controller

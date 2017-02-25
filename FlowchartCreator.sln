@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flowchart", "Flowchart\Flowchart.csproj", "{9D78ECD6-3E86-4A71-9F9B-E5392DD0B5C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowchartCreator", "Flowchart\FlowchartCreator.csproj", "{9D78ECD6-3E86-4A71-9F9B-E5392DD0B5C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Flowchart.Models;
-using Flowchart.Models.AccountViewModels;
-using Flowchart.Services;
+using FlowchartCreator.Models;
+using FlowchartCreator.Models.AccountViewModels;
+using FlowchartCreator.Services;
 
-namespace Flowchart.Controllers
+namespace FlowchartCreator.Controllers
 {
     [Authorize]
     public class AccountController : Controller

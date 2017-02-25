@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Flowchart.Services
+namespace FlowchartCreator.Services
 {
     public interface IEmailSender
     {

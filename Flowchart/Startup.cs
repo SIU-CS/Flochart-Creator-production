@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Flowchart.Data;
-using Flowchart.Models;
-using Flowchart.Services;
+using FlowchartCreator.Data;
+using FlowchartCreator.Models;
+using FlowchartCreator.Services;
 
-namespace Flowchart
+namespace FlowchartCreator
 {
     public class Startup
     {
@@ -39,6 +39,9 @@ namespace Flowchart
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext <FlowchartDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Flowchart.Models.ManageViewModels
+namespace FlowchartCreator.Models.ManageViewModels
 {
     public class ConfigureTwoFactorViewModel
     {

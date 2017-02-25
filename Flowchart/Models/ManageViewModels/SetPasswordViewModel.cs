@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Flowchart.Models.ManageViewModels
+namespace FlowchartCreator.Models.ManageViewModels
 {
     public class SetPasswordViewModel
     {
