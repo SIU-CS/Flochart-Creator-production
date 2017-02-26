@@ -20,5 +20,10 @@ namespace FlowchartCreator.Models
         public string CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public DateTime LastModified { get; set; }
+
+        [NotMapped]
+        public List<StepsViewModel> Steps { get; set; }
     }
 }
