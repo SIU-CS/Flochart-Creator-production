@@ -54,13 +54,13 @@ namespace FlowchartCreator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Url,CreatedBy,CreatedDate")] Flowchart flowchart)
+        public async Task<IActionResult> Create(Flowchart flowchart)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
             return View(flowchart);
         }
