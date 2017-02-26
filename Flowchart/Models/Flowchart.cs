@@ -12,6 +12,7 @@ namespace FlowchartCreator.Models
         public int Id { get; set; }
 
         [Required]
+        [StringLength(20, ErrorMessage = "The flowchart name must be between 1 and 20 characters.", MinimumLength = 1)]
         public string Name { get; set; }
 
         public string Url { get; set; }

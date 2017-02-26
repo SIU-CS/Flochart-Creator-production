@@ -7,3 +7,4 @@ C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\bin\Debug\ne
 C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.dll
 C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.pdb
 C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+C:\Users\Taylor\Source\Repos\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.csprojResolveAssemblyReference.cache
