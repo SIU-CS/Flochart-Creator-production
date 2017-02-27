@@ -7,19 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlowchartCreator.Data;
 using FlowchartCreator.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlowchartCreator.Controllers
 {
+    // DEBUG: Comment/Uncomment this to require authentication to access this controller's components.
+    [Authorize]
     public class FlowchartController : Controller
     {
         private readonly FlowchartDbContext _context;
 
         public FlowchartController(FlowchartDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Flowcharts
+        /// <summary>
+        /// List the User's flowcharts here. 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(await _context.Flowcharts.ToListAsync());
@@ -58,10 +65,11 @@ namespace FlowchartCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Edit", new { id = flowchart.Id});
+                return RedirectToAction("Edit", new { id = flowchart.Id });
             }
             return View(flowchart);
         }

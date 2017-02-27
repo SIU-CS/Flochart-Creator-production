@@ -69,6 +69,64 @@ namespace FlowchartCreator.Controllers
             return View(model);
         }
 
+        // POST: /Users/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteUser()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var id = user?.Id;
+
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                    var logins = user.Logins;
+
+                    foreach (var login in logins.ToList())
+                    {
+                        await _userManager.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey);
+                    }
+
+                    var rolesForUser = await _userManager.GetRolesAsync(user);
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var role in rolesForUser.ToList())
+                        {
+                            var result = await _userManager.RemoveFromRoleAsync(user, role);
+                        }
+                    }
+
+                    await _userManager.DeleteAsync(user);
+
+                    /// TODO: After redirecting the user, they remain logged in even though they 
+                    /// actually aren't. This is a problem of the session being cache and it not 
+                    /// being clearly properly. The code below doesn't solve it but it needs investigated.
+                    await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+
+                    // Maybe return to a confirmation page that redirects the user from there 
+                    // or offers additional options.
+                    return RedirectToAction("Index", "Home");
+                }
+
+                catch (Exception e)
+                {
+                    // Return with the specific error handled.
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
