@@ -58,6 +58,7 @@ namespace FlowchartCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                flowchart.CreatedDate = DateTime.UtcNow;
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Edit");
@@ -78,6 +79,8 @@ namespace FlowchartCreator.Controllers
             {
                 return NotFound();
             }
+
+            // We have to populate the steps list via the parser.
             return View(flowchart);
         }
 
@@ -95,6 +98,13 @@ namespace FlowchartCreator.Controllers
 
             if (ModelState.IsValid)
             {
+                List<StepsViewModel> temp = new List<StepsViewModel>();
+                temp.Add(new StepsViewModel(1, "Test Name", "Test Description", new List<int> { 2, 3 }));
+
+                flowchart.Steps = temp;
+
+                // Now, need to pass data to the parser.
+
                 try
                 {
                     _context.Update(flowchart);
