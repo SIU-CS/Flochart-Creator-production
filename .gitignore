@@ -34,3 +34,8 @@ bld/
 [Oo]bj/
 
 .vscode
+
+Flowchart/obj/Debug/netcoreapp1.0
+Flowchart/bin/Debug/netcoreapp1.0
+Flowchart/obj/Debug/netcoreapp1.0/*
+Flowchart/bin/Debug/netcoreapp1.0/*
