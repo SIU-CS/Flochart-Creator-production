@@ -1,4 +1,5 @@
 ﻿import AddStepButton from './AddStepButton';
+import '../../../css/main.scss'
 class Canvas extends React.Component {
     construtctor() {
         this.state = {
