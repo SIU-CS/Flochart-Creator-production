@@ -7,7 +7,7 @@ class Canvas extends React.Component {
         }
     }
 
-    componentDidMountjj() {
+    componentDidMount() {
         if (this.props.stepList.length > 0) {
             this.createStepComponents();
         }
@@ -24,7 +24,7 @@ class Canvas extends React.Component {
     render() {
         return (
             <div>
-            {this.state.body}
+                Testing
             </div>
         );
     }

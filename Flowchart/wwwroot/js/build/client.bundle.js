@@ -123,7 +123,7 @@ var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____C
         }
     }});
 
-    Object.defineProperty(Canvas.prototype,"componentDidMountjj",{writable:true,configurable:true,value:function() {"use strict";
+    Object.defineProperty(Canvas.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {"use strict";
         if (this.props.stepList.length > 0) {
             this.createStepComponents();
         }
@@ -140,7 +140,7 @@ var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____C
     Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
         return (
             React.createElement("div", null, 
-            this.state.body
+                "Testing"
             )
         );
     }});
