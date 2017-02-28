@@ -1,3 +1,6 @@
 client/node_modules/*
 Flowchart/bin/*
 Flowchart/obj/*
+.vs/*
+Flowchart/node_modules/*
+Flowchart/Properties/launchSettings.json
