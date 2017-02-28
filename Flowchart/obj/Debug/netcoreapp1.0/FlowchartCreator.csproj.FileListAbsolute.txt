@@ -18,3 +18,13 @@ C:\Users\Sam\Desktop\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp
 C:\Users\Sam\Desktop\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.AssemblyInfo.cs
 C:\Users\Sam\Desktop\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.dll
 C:\Users\Sam\Desktop\Flowchart-Creator-production\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.pdb
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\FlowchartCreator.deps.json
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\FlowchartCreator.runtimeconfig.json
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\FlowchartCreator.runtimeconfig.dev.json
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\FlowchartCreator.dll
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\bin\Debug\netcoreapp1.0\FlowchartCreator.pdb
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.csprojResolveAssemblyReference.cache
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.AssemblyInfo.cs
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.dll
+C:\Users\lenovo\Desktop\Flowchart\Flowchart\obj\Debug\netcoreapp1.0\FlowchartCreator.pdb

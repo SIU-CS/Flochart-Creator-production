@@ -25187,15 +25187,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sam\\.nuget\\packages\\": {}
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sam\\Desktop\\Flowchart-Creator-production\\Flowchart\\FlowchartCreator.csproj",
+      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\Flowchart\\Flowchart\\FlowchartCreator.csproj",
       "projectName": "FlowchartCreator",
-      "projectPath": "C:\\Users\\Sam\\Desktop\\Flowchart-Creator-production\\Flowchart\\FlowchartCreator.csproj",
-      "outputPath": "C:\\Users\\Sam\\Desktop\\Flowchart-Creator-production\\Flowchart\\obj\\",
+      "projectPath": "C:\\Users\\lenovo\\Desktop\\Flowchart\\Flowchart\\FlowchartCreator.csproj",
+      "outputPath": "C:\\Users\\lenovo\\Desktop\\Flowchart\\Flowchart\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.0"
