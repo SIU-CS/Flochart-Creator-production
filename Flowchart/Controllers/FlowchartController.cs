@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FlowchartCreator.Controllers
 {
+    // DEBUG: Comment/Uncomment this to require authentication to access this controller's components.
+    //[Authorize]
     public class FlowchartController : Controller
     {
         private readonly FlowchartDbContext _context;
