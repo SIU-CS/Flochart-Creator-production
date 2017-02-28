@@ -22,10 +22,14 @@ class Canvas extends React.Component {
     createStepComponents() {
     }
 
+    addNewStep() {
+        alert("hi");
+    }
+
     render() {
         return (
-            <div>
-                <AddStepButton />
+            <div className="flowchart-canvas">
+                <AddStepButton handleClick={() => { this.addNewStep() }}/>
             </div>
         );
     }
