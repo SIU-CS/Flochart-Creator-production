@@ -1,4 +1,4 @@
-﻿let AddStepButton = require('./AddStepButton')
+﻿import AddStepButton from './AddStepButton';
 class Canvas extends React.Component {
     construtctor() {
         this.state = {
@@ -8,7 +8,8 @@ class Canvas extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.stepList.length > 0) {
+        if (this.props.stepList &&
+            this.props.stepList.length > 0) {
             this.createStepComponents();
         }
         else {
@@ -24,7 +25,7 @@ class Canvas extends React.Component {
     render() {
         return (
             <div>
-                Testing
+                <AddStepButton />
             </div>
         );
     }

@@ -13,7 +13,13 @@ module.exports = {
     module: {
         loaders: [
             // Transform JSX in .jsx files
-            { test: /\.jsx$/, loader: 'jsx-loader?harmony' }
+            {
+                test: /\.jsx$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
         ],
     },
     resolve: {
