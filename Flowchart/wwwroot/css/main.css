@@ -10,3 +10,9 @@
 .flowchart-canvas, #flowchart-canvas{
     min-height: 75vh;
 }
+
+.ReactModal__Content--after-open {
+    margin: 48px auto 0;
+    max-height: 70vh;
+    max-width: 70vw;
+}
