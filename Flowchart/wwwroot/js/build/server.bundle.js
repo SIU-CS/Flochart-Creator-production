@@ -68,23 +68,125 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){AddStepButton[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;AddStepButton.prototype=Object.create(____SuperProtoOf____Class1);AddStepButton.prototype.constructor=AddStepButton;AddStepButton.__superConstructor__=____Class1;function AddStepButton(){"use strict";if(____Class1!==null){____Class1.apply(this,arguments);}}
-    Object.defineProperty(AddStepButton.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-        React.createElement("div", null, "New Step")
-    }});
+"use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddStepButton = function (_React$Component) {
+    _inherits(AddStepButton, _React$Component);
+
+    function AddStepButton() {
+        _classCallCheck(this, AddStepButton);
+
+        return _possibleConstructorReturn(this, (AddStepButton.__proto__ || Object.getPrototypeOf(AddStepButton)).apply(this, arguments));
+    }
+
+    _createClass(AddStepButton, [{
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "div",
+                null,
+                "New Step"
+            );
+        }
+    }]);
+
+    return AddStepButton;
+}(React.Component);
+
+exports.default = AddStepButton;
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Components"] = __webpack_require__(4);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _AddStepButton = __webpack_require__(0);
+
+var _AddStepButton2 = _interopRequireDefault(_AddStepButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Canvas = function (_React$Component) {
+    _inherits(Canvas, _React$Component);
+
+    function Canvas() {
+        _classCallCheck(this, Canvas);
+
+        return _possibleConstructorReturn(this, (Canvas.__proto__ || Object.getPrototypeOf(Canvas)).apply(this, arguments));
+    }
+
+    _createClass(Canvas, [{
+        key: 'construtctor',
+        value: function construtctor() {
+            this.state = {
+                stepList: [],
+                body: []
+            };
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            if (this.props.stepList && this.props.stepList.length > 0) {
+                this.createStepComponents();
+            } else {
+                this.setState({
+                    body: React.createElement(_AddStepButton2.default, null)
+                });
+            }
+        }
+    }, {
+        key: 'createStepComponents',
+        value: function createStepComponents() {}
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(_AddStepButton2.default, null)
+            );
+        }
+    }]);
+
+    return Canvas;
+}(React.Component);
+
+ReactDOM.render(React.createElement(Canvas, null), document.getElementById('flowchart-canvas'));
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -111,50 +213,6 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-let AddStepButton = __webpack_require__(0)
-var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){Canvas[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class0);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class0;function Canvas(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
-    Object.defineProperty(Canvas.prototype,"construtctor",{writable:true,configurable:true,value:function() {"use strict";
-        this.state = {
-            stepList: [],
-            body: []
-        }
-    }});
-
-    Object.defineProperty(Canvas.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {"use strict";
-        if (this.props.stepList.length > 0) {
-            this.createStepComponents();
-        }
-        else {
-            this.setState({
-                body: React.createElement(AddStepButton, null)
-            });
-        }
-    }});
-
-    Object.defineProperty(Canvas.prototype,"createStepComponents",{writable:true,configurable:true,value:function() {"use strict";
-    }});
-
-    Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-        return (
-            React.createElement("div", null, 
-                "Testing"
-            )
-        );
-    }});
-
-ReactDOM.render(
-    React.createElement(Canvas, null),
-    document.getElementById('flowchart-canvas')
-);
-
-
-
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -168,7 +226,7 @@ ReactDOM.render(
  */
 
 module.exports = {
-    Canvas: __webpack_require__(3),
+    Canvas: __webpack_require__(2),
     AddStepButton: __webpack_require__(0)
 };
 
