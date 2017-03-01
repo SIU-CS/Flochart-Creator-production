@@ -6,12 +6,16 @@ class Canvas extends React.Component {
         this.state = {
             stepList: [],
             body: [],
-            modalIsOpen: false
+            modalIsOpen: false,
+            titleText: "",
+            descriptionText: ""
         }
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.handleDescriptionChange= this.handleDescriptionChange.bind(this);
+        this.handleTitleChange= this.handleTitleChange.bind(this);
+        this.addNewStep= this.addNewStep.bind(this);
     }
-
 
     componentDidMount() {
         if (this.props.stepList &&
@@ -36,8 +40,20 @@ class Canvas extends React.Component {
     createStepComponents() {
     }
 
+    handleTitleChange(event){
+        this.setState({
+            titleText: event.target.value
+        });
+    }
+    handleDescriptionChange(event){
+        this.setState({
+            descriptionText: event.target.value
+        });
+    }
+
     addNewStep() {
-        alert("hi");
+        console.log(this.state.titleText);
+        console.log(this.state.descriptionText);
     }
 
     render() {
@@ -55,15 +71,25 @@ class Canvas extends React.Component {
                             <div className="form-group">
                                 <label className="col-md-2" htmlFor="Title">Title</label>
                                 <div className="col-md-10">
-                                    <input htmlFor="Title" id="Title" className="form-control" />
+                                    <input htmlFor="Title" 
+                                    id="Title" 
+                                    className="form-control" 
+                                    value={this.state.titleText}
+                                    onChange={this.handleTitleChange}/>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="col-md-2" htmlFor="Description">Description</label>
                                 <div className="col-md-10">
-                                    <textarea rows="5" id="Description" htmlFor="Description" className="form-control" />
+                                    <textarea rows="5" 
+                                    id="Description" 
+                                    htmlFor="Description" 
+                                    className="form-control" 
+                                    value={this.state.descriptionText} 
+                                    onChange={this.handleDescriptionChange}/>
                                 </div>
                             </div>
+                            <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
                         </div>
                     </form>
                 </Modal>
