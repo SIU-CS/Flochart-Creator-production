@@ -1,0 +1,18 @@
+.add-step-btn {
+    background-color: green;
+    height: 150px;
+    width: 150px;
+    color: white;
+    font-weight: 800;
+    font-size: 24px;
+}
+
+.flowchart-canvas, #flowchart-canvas{
+    min-height: 75vh;
+}
+
+.ReactModal__Content--after-open {
+    margin: 48px auto 0;
+    max-height: 70vh;
+    max-width: 70vw;
+}
