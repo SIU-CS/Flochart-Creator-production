@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -412,7 +411,7 @@ namespace FlowchartCreator.Controllers
                     //                where flowcharts.CreatedBy.Equals(User.Identity.Name)
                     //                select flowcharts;
 
-                    //    foreach(var flowchart in query)
+                    //    foreach (var flowchart in query)
                     //    {
                     //        // Need to access the URL and delete the hard copy as well.
                     //        _context.Remove(flowchart);
