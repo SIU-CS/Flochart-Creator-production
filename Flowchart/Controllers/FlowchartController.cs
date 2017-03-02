@@ -68,6 +68,20 @@ namespace FlowchartCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                while (true)
+                {
+                    string genUrl = Generators.Url();
+                    var duplicateUrl = (from url in _context.Flowcharts
+                                where url.Url.Equals(genUrl)
+                                select url).Any();
+
+                    if (!duplicateUrl)
+                    {
+                        flowchart.Url = genUrl;
+                        break;
+                    }
+                }
+
                 flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
                 _context.Add(flowchart);
