@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using FlowchartCreator.Models;
 using FlowchartCreator.Models.ManageViewModels;
 using FlowchartCreator.Services;
+using FlowchartCreator.Data;
 
 namespace FlowchartCreator.Controllers
 {
@@ -368,6 +369,7 @@ namespace FlowchartCreator.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
+
         /// <summary>
         /// Deletes a user including all of their roles and logins.
         /// </summary>
@@ -402,6 +404,20 @@ namespace FlowchartCreator.Controllers
                             var result = await _userManager.RemoveFromRoleAsync(user, role);
                         }
                     }
+
+                    // Below is the following code that will remove all flowcharts associated with the user.
+                    //using (FlowchartDbContext _context = new FlowchartDbContext())
+                    //{
+                    //    var query = from flowcharts in _context.Flowcharts
+                    //                where flowcharts.CreatedBy.Equals(User.Identity.Name)
+                    //                select flowcharts;
+
+                    //    foreach(var flowchart in query)
+                    //    {
+                    //        // Need to access the URL and delete the hard copy as well.
+                    //        _context.Remove(flowchart);
+                    //    }
+                    //}
 
                     /// TODO: There will need to be some code here which will delete the flowchart
                     /// data associated with the user which shouldn't be too hard at all.
