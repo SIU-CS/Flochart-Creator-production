@@ -92,7 +92,9 @@ namespace FlowchartCreator.Helpers
                     step.Element("description")?.Value,
                     children));
             }
-            
+
+            flowchart.Steps = temp;
+
             return flowchart;
         }
 
