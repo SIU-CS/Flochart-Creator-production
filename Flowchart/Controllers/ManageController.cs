@@ -419,20 +419,9 @@ namespace FlowchartCreator.Controllers
                     //    }
                     //}
 
-                    /// TODO: There will need to be some code here which will delete the flowchart
-                    /// data associated with the user which shouldn't be too hard at all.
-                    /// Simply gather all flowcharts which contain the user's username (email) and 
-                    /// delete them from the data after deleting the files on the hdd.
-
+                    await _signInManager.SignOutAsync();
                     await _userManager.DeleteAsync(user);
 
-                    /// TODO: After redirecting the user, they remain logged in even though they 
-                    /// actually aren't. This is a problem of the session being cache and it not 
-                    /// being clearly properly. The code below doesn't solve it but it needs investigated.
-                    await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
-
-                    // Maybe return to a confirmation page that redirects the user from there 
-                    // or offers additional options.
                     return RedirectToAction("Index", "Home");
                 }
 
