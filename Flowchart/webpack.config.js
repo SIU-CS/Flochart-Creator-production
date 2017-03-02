@@ -1,10 +1,10 @@
 ﻿var path = require('path');
 
 module.exports = {
-    context: path.join(__dirname, 'wwwroot/js/React'),
+    context: path.join(__dirname, 'wwwroot'),
     entry: {
-        server: './server',
-        client: './client'
+        server: './js/React/server',
+        client: './js/React/client'
     },
     output: {
         path: path.join(__dirname, 'wwwroot/js/build'),
@@ -21,8 +21,8 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                loaders: ["style-loader", "css-loader"]
+                test: /\.scss$/,
+                loaders: ["style-loader", "css-loader", "sass-loader"]
             }
 
         ],

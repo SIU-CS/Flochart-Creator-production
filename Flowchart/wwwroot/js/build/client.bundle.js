@@ -10313,7 +10313,7 @@ var Canvas = function (_React$Component) {
 
             return React.createElement(
                 'div',
-                { className: 'flowchart-canvas' },
+                null,
                 React.createElement(_AddStepButton2.default, { handleClick: function handleClick() {
                         _this2.openModal();
                     } }),

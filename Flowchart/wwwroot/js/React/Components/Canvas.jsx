@@ -58,7 +58,7 @@ class Canvas extends React.Component {
 
     render() {
         return (
-            <div className="flowchart-canvas">
+            <div>
                 <AddStepButton handleClick={() => { this.openModal() }} />
                 <Modal isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
