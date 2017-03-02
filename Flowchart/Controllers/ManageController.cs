@@ -423,7 +423,7 @@ namespace FlowchartCreator.Controllers
                     /// data associated with the user which shouldn't be too hard at all.
                     /// Simply gather all flowcharts which contain the user's username (email) and 
                     /// delete them from the data after deleting the files on the hdd.
-
+                    await _signInManager.SignOutAsync();
                     await _userManager.DeleteAsync(user);
 
                     /// TODO: After redirecting the user, they remain logged in even though they 
