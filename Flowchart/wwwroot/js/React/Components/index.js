@@ -8,6 +8,5 @@
  */
 
 module.exports = {
-    Canvas: require('./Canvas'),
-    AddStepButton: require('./AddStepButton')
+    CanvasWrapper: require('./CanvasWrapper')
 };

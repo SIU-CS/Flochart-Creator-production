@@ -1,5 +1,7 @@
 ﻿import AddStepButton from './AddStepButton';
 import Modal from 'react-modal';
+import FlowchartStep from './FlowchartStep'
+
 class Canvas extends React.Component {
     constructor() {
         super();
@@ -12,9 +14,10 @@ class Canvas extends React.Component {
         }
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.handleDescriptionChange= this.handleDescriptionChange.bind(this);
-        this.handleTitleChange= this.handleTitleChange.bind(this);
-        this.addNewStep= this.addNewStep.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.addNewStep = this.addNewStep.bind(this);
+        this.createStepComponent = this.createStepComponent.bind(this);
     }
 
     componentDidMount() {
@@ -22,71 +25,93 @@ class Canvas extends React.Component {
             this.props.stepList.length > 0) {
             this.createStepComponents();
         }
+        else if (this.state.stepList &&
+            this.state.stepList.length > 0) {
+            this.setState({
+                body: this.state.stepList
+            });
+
+        }
         else {
             this.setState({
-                body: <AddStepButton />
+                body: <AddStepButton handleClick={() => { this.openModal() }} />
             });
         }
     }
 
-    openModal() {
-        this.setState({ modalIsOpen: true });
+    // Modal Stuff
+    handleTitleChange(event) {
+        this.setState({ titleText: event.target.value });
+    }
+    handleDescriptionChange(event) {
+        this.setState({ descriptionText: event.target.value });
+    }
+    openModal() { this.setState({ modalIsOpen: true }); }
+    closeModal() { this.setState({ modalIsOpen: false }); }
+
+    // Step functionality
+    createStepComponentList() {
+        // TODO pull in parser data and create step components
     }
 
-    closeModal() {
-        this.setState({ modalIsOpen: false });
+    createStepComponent() {
+        return (
+            <FlowchartStep title={this.state.titleText}
+                description={this.state.descriptionText}
+                key={this.state.stepList.length}
+                id={this.state.stepList.length} />
+        );
     }
 
-    createStepComponents() {
-    }
-
-    handleTitleChange(event){
+    addToStepList(newStep) {
+        let stepList = this.state.stepList;
+        stepList.push(newStep);
         this.setState({
-            titleText: event.target.value
+            stepList: stepList,
+            body: stepList,
+            titleText: "",
+            descriptionText: ""
         });
     }
-    handleDescriptionChange(event){
-        this.setState({
-            descriptionText: event.target.value
-        });
-    }
 
-    addNewStep() {
-        console.log(this.state.titleText);
-        console.log(this.state.descriptionText);
+    addNewStep(event) {
+        event.preventDefault();
+        let newStep = this.createStepComponent();
+        this.addToStepList(newStep);
+        this.closeModal();
     }
 
     render() {
         return (
-            <div className="flowchart-canvas">
-                <AddStepButton handleClick={() => { this.openModal() }} />
+            <div>
+                {this.state.body}
+
                 <Modal isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     contentLabel="New Step Modal">
-
-                    <form >
+                    <form>
                         <div className="form-horizontal">
                             <h4>Add New Step</h4>
                             <hr />
                             <div className="form-group">
                                 <label className="col-md-2" htmlFor="Title">Title</label>
                                 <div className="col-md-10">
-                                    <input htmlFor="Title" 
-                                    id="Title" 
-                                    className="form-control" 
-                                    value={this.state.titleText}
-                                    onChange={this.handleTitleChange}/>
+                                    <input htmlFor="Title"
+                                        id="Title"
+                                        className="form-control"
+                                        value={this.state.titleText}
+                                        onChange={this.handleTitleChange} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="col-md-2" htmlFor="Description">Description</label>
                                 <div className="col-md-10">
-                                    <textarea rows="5" 
-                                    id="Description" 
-                                    htmlFor="Description" 
-                                    className="form-control" 
-                                    value={this.state.descriptionText} 
-                                    onChange={this.handleDescriptionChange}/>
+                                    <textarea rows="5"
+                                        id="Description"
+                                        htmlFor="Description"
+                                        className="form-control"
+                                        value={this.state.descriptionText}
+                                        onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
                             <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
@@ -97,10 +122,4 @@ class Canvas extends React.Component {
         );
     }
 }
-ReactDOM.render(
-    <Canvas />,
-    document.getElementById('flowchart-canvas')
-);
-
-
-
+export default Canvas;
