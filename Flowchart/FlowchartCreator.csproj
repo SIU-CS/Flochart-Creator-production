@@ -12,6 +12,7 @@
     <UserSecretsId>aspnet-Flowchart-0fbddeaa-4b4a-4dcb-b2d6-dd2787fc107b</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="bootstrap-sass" Version="3.3.5" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.0" />

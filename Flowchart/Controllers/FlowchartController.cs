@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlowchartCreator.Data;
 using FlowchartCreator.Models;
-using Microsoft.AspNetCore.Authorization;
+using FlowchartCreator.Helpers;
 
 namespace FlowchartCreator.Controllers
 {
@@ -29,7 +28,11 @@ namespace FlowchartCreator.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Flowcharts.ToListAsync());
+            var query = from flowcharts in _context.Flowcharts
+                        where flowcharts.CreatedBy.Equals(User.Identity.Name)
+                        select flowcharts;
+
+            return View(await query.ToListAsync());
         }
 
         // GET: Flowcharts/Details/5
@@ -65,10 +68,26 @@ namespace FlowchartCreator.Controllers
         {
             if (ModelState.IsValid)
             {
+                while (true)
+                {
+                    string genUrl = Generators.Url();
+                    var duplicateUrl = (from url in _context.Flowcharts
+                                where url.Url.Equals(genUrl)
+                                select url).Any();
+
+                    if (!duplicateUrl)
+                    {
+                        flowchart.Url = genUrl;
+                        break;
+                    }
+                }
+
                 flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
+
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction("Edit", new { id = flowchart.Id });
             }
             return View(flowchart);
