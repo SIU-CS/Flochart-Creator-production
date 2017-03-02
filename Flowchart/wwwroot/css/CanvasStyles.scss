@@ -32,6 +32,22 @@
 * Specifics
 *****************************************/
 
+.flowchart-step-title {
+    font-size: 200%;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.flowchart-step-description {
+    padding: 15px 0px;
+}
+
+.flowchart-step-container {
+    width: 250px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
 .add-step-btn {
     @extend .clickable;
     background-color: green;
@@ -42,7 +58,8 @@
     font-size: 24px;
 }
 
-.flowchart-canvas, #flowchart-canvas{
+.flowchart-canvas,
+#flowchart-canvas {
     min-height: 75vh;
 }
 
