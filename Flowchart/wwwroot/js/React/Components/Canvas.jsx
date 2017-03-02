@@ -1,5 +1,6 @@
 ﻿import AddStepButton from './AddStepButton';
 import Modal from 'react-modal';
+
 class Canvas extends React.Component {
     constructor() {
         super();
@@ -12,9 +13,9 @@ class Canvas extends React.Component {
         }
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.handleDescriptionChange= this.handleDescriptionChange.bind(this);
-        this.handleTitleChange= this.handleTitleChange.bind(this);
-        this.addNewStep= this.addNewStep.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.addNewStep = this.addNewStep.bind(this);
     }
 
     componentDidMount() {
@@ -24,7 +25,7 @@ class Canvas extends React.Component {
         }
         else {
             this.setState({
-                body: <AddStepButton />
+                body: <AddStepButton handleClick={() => { this.openModal() }} />
             });
         }
     }
@@ -40,12 +41,12 @@ class Canvas extends React.Component {
     createStepComponents() {
     }
 
-    handleTitleChange(event){
+    handleTitleChange(event) {
         this.setState({
             titleText: event.target.value
         });
     }
-    handleDescriptionChange(event){
+    handleDescriptionChange(event) {
         this.setState({
             descriptionText: event.target.value
         });
@@ -57,9 +58,10 @@ class Canvas extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
-                <AddStepButton handleClick={() => { this.openModal() }} />
+                {this.state.body}
                 <Modal isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     contentLabel="New Step Modal">
@@ -71,24 +73,25 @@ class Canvas extends React.Component {
                             <div className="form-group">
                                 <label className="col-md-2" htmlFor="Title">Title</label>
                                 <div className="col-md-10">
-                                    <input htmlFor="Title" 
-                                    id="Title" 
-                                    className="form-control" 
-                                    value={this.state.titleText}
-                                    onChange={this.handleTitleChange}/>
+                                    <input htmlFor="Title"
+                                        id="Title"
+                                        className="form-control"
+                                        value={this.state.titleText}
+                                        onChange={this.handleTitleChange} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="col-md-2" htmlFor="Description">Description</label>
                                 <div className="col-md-10">
-                                    <textarea rows="5" 
-                                    id="Description" 
-                                    htmlFor="Description" 
-                                    className="form-control" 
-                                    value={this.state.descriptionText} 
-                                    onChange={this.handleDescriptionChange}/>
+                                    <textarea rows="5"
+                                        id="Description"
+                                        htmlFor="Description"
+                                        className="form-control"
+                                        value={this.state.descriptionText}
+                                        onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
+                            <div className="form-validation-error">{this.state.validationError}</div>
                             <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
                         </div>
                     </form>
@@ -97,10 +100,4 @@ class Canvas extends React.Component {
         );
     }
 }
-ReactDOM.render(
-    <Canvas />,
-    document.getElementById('flowchart-canvas')
-);
-
-
-
+export default Canvas;

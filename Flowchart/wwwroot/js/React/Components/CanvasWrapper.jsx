@@ -1,11 +1,18 @@
+import Canvas from './Canvas';
 import '../../../css/CanvasStyles.scss';
 class CanvasWrapper extends React.Component {
     render() {
+        console.log("hi");
         return (
             <div className="flowchart-canvas">
-                {this.props.children}
+                <Canvas />
             </div>
-        )
-
+        );
     }
 }
+export default CanvasWrapper;
+
+ReactDOM.render(
+    <CanvasWrapper/>,
+    document.getElementById('flowchart-canvas')
+);
