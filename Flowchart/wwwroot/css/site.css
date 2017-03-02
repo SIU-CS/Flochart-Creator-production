@@ -3,27 +3,37 @@
     padding-bottom: 20px;
 }
 
+
 /* Wrapping element */
+
+
 /* Set some basic padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
+
 input,
 select,
 textarea {
     max-width: 280px;
 }
 
+
 /* Carousel */
+
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
 }
 
+
 /* buttons and links extension to use brackets: [ click me ] */
+
 .btn-bracketed::before {
     display: inline-block;
     content: "[";
@@ -36,13 +46,84 @@ textarea {
     padding-left: 0.5em;
 }
 
+
 /* Make .svg files in the carousel display properly in older browsers */
+
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
 
+
+/****************************************************
+* Homepage stuff
+****************************************************/
+
+.homepage-container {
+    height: 100vh;
+}
+
+.homepage-links {
+    margin-bottom: 20vh;
+    margin-top: 20vh;
+    text-align: center;
+}
+
+.create-flowchart-button {
+    margin: 20px;
+    height: 75px;
+    font-size: 24px;
+}
+
+.signup-button,
+.login-button {
+    margin: 20px;
+    width: 200px;
+    height: 75px;
+    font-size: 32px;
+}
+
+.login-button {
+    float: right;
+}
+
+.signup-button {
+    float: left;
+}
+
+.homepage-header {
+    margin-top: 64px;
+    text-align: center;
+}
+
+.header-title {
+    margin: 0 auto;
+    font-size: 80px;
+}
+
+.header-intro {
+    margin: 0 auto;
+    font-size: 200%;
+    font-style: italic;
+}
+
+
 /* Hide/rearrange for smaller screens */
+
 @media screen and (max-width: 767px) {
+    .homepage-links {
+        margin-top: 10vh;
+    }
+    .signup-button,
+    .login-button {
+        width: 100px;
+        height: 50px;
+        margin: 10px;
+        font-size: 20px;
+        float: none;
+    }
+    .header-title {
+        font-size: 64px;
+    }
     /* Hide captions */
     .carousel-caption {
         display: none;
