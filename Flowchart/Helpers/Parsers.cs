@@ -69,8 +69,8 @@ namespace FlowchartCreator.Helpers
                 throw new IOException("The file at " + url + " doesn't exist!");
 
             Flowchart flowchart = new Flowchart();
-            flowchart.Id = Convert.ToInt32(xml.Root.Attribute("id").Value);
-            flowchart.Name = xml.Root.Attribute("name").Value;
+            flowchart.Id = Convert.ToInt32(xml.Root.Attribute("id")?.Value);
+            flowchart.Name = xml.Root.Attribute("name")?.Value;
 
             var selectSteps = from s in xml.Descendants("flowchart")
                               select s;
@@ -79,7 +79,7 @@ namespace FlowchartCreator.Helpers
             foreach (var step in selectSteps)
             {
                 // Parse the list of children.
-                string[] tempChildren = step.Element("children").Value.Split(',');
+                string[] tempChildren = step.Element("children")?.Value.Split(',');
                 List<int> children = new List<int>();
                 foreach(var child in tempChildren)
                 {
@@ -87,9 +87,9 @@ namespace FlowchartCreator.Helpers
                 }
 
                 temp.Add(new StepsViewModel(
-                    Convert.ToInt32(step.Element("id").Value),
-                    step.Element("name").Value,
-                    step.Element("description").Value,
+                    Convert.ToInt32(step.Element("id")?.Value),
+                    step.Element("name")?.Value,
+                    step.Element("description")?.Value,
                     children));
             }
             
