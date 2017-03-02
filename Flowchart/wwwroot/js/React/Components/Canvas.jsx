@@ -39,34 +39,27 @@ class Canvas extends React.Component {
         }
     }
 
+    // Modal Stuff
     handleTitleChange(event) {
-        this.setState({
-            titleText: event.target.value
-        });
+        this.setState({ titleText: event.target.value });
     }
     handleDescriptionChange(event) {
-        this.setState({
-            descriptionText: event.target.value
-        });
+        this.setState({ descriptionText: event.target.value });
     }
-    openModal() {
-        this.setState({ modalIsOpen: true });
-    }
+    openModal() { this.setState({ modalIsOpen: true }); }
+    closeModal() { this.setState({ modalIsOpen: false }); }
 
-    closeModal() {
-        this.setState({ modalIsOpen: false });
-    }
-
+    // Step functionality
     createStepComponentList() {
         // TODO pull in parser data and create step components
     }
 
     createStepComponent() {
         return (
-        <FlowchartStep title={this.state.titleText}
-            description={this.state.descriptionText} 
-            key={this.state.stepList.length}
-            id={this.state.stepList.length} />
+            <FlowchartStep title={this.state.titleText}
+                description={this.state.descriptionText}
+                key={this.state.stepList.length}
+                id={this.state.stepList.length} />
         );
     }
 
@@ -92,9 +85,6 @@ class Canvas extends React.Component {
         return (
             <div>
                 {this.state.body}
-
-
-
 
                 <Modal isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
