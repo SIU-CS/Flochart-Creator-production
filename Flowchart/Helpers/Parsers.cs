@@ -3,6 +3,9 @@ using System.IO;
 using FlowchartCreator.Helpers;
 using System.Text;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+using System;
 
 namespace FlowchartCreator.Helpers
 {
@@ -19,10 +22,11 @@ namespace FlowchartCreator.Helpers
 
             using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(fullPath))))
             {
-                tw.WriteLine("<flowchart>");
+                tw.WriteLine("<flowchart id=\"" + flowchart.Id + "\" name=\"" + flowchart.Name + "\">");
                 foreach(var steps in flowchart.Steps)
                 {
-                    tw.WriteLine("  <step id=\"" + steps.id + "\"" );
+                    tw.WriteLine("  <step>" );
+                    tw.WriteLine("      <id>" + steps.id + "</id>");
                     tw.WriteLine("      <name>" + steps.name + "</name>");
                     tw.WriteLine("      <description>" + steps.desc + "</description>");
                     tw.WriteLine("      <children>" + steps.children.ToString() + "</children>");
@@ -37,6 +41,7 @@ namespace FlowchartCreator.Helpers
         /// which can be passed easily to the view for manipulation.
         /// </summary>
         /// <param name="url">URL pointing to the location of the file.</param>
+        /// <param name="type">The type of file from which data is parsed.</param>
         /// <returns>A flowchart object containing all elements from the file.</returns>
         public static Flowchart ToObject(string url, string type)
         {
@@ -57,7 +62,38 @@ namespace FlowchartCreator.Helpers
         /// <returns>Flowchart object containing XML data.</returns>
         private static Flowchart FromXml(string url)
         {
-            return new Flowchart();
+            XDocument xml;
+            if (File.Exists(url))
+                xml = XDocument.Load(url);
+            else
+                throw new IOException("The file at " + url + " doesn't exist!");
+
+            Flowchart flowchart = new Flowchart();
+            flowchart.Id = Convert.ToInt32(xml.Root.Attribute("id").Value);
+            flowchart.Name = xml.Root.Attribute("name").Value;
+
+            var selectSteps = from s in xml.Descendants("flowchart")
+                              select s;
+
+            List<StepsViewModel> temp = new List<StepsViewModel>();
+            foreach (var step in selectSteps)
+            {
+                // Parse the list of children.
+                string[] tempChildren = step.Element("children").Value.Split(',');
+                List<int> children = new List<int>();
+                foreach(var child in tempChildren)
+                {
+                    children.Add(Convert.ToInt32(child));
+                }
+
+                temp.Add(new StepsViewModel(
+                    Convert.ToInt32(step.Element("id").Value),
+                    step.Element("name").Value,
+                    step.Element("description").Value,
+                    children));
+            }
+            
+            return flowchart;
         }
 
         /// <summary>
