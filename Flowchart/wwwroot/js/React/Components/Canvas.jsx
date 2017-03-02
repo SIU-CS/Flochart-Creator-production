@@ -1,5 +1,6 @@
 ﻿import AddStepButton from './AddStepButton';
 import Modal from 'react-modal';
+import FlowchartStep from './FlowchartStep'
 
 class Canvas extends React.Component {
     constructor() {
@@ -16,6 +17,7 @@ class Canvas extends React.Component {
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.addNewStep = this.addNewStep.bind(this);
+        this.createStepComponent = this.createStepComponent.bind(this);
     }
 
     componentDidMount() {
@@ -23,22 +25,18 @@ class Canvas extends React.Component {
             this.props.stepList.length > 0) {
             this.createStepComponents();
         }
+        else if (this.state.stepList &&
+            this.state.stepList.length > 0) {
+            this.setState({
+                body: this.state.stepList
+            });
+
+        }
         else {
             this.setState({
                 body: <AddStepButton handleClick={() => { this.openModal() }} />
             });
         }
-    }
-
-    openModal() {
-        this.setState({ modalIsOpen: true });
-    }
-
-    closeModal() {
-        this.setState({ modalIsOpen: false });
-    }
-
-    createStepComponents() {
     }
 
     handleTitleChange(event) {
@@ -51,22 +49,57 @@ class Canvas extends React.Component {
             descriptionText: event.target.value
         });
     }
+    openModal() {
+        this.setState({ modalIsOpen: true });
+    }
 
-    addNewStep() {
-        console.log(this.state.titleText);
-        console.log(this.state.descriptionText);
+    closeModal() {
+        this.setState({ modalIsOpen: false });
+    }
+
+    createStepComponentList() {
+        // TODO pull in parser data and create step components
+    }
+
+    createStepComponent() {
+        return (
+        <FlowchartStep title={this.state.titleText}
+            description={this.state.descriptionText} 
+            key={this.state.stepList.length}
+            id={this.state.stepList.length} />
+        );
+    }
+
+    addToStepList(newStep) {
+        let stepList = this.state.stepList;
+        stepList.push(newStep);
+        this.setState({
+            stepList: stepList,
+            body: stepList,
+            titleText: "",
+            descriptionText: ""
+        });
+    }
+
+    addNewStep(event) {
+        event.preventDefault();
+        let newStep = this.createStepComponent();
+        this.addToStepList(newStep);
+        this.closeModal();
     }
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 {this.state.body}
+
+
+
+
                 <Modal isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     contentLabel="New Step Modal">
-
-                    <form >
+                    <form>
                         <div className="form-horizontal">
                             <h4>Add New Step</h4>
                             <hr />
@@ -91,7 +124,6 @@ class Canvas extends React.Component {
                                         onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
-                            <div className="form-validation-error">{this.state.validationError}</div>
                             <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
                         </div>
                     </form>
