@@ -5,6 +5,10 @@ namespace FlowchartCreator.Data
 {
     public class FlowchartDbContext : DbContext
     {
+        public FlowchartDbContext()
+        {
+        }
+
         public FlowchartDbContext(DbContextOptions<FlowchartDbContext> options)
             : base(options)
         {
