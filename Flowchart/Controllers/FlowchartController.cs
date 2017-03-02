@@ -29,7 +29,11 @@ namespace FlowchartCreator.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Flowcharts.ToListAsync());
+            var query = from flowcharts in _context.Flowcharts
+                        where flowcharts.CreatedBy.Equals(User.Identity.Name)
+                        select flowcharts;
+
+            return View(await query.ToListAsync());
         }
 
         // GET: Flowcharts/Details/5
