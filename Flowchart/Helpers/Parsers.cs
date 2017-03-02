@@ -24,11 +24,16 @@ namespace FlowchartCreator.Helpers
                 tw.WriteLine("<flowchart id=\"" + flowchart.Id + "\" name=\"" + flowchart.Name + "\">");
                 foreach(var steps in flowchart.Steps)
                 {
+                    string children =  "";
+                    foreach(var child in steps.children)
+                    {
+                        children = child + ",";
+                    }
                     tw.WriteLine("  <step>" );
                     tw.WriteLine("      <id>" + steps.id + "</id>");
                     tw.WriteLine("      <name>" + steps.name + "</name>");
                     tw.WriteLine("      <description>" + steps.desc + "</description>");
-                    tw.WriteLine("      <children>" + steps.children.ToString() + "</children>");
+                    tw.WriteLine("      <children>" + children + "</children>");
                     tw.WriteLine("  </step>");
                 }
                 tw.WriteLine("</flowchart>");
@@ -84,6 +89,8 @@ namespace FlowchartCreator.Helpers
                 {
                     children.Add(Convert.ToInt32(child));
                 }
+
+                // May need to handle when children are null here.
 
                 temp.Add(new StepsViewModel(
                     Convert.ToInt32(step.Element("id")?.Value),
