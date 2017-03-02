@@ -84,8 +84,10 @@ namespace FlowchartCreator.Controllers
 
                 flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
+
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction("Edit", new { id = flowchart.Id });
             }
             return View(flowchart);
