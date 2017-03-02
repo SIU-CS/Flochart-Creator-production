@@ -102,6 +102,10 @@ namespace FlowchartCreator.Controllers
             }
 
             var flowchart = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
+            // Comment the line above and uncomment the lines below to use the parser.
+            //var flowchartUrl = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
+            //var flowchart = Parsers.ToObject(flowchartUrl.Url, "xml");
+
             if (flowchart == null)
             {
                 return NotFound();

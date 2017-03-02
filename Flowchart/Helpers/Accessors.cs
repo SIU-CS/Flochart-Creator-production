@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace FlowchartCreator.Helpers
 {
+    /// <summary>
+    /// Contains a list of accessor elements which are used application-wide.
+    /// </summary>
     public class Accessors
     {
         // This may change depending on the directory structure we determine.
