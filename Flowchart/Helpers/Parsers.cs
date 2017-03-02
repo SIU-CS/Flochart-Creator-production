@@ -37,9 +37,37 @@ namespace FlowchartCreator.Helpers
         /// which can be passed easily to the view for manipulation.
         /// </summary>
         /// <param name="url">URL pointing to the location of the file.</param>
-        public static void ToObject(string url)
+        /// <returns>A flowchart object containing all elements from the file.</returns>
+        public static Flowchart ToObject(string url, string type)
         {
+            switch(type){
+                case "xml":
+                    return FromXml(url);
+                case "json":
+                    return FromJson(url);
+                default:
+                    throw new InvalidDataException("The parameter value for type is not a valid type that we can convert from.");
+            }
+        }
 
+        /// <summary>
+        /// Parses an XML file and puts all data into a Flowchart object.
+        /// </summary>
+        /// <param name="url">URL pointing to the location of the file.</param>
+        /// <returns>Flowchart object containing XML data.</returns>
+        private static Flowchart FromXml(string url)
+        {
+            return new Flowchart();
+        }
+
+        /// <summary>
+        /// Parses a JSON file and puts all data into a Flowchart object.
+        /// </summary>
+        /// <param name="url">URL pointing to the location of the file.</param>
+        /// <returns>Flowchart object containing XML data.</returns>
+        private static Flowchart FromJson(string url)
+        {
+            return new Flowchart();
         }
     }
 }
