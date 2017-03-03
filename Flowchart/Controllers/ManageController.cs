@@ -48,9 +48,16 @@ namespace FlowchartCreator.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : "";
+
+            ViewData["ErrorMessage"] = 
+                message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
+            ViewData["PasswordErrorMessage"] =
+                message == ManageMessageId.IncorrectPassword ? "That password does not match our records!"
                 : "";
 
             var user = await GetCurrentUserAsync();
@@ -360,6 +367,7 @@ namespace FlowchartCreator.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            IncorrectPassword,
             Error
         }
 
@@ -368,23 +376,23 @@ namespace FlowchartCreator.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-
         /// <summary>
         /// Deletes a user including all of their roles and logins.
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult> DeleteUser()
+        public async Task<ActionResult> DeleteUser(string password)
         {
             var user = await GetCurrentUserAsync();
             var id = user?.Id;
 
+            if (id == null)
+                return NotFound();
+
+            if (!await _userManager.CheckPasswordAsync(user, password))
+                return RedirectToAction("Index", "Manage", new { Message = ManageMessageId.IncorrectPassword });
+
             if (ModelState.IsValid)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
                 try
                 {
                     var logins = user.Logins;
