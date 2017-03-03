@@ -368,15 +368,15 @@ namespace FlowchartCreator.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-
         /// <summary>
         /// Deletes a user including all of their roles and logins.
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult> DeleteUser()
+        public async Task<ActionResult> DeleteUser(string password)
         {
             var user = await GetCurrentUserAsync();
             var id = user?.Id;
+
 
             if (ModelState.IsValid)
             {
