@@ -377,6 +377,9 @@ namespace FlowchartCreator.Controllers
             var user = await GetCurrentUserAsync();
             var id = user?.Id;
 
+            // If the password they entered is not correct, send them back.
+            if (!await _userManager.CheckPasswordAsync(user, password))
+                return View();
 
             if (ModelState.IsValid)
             {

@@ -46,11 +46,11 @@ namespace FlowchartCreator
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 10;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
