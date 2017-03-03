@@ -80,7 +80,7 @@
                 Delete Account
             </button>
 
-            @if (ViewData["PasswordErrorMessage"] != null)
+            @if (ViewData["PasswordErrorMessage"] != "")
             {
                 <script type="text/javascript">
                     $(window).load(function () {
@@ -101,7 +101,7 @@
                             
                             <p>Please type in your password to delete your account. This action is irreversible!</p>
 
-                                @if (ViewData["PasswordErrorMessage"] != null)
+                                @if (ViewData["PasswordErrorMessage"] != "")
                                 {
                                     <div class="form-group has-error">
                                         <label for="password" class="col-md-2">Password:</label>
