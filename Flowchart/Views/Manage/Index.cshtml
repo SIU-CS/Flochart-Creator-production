@@ -3,8 +3,11 @@
     ViewData["Title"] = "Manage your account";
 }
 
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+
 <h2>@ViewData["Title"].</h2>
 <p class="text-success">@ViewData["StatusMessage"]</p>
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
 
 <div>
     <h4>Change your account settings</h4>
@@ -69,12 +72,22 @@
         </dd>
         <dt>Delete Account</dt>
         <dd>
+            @ViewData["Error"]
             @*
                 TODO: This needs to be a link. Once clicked, a popup box appears asking the user to enter their password for confirmation to delete their account.  
             *@
             <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
                 Delete Account
             </button>
+
+            @if (ViewData["PasswordErrorMessage"] != null)
+            {
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $('#confirmDeleteModal').modal('show');
+                    });                    
+                </script>
+            }
 
             <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModal">
                 <div class="modal-dialog" role="document">
@@ -85,12 +98,28 @@
                         </div>
                         <form asp-controller="Manage" asp-action="DeleteUser">
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input class="form-control" name="password" type="password" value=""/>
+                            
+                            <p>Please type in your password to delete your account. This action is irreversible!</p>
+
+                                @if (ViewData["PasswordErrorMessage"] != null)
+                                {
+                                    <div class="form-group has-error">
+                                        <label for="password" class="col-md-2">Password:</label>
+                                        <input class="form-control" name="password" type="password" value="" />
+                                        <p class="col-md-offset-2 text-danger">@ViewData["PasswordErrorMessage"]</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label for="password" class="col-md-2">Password:</label>
+                                        <input class="form-control" name="password" type="password" value="" />
+                                    </div>
+                                }
                             </div>
-                        </div>
+                        
                         <div class="modal-footer">
+                            
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             <button type="button" class="btn btn-danger">Delete Account</button>
                         </div>
