@@ -72,22 +72,9 @@
         </dd>
         <dt>Delete Account</dt>
         <dd>
-            @ViewData["Error"]
-            @*
-                TODO: This needs to be a link. Once clicked, a popup box appears asking the user to enter their password for confirmation to delete their account.  
-            *@
             <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
                 Delete Account
             </button>
-
-            @if (ViewData["PasswordErrorMessage"] != "")
-            {
-                <script type="text/javascript">
-                    $(window).load(function () {
-                        $('#confirmDeleteModal').modal('show');
-                    });                    
-                </script>
-            }
 
             <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModal">
                 <div class="modal-dialog" role="document">
@@ -100,9 +87,17 @@
                         <div class="modal-body">
                             
                             <p>Please type in your password to delete your account. This action is irreversible!</p>
-
-                                @if (ViewData["PasswordErrorMessage"] != "")
+                            @* Dynamically determine which form to display to the user depending on whether they previously attempted
+                                to delete their account with an incorrect password submission. *@
+                                @if ((string)ViewData["PasswordErrorMessage"] != "")
                                 {
+                                    @* Redisplay the modal if the user previously entered an incorrect password. *@
+                                    <script type="text/javascript">
+                                        $(window).load(function () {
+                                            $('#confirmDeleteModal').modal('show');
+                                        });
+                                    </script>
+
                                     <div class="form-group has-error">
                                         <label for="password" class="col-md-2">Password:</label>
                                         <input class="form-control" name="password" type="password" value="" />
