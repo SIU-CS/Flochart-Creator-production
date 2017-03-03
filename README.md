@@ -1,19 +1,18 @@
 #CS 435 Term Project: Flowchart Creator
-An application that will allow users to easily create flowcharts. 
 
-Sam Messina
+## Description
+An application that will allow users to easily create flowcharts. They will be able to create conditionals, loops, and various basic constructs.
 
-samuel.messina@siu.edu
+## Team Members
+### Front-End
+Sam Messina : samuel.messina@siu.edu
 
-Taylor Flatt
+Reid Tevonian: rtevonian@siu.edu
 
-taylorjflatt@gmail.com
+### Back-end
+Taylor Flatt: taylorjflatt@gmail.com
 
-Michael Easton
+Michael Easton: michael.easton@siu.edu
 
-michael.easton@siu.edu
-
-Reid Tevonian
-
-rtevonian@siu.edu
-
+## Usage
+In future iterations, there will be a website setup to host the project. In the meantime, simply download and import the project into Visual Studio 2017 RC2. Then run it.
