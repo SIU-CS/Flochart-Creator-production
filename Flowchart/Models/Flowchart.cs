@@ -24,6 +24,6 @@ namespace FlowchartCreator.Models
         public DateTime LastModified { get; set; }
 
         [NotMapped]
-        public List<StepsViewModel> Steps { get; set; }
+        public virtual IEnumerable<StepsViewModel> Steps { get; set; }
     }
 }
