@@ -19,6 +19,11 @@ namespace FlowchartCreator.Models
 
         public string CreatedBy { get; set; }
 
+        /// Michael: This needs to be mapped to a particular username from 
+        /// the ApplicationUser. You will need a virtual property pointing 
+        /// to this as well. Remember, we don't map virtual properties as 
+        /// well. Be sure to brush up on Data Annotations or Fluent Validation.
+        /// The latter is probably the better way to go eventually.
         public DateTime CreatedDate { get; set; }
 
         public DateTime LastModified { get; set; }
