@@ -12,12 +12,13 @@ class Canvas extends React.Component {
             titleText: "",
             descriptionText: ""
         }
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+        this.openModal               = this.openModal.bind(this);
+        this.closeModal              = this.closeModal.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.addNewStep = this.addNewStep.bind(this);
-        this.createStepComponent = this.createStepComponent.bind(this);
+        this.handleTitleChange       = this.handleTitleChange.bind(this);
+        this.addNewStep              = this.addNewStep.bind(this);
+        this.createStepComponent     = this.createStepComponent.bind(this);
+        this.createComponentsFromStepList     = this.createComponentsFromStepList.bind(this);
     }
 
     componentDidMount() {
@@ -27,9 +28,7 @@ class Canvas extends React.Component {
         }
         else if (this.state.stepList &&
             this.state.stepList.length > 0) {
-            this.setState({
-                body: this.state.stepList
-            });
+            this.createComponentsFromStepList();
 
         }
         else {
@@ -46,20 +45,57 @@ class Canvas extends React.Component {
     handleDescriptionChange(event) {
         this.setState({ descriptionText: event.target.value });
     }
-    openModal() { this.setState({ modalIsOpen: true }); }
-    closeModal() { this.setState({ modalIsOpen: false }); }
+    openModal() {
+        let newBody = this.state.body;
+        if (Array.isArray(newBody))
+            newBody = newBody.map((step) => {
+                return React.cloneElement(step, {overlayEnabled: false})
+            });
+        this.setState({
+            modalIsOpen: true,
+            body: newBody
+        });
+    }
+    closeModal() {
+        let newBody = this.state.body;
+        if (Array.isArray(newBody))
+            newBody = newBody.map((step) => {
+                return React.cloneElement(step, {overlayEnabled: true})
+            });
+        this.setState({
+            modalIsOpen: false,
+            descriptionText: "",
+            body: newBody,
+            titleText: ""
+        });
+    }
 
     // Step functionality
     createStepComponentList() {
         // TODO pull in parser data and create step components
     }
 
-    createStepComponent() {
+    createComponentsFromStepList() {
+        console.log(this.state.stepList);
+        let stepComponentList = [];
+
+        stepComponentList = this.state.stepList.map((step) => {
+            return this.createStepComponent(step);
+        });
+
+        this.setState({
+            body: stepComponentList
+        });
+    }
+
+    createStepComponent(newStep) {
         return (
-            <FlowchartStep title={this.state.titleText}
-                description={this.state.descriptionText}
-                key={this.state.stepList.length}
-                id={this.state.stepList.length} />
+            <FlowchartStep title={newStep.title}
+                           description={newStep.description}
+                           key={newStep.key}
+                           addNewStep= {this.openModal}
+                           overlayEnabled={true}
+                           id={newStep.id} />
         );
     }
 
@@ -67,16 +103,19 @@ class Canvas extends React.Component {
         let stepList = this.state.stepList;
         stepList.push(newStep);
         this.setState({
-            stepList: stepList,
-            body: stepList,
-            titleText: "",
-            descriptionText: ""
-        });
+            stepList: stepList
+        }, this.createComponentsFromStepList);
     }
 
-    addNewStep(event) {
+    addNewStep(event, callback) {
         event.preventDefault();
-        let newStep = this.createStepComponent();
+        let newStep = {
+            title: this.state.titleText,
+            description: this.state.descriptionText,
+            key: this.state.stepList.length,
+            overlayEnabled: true,
+            id: this.state.stepList.length
+        };
         this.addToStepList(newStep);
         this.closeModal();
     }
