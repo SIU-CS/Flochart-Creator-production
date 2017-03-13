@@ -142,6 +142,24 @@ class Canvas extends React.Component {
         }, this.createComponentsFromStepList);
     }
 
+    editStep(event) {
+        event.preventDefault();
+        let newStepList = this.state.stepList;
+        newStepList = newStepList.map((step) => {
+            if (step.id === this.state.editStepId) {
+                step.title = this.state.titleText,
+                step.description = this.state.descriptionText
+            }
+            return step
+        });
+
+        this.setState({
+            stepList: newStepList
+        }, this.createComponentsFromStepList);
+
+        this.closeEditStepModal();
+    }
+
     addNewStep(event) {
         event.preventDefault();
         let newStep = {
@@ -165,7 +183,6 @@ class Canvas extends React.Component {
         return (
             <div>
                 {this.state.stepComponentList}
-
                 <Modal isOpen={this.state.editStepModalIsOpen}
                     onRequestClose={this.closeEditStepModal}
                     contentLabel="Edit Step Modal">
@@ -194,7 +211,7 @@ class Canvas extends React.Component {
                                         onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
-                            <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
+                            <button className="btn btn-success" onClick={this.editStep}>Add Step</button>
                         </div>
                     </form>
                 </Modal>
@@ -226,7 +243,7 @@ class Canvas extends React.Component {
                                         onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
-                            <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
+                            <button className="btn btn-success" onClick={this.addNewStep}>Edit Step</button>
                         </div>
                     </form>
                 </Modal>
