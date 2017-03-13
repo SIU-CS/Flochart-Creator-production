@@ -5,7 +5,8 @@ class FlowchartStep extends React.Component {
             id: "",
             title: "",
             description: "",
-            children: []
+            children: [],
+            parentId: -1
         }
         this.addNewStep = this.addNewStep.bind(this);
     }
@@ -15,18 +16,13 @@ class FlowchartStep extends React.Component {
             id: this.props.id,
             title: this.props.title,
             description: this.props.description,
-            overlayEnabled: true
-
+            parentId: this.props.parentId,
+            children: this.props.children || this.state.children
         });
     }
 
     addNewStep() {
-        this.setState({
-            overlayEnabled: false
-        });
-        this.props.addNewStep(() => {
-            this.setState({overlayEnabled: true});
-        });
+        this.props.addNewStep(this.state.id);
     }
 
     render() {
@@ -36,7 +32,7 @@ class FlowchartStep extends React.Component {
                 <div className="flowchart-overlay" style={{zIndex: this.props.overlayEnabled ? 1 : 0}} >
                     {/* Overlay on top of the step */}
                     <button className="btn edit-step-btn btn-warning">
-                        <span className="glyphicon glyphicon-pencil"></span>
+                        <span onClick={this.props.editStep} className="glyphicon glyphicon-pencil"></span>
                     </button>
                     <button onClick={this.addNewStep} className="btn add-child-btn btn-success">
                         <span className="glyphicon glyphicon-plus"></span>

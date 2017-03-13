@@ -7,13 +7,15 @@ class Canvas extends React.Component {
         super();
         this.state = {
             stepList: [],
-            body: [],
-            modalIsOpen: false,
+            stepComponentList: [],
+            newStepModalIsOpen: false,
             titleText: "",
             descriptionText: ""
         }
-        this.openModal               = this.openModal.bind(this);
-        this.closeModal              = this.closeModal.bind(this);
+        this.openNewStepModal               = this.openNewStepModal.bind(this);
+        this.closeNewStepModal              = this.closeNewStepModal.bind(this);
+        this.openEditStepModal               = this.openEditStepModal.bind(this);
+        this.closeEditStepModal              = this.closeEditStepModal.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleTitleChange       = this.handleTitleChange.bind(this);
         this.addNewStep              = this.addNewStep.bind(this);
@@ -33,58 +35,89 @@ class Canvas extends React.Component {
         }
         else {
             this.setState({
-                body: <AddStepButton handleClick={() => { this.openModal() }} />
+                stepComponentList: <AddStepButton handleClick={() => { this.openNewStepModal() }} />
             });
         }
     }
 
     // Modal Stuff
+    editOverlay(boolean) {
+        let newStepComponentList = this.state.stepComponentList;
+        if (Array.isArray(newStepComponentList))
+            newStepComponentList = newStepComponentList.map((step) => {
+                return React.cloneElement(step, {overlayEnabled: boolean})
+            });
+        return newStepComponentList;
+    }
+
     handleTitleChange(event) {
         this.setState({ titleText: event.target.value });
     }
     handleDescriptionChange(event) {
         this.setState({ descriptionText: event.target.value });
     }
-    openModal() {
-        let newBody = this.state.body;
-        if (Array.isArray(newBody))
-            newBody = newBody.map((step) => {
-                return React.cloneElement(step, {overlayEnabled: false})
-            });
+    openNewStepModal(parentId) {
         this.setState({
-            modalIsOpen: true,
-            body: newBody
+            newStepModalIsOpen: true,
+            stepComponentList: this.editOverlay(false),
+            parentId: parentId
         });
     }
-    closeModal() {
-        let newBody = this.state.body;
-        if (Array.isArray(newBody))
-            newBody = newBody.map((step) => {
-                return React.cloneElement(step, {overlayEnabled: true})
-            });
+    closeNewStepModal() {
         this.setState({
-            modalIsOpen: false,
+            newStepModalIsOpen: false,
             descriptionText: "",
-            body: newBody,
-            titleText: ""
+            stepComponentList: this.editOverlay(true),
+            titleText: "",
+            parentId: -1,
+            newChildId: -1
         });
     }
 
-    // Step functionality
-    createStepComponentList() {
-        // TODO pull in parser data and create step components
+    openEditStepModal(stepId) {
+        let stepTitle, stepDescription;
+        for (let step of this.state.stepList) {
+            if (step && step.id === stepId) {
+                stepTitle = step.title;
+                stepDescription = step.description;
+            }
+        }
+        this.setState({
+            editStepModalIsOpen: true,
+            stepComponentList: this.editOverlay(false),
+            editStepId: stepId,
+            titleText: stepTitle,
+            descriptionText: stepDescription
+        });
+    }
+
+    closeEditStepModal() {
+        this.setState({
+            editStepModalIsOpen: false,
+            descriptionText: "",
+            stepComponentList: this.editOverlay(true),
+            titleText: "",
+            parentId: -1,
+            newChildId: -1,
+            editStepId: -1
+        });
     }
 
     createComponentsFromStepList() {
-        console.log(this.state.stepList);
         let stepComponentList = [];
 
         stepComponentList = this.state.stepList.map((step) => {
+            if (this.state.parentId > -1 &&
+                step &&
+                step.id === this.state.parentId &&
+                this.state.newChildId) {
+                step.children.push(this.state.newChildId);
+            }
             return this.createStepComponent(step);
         });
 
         this.setState({
-            body: stepComponentList
+            stepComponentList: stepComponentList
         });
     }
 
@@ -93,8 +126,10 @@ class Canvas extends React.Component {
             <FlowchartStep title={newStep.title}
                            description={newStep.description}
                            key={newStep.key}
-                           addNewStep= {this.openModal}
-                           overlayEnabled={true}
+                           addNewStep= {this.openNewStepModal}
+                           editStep={this.openEditStepModal}
+                           parentId={newStep.parentId}
+                           children={newStep.children}
                            id={newStep.id} />
         );
     }
@@ -107,26 +142,64 @@ class Canvas extends React.Component {
         }, this.createComponentsFromStepList);
     }
 
-    addNewStep(event, callback) {
+    addNewStep(event) {
         event.preventDefault();
         let newStep = {
             title: this.state.titleText,
             description: this.state.descriptionText,
             key: this.state.stepList.length,
-            overlayEnabled: true,
+            children: [],
             id: this.state.stepList.length
         };
+        if (this.state.parentId > -1) {
+            this.setState({
+                newChildId: this.state.stepList.length
+            });
+            newStep.parentId = this.state.parentId
+        }
         this.addToStepList(newStep);
-        this.closeModal();
+        this.closeNewStepModal();
     }
 
     render() {
         return (
             <div>
-                {this.state.body}
+                {this.state.stepComponentList}
 
-                <Modal isOpen={this.state.modalIsOpen}
-                    onRequestClose={this.closeModal}
+                <Modal isOpen={this.state.editStepModalIsOpen}
+                    onRequestClose={this.closeEditStepModal}
+                    contentLabel="Edit Step Modal">
+                    <form>
+                        <div className="form-horizontal">
+                            <h4>Edit Step</h4>
+                            <hr />
+                            <div className="form-group">
+                                <label className="col-md-2" htmlFor="Title">Title</label>
+                                <div className="col-md-10">
+                                    <input htmlFor="Title"
+                                        id="Title"
+                                        className="form-control"
+                                        value={this.state.titleText}
+                                        onChange={this.handleTitleChange} />
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="col-md-2" htmlFor="Description">Description</label>
+                                <div className="col-md-10">
+                                    <textarea rows="5"
+                                        id="Description"
+                                        htmlFor="Description"
+                                        className="form-control"
+                                        value={this.state.descriptionText}
+                                        onChange={this.handleDescriptionChange} />
+                                </div>
+                            </div>
+                            <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
+                        </div>
+                    </form>
+                </Modal>
+                <Modal isOpen={this.state.newStepModalIsOpen}
+                    onRequestClose={this.closeNewStepModal}
                     contentLabel="New Step Modal">
                     <form>
                         <div className="form-horizontal">
