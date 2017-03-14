@@ -298,7 +298,7 @@ class Canvas extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="flowchart-canvas">
                 {/*************************************************************
                   *  Flowchart Steps
                   *************************************************************/}
