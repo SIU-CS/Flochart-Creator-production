@@ -8,7 +8,6 @@ class FlowchartStep extends React.Component {
             children: [],
             parentId: -1
         }
-        this.addNewStep = this.addNewStep.bind(this);
     }
 
     componentDidMount() {
@@ -30,7 +29,7 @@ class FlowchartStep extends React.Component {
                     <button onClick={() => this.props.editStep(this.state.id)} className="btn edit-step-btn btn-warning">
                         <span className="glyphicon glyphicon-pencil"></span>
                     </button>
-                    <button onClick={() => this.props.addNewStep(this.state.id)} className="btn add-child-btn btn-success">
+                    <button onClick={() => this.props.addStep(this.state.id)} className="btn add-child-btn btn-success">
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
                     <button onClick={() => this.props.deleteStep(this.state.id)} className="btn delete-step-btn btn-danger">
