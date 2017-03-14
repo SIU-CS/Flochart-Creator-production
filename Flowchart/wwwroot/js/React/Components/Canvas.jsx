@@ -9,6 +9,8 @@ class Canvas extends React.Component {
             stepList:            [],
             stepComponentList:   [],
             newStepModalIsOpen:  false,
+            editStepModalIsOpen:  false,
+            deleteStepModalIsOpen:  false,
             titleText:           "",
             descriptionText:     ""
         }
@@ -16,10 +18,13 @@ class Canvas extends React.Component {
         this.closeNewStepModal            = this.closeNewStepModal.bind(this);
         this.openEditStepModal            = this.openEditStepModal.bind(this);
         this.closeEditStepModal           = this.closeEditStepModal.bind(this);
+        this.openDeleteStepModal          = this.openDeleteStepModal.bind(this);
+        this.closeDeleteStepModal         = this.closeDeleteStepModal.bind(this);
         this.handleDescriptionChange      = this.handleDescriptionChange.bind(this);
         this.handleTitleChange            = this.handleTitleChange.bind(this);
         this.addNewStep                   = this.addNewStep.bind(this);
         this.editStep                     = this.editStep.bind(this);
+        this.deleteStep                   = this.deleteStep.bind(this);
         this.createStepComponent          = this.createStepComponent.bind(this);
         this.createComponentsFromStepList = this.createComponentsFromStepList.bind(this);
     }
@@ -115,31 +120,67 @@ class Canvas extends React.Component {
         });
     }
 
+    openDeleteStepModal(stepId) {
+        /** Open "New Step" Modal
+         *    Opens the modal form for deleting a step
+         */
+        this.setState({
+            deleteStepModalIsOpen: true,
+            stepComponentList:     this.editOverlay(false),
+            deleteStepId:            stepId
+        });
+    }
+
+    closeDeleteStepModal() {
+        /** Close "Delete Step" Modal
+         *    Closes the modal form for deleting a step
+         */
+        this.setState({
+            deleteStepModalIsOpen:  false,
+            stepComponentList:      this.editOverlay(true),
+            deleteStepId:           -1
+        });
+    }
+
     /**************************************************************
      * FORM SUBMISSION FUNCTIONS
      *************************************************************/
 
-    addToStepList(newStep) {
-        /** Add Step To Step List
-         *    Adds a json step to this.state.steplist
-         *
-         *  @info: updates this.state.stepList with result and calls createComponentsFromStepList
-         */
+    editStep(event) {
         event.preventDefault();
         let newStepList = this.state.stepList;
         newStepList = newStepList.map((step) => {
             if (step.id === this.state.editStepId) {
-                step.title = this.state.titleText,
-                step.description = this.state.descriptionText
+                step.title = this.state.titleText;
+                step.description = this.state.descriptionText;
             }
-            return step
+            return step;
         });
-
         this.setState({
             stepList: newStepList
-        }, this.createComponentsFromStepList);
-
+        });
+        this.createComponentsFromStepList(newStepList);
         this.closeEditStepModal();
+    }
+
+    deleteStep(event) {
+        /** Delete Step
+         *    Main driver for delete step form. Called on "Delete Step" form submit
+         */
+        event.preventDefault();
+        if (this.state.deleteStepId > -1) {
+            let newStepList = [];
+            for (let step of this.state.stepList) {
+                if (step.id !== this.state.deleteStepId){
+                    newStepList.push(step);
+                }
+            }
+            this.setState({
+                stepList: newStepList
+            });
+            this.createComponentsFromStepList(newStepList);
+        }
+        this.closeDeleteStepModal();
     }
 
     addNewStep(event) {
@@ -168,28 +209,29 @@ class Canvas extends React.Component {
      * INTERMEDIARY FUNCTIONS
      *************************************************************/
 
-    deleteStep(stepId) {
-        /** Delete Step
+    addToStepList(newStep) {
+        /** Add Step To Step List
+         *    Adds a json step to this.state.steplist
          *
+         *  @info: updates this.state.stepList with result and calls createComponentsFromStepList
          */
-        let stepList = [];
-        for (let step of this.state.stepList) {
-            if (step.id !== stepId) {
-                if (step.parentId = stepId)
-                    step.parentId = -1;
-                let newChildren = []
-                for (let child of step.children) {
-                    if (child !== stepId)
-                        newChildren.push(child);
-                }
-                step.children = newChildren;
-                stepList.push(step);
+        let newStepList = this.state.stepList;
+        newStepList.push(newStep);
+        newStepList = newStepList.map((step) => {
+            if (step.id === this.state.editStepId) {
+                step.title = this.state.titleText,
+                step.description = this.state.descriptionText
             }
-        }
-        this.createComponentsFromStepList();
+            return step
+        });
+
+        this.setState({
+            stepList: newStepList
+        });
+        this.createComponentsFromStepList(newStepList);
     }
 
-    createComponentsFromStepList() {
+    createComponentsFromStepList(stepList) {
         /** Create Components From Step List
          *    Create a list of step components based on json objects stored in state
          *
@@ -198,7 +240,8 @@ class Canvas extends React.Component {
 
         let stepComponentList = [];
 
-        stepComponentList = this.state.stepList.map((step) => {
+        stepComponentList = stepList ? stepList : this.state.stepList;
+        stepComponentList = stepComponentList.map((step) => {
             if (this.state.parentId > -1 &&
                 step &&
                 step.id === this.state.parentId &&
@@ -224,7 +267,7 @@ class Canvas extends React.Component {
                 key         = {newStep.key}
                 addNewStep  = {this.openNewStepModal}
                 editStep    = {this.openEditStepModal}
-                deleteStep  = {this.deleteStep}
+                deleteStep  = {this.openDeleteStepModal}
                 parentId    = {newStep.parentId}
                 children    = {newStep.children}
                 id          = {newStep.id} />
@@ -323,6 +366,12 @@ class Canvas extends React.Component {
                             <button className="btn btn-success" onClick={this.addNewStep}>Add Step</button>
                         </div>
                     </form>
+                </Modal>
+                <Modal isOpen={this.state.deleteStepModalIsOpen}
+                       onRequestClose={this.closeDeleteStepModal}
+                       contentLabel="Delete Step Modal">
+                    <button onClick={this.deleteStep} className="btn btn-warning">Delete Step</button>
+                    <button onClick={this.closeDeleteStepModal} className="btn btn-default">Cancel</button>
                 </Modal>
             </div>
         );
