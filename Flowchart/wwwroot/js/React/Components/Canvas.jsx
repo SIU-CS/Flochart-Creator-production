@@ -166,11 +166,14 @@ class Canvas extends React.Component {
          */
         event.preventDefault();
         if (this.state.deleteStepId > -1) {
+            // remove step from steplist
             let newStepList = this.state.stepList.filter((step) => {
                 return step.id !== this.state.deleteStepId
             });
-            if (newStepList.length === 0) {
-            }
+
+            // remove and children/parent relationships
+            newStepList = this.purgeChildAndParent(newStepList);
+
             this.createComponentsFromStepList(newStepList);
         }
         this.closeDeleteStepModal();
@@ -218,6 +221,21 @@ class Canvas extends React.Component {
      * INTERMEDIARY FUNCTIONS
      *************************************************************/
 
+    purgeChildAndParent(stepList) {
+        return stepList.map((step) => {
+
+            // remove parent id if parent is being deleted
+            if (step.parentId === this.state.deleteStepId)
+                step.parentId = "";
+
+            // remove child id from children if child is being deleted
+            let childIndex = step.children.indexOf(this.state.deleteStepId);
+            if (childIndex >= 0)
+                step.children.splice(childIndex, 1);
+
+            return step;
+        });
+    }
 
     createComponentsFromStepList(stepList) {
         /** Create Components From Step List
