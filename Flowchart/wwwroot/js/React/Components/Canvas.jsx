@@ -193,6 +193,7 @@ class Canvas extends React.Component {
             description: this.state.descriptionText,
             key:         newChildId,
             children:    [],
+            parentId:    null,
             id:          newChildId
         };
 
@@ -226,7 +227,7 @@ class Canvas extends React.Component {
 
             // remove parent id if parent is being deleted
             if (step.parentId === this.state.deleteStepId)
-                step.parentId = "";
+                step.parentId = null;
 
             // remove child id from children if child is being deleted
             let childIndex = step.children.indexOf(this.state.deleteStepId);
@@ -247,10 +248,15 @@ class Canvas extends React.Component {
         let stepComponentList = [];
 
         // create a list of components based on the json objects
+        console.log(stepList)
         if (stepList.length) {
-            stepComponentList = stepList.map((step) => {
-                return this.createStepComponent(step);
-            });
+            stepComponentList = stepList
+                .filter((step) => {
+                    return step.parentId === null;
+                })
+                .map((step) => {
+                    return this.createStepComponent(step);
+                });
             // update the step list and the step component list
             this.setState({
                 stepList: stepList,
@@ -279,8 +285,8 @@ class Canvas extends React.Component {
                 key         = {newStep.key}
                 addStep     = {this.openAddStepModal}
                 editStep    = {this.openEditStepModal}
-                deleteStep = {this.openDeleteStepModal}
-                parentId    = {newStep.parentId}
+                deleteStep  = {this.openDeleteStepModal}
+                parentId   = {newStep.parentId}
                 children    = {newStep.children}
                 id          = {newStep.id} />
         );

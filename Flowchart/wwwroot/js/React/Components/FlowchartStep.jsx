@@ -6,7 +6,7 @@ class FlowchartStep extends React.Component {
             title: "",
             description: "",
             children: [],
-            parentId: -1
+            parentId: null
         }
     }
 
