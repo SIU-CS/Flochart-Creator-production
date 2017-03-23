@@ -70,7 +70,6 @@
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.0);
     padding: 45% 10px;
-    z-index: 1000;
     position: relative;
     width: 250px;
     height: 300px;
@@ -83,7 +82,8 @@
 }
 
 .flowchart-overlay:hover .overlay-btn {
-    display: inline-block;
+    display: block;
+    float: left;
 }
 
 .flowchart-step-title {
@@ -101,6 +101,8 @@
     height: 300px;
     border: 1px solid black;
     border-radius: 20px;
+    display: inline-block;
+    margin: 0 10px;
 }
 
 .add-step-btn {
@@ -116,6 +118,7 @@
 .flowchart-canvas,
 #flowchart-canvas {
     min-height: 75vh;
+    white-space: nowrap;
 }
 
 .ReactModal__Content--after-open {
