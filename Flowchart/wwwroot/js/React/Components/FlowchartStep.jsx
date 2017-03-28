@@ -6,7 +6,8 @@ class FlowchartStep extends React.Component {
             title: "",
             description: "",
             children: [],
-            parentId: null
+            parentId: null,
+            childComponents: []
         }
     }
 
@@ -20,29 +21,39 @@ class FlowchartStep extends React.Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        let childComponents = this.props.createChildComponents(nextProps.children);
+        this.setState({
+            childComponents: childComponents
+        });
+    }
 
     render() {
         return (
-            <div className="flowchart-step-container">
-                <div className="flowchart-overlay" style={{zIndex: this.props.overlayEnabled ? 1 : 0}} >
-                    {/* Overlay on top of the step */}
-                    <button onClick={() => this.props.editStep(this.state.id)} className="btn edit-step-btn btn-warning">
-                        <span className="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button onClick={() => this.props.addStep(this.state.id)} className="btn add-child-btn btn-success">
-                        <span className="glyphicon glyphicon-plus"></span>
-                    </button>
-                    <button onClick={() => this.props.deleteStep(this.state.id)} className="btn delete-step-btn btn-danger">
-                        <span className="glyphicon glyphicon-trash"></span>
-                    </button>
-                </div>
+            <div className="flowchart-step-wrapper">
+                <div className="flowchart-step">
+                    <div className="flowchart-overlay" >
+                        {/* Overlay on top of the step */}
+                        <button onClick={() => this.props.editStep(this.state.id)} className="btn edit-step-btn btn-warning">
+                            <span className="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button onClick={() => this.props.addStep(this.state.id)} className="btn add-child-btn btn-success">
+                            <span className="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <button onClick={() => this.props.deleteStep(this.state.id)} className="btn delete-step-btn btn-danger">
+                            <span className="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
 
-                <div className="flowchart-contents" >
-                    {/* Actual content of the step */}
-                    <p className="flowchart-step-title">{this.props.title}</p>
-                    <hr />
-                    <p className="flowchart-step-description">{this.props.description}</p>
+                    <div className="flowchart-contents" >
+                        {/* Actual content of the step */}
+                        <p className="flowchart-step-title">{this.props.title}</p>
+                        <hr />
+                        <p className="flowchart-step-description">{this.props.description}</p>
+                    </div>
                 </div>
+                <br/><br/>
+                {this.state.childComponents}
             </div>
         )
     }
