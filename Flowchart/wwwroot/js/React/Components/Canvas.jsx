@@ -27,6 +27,7 @@ class Canvas extends React.Component {
         this.deleteStep                   = this.deleteStep.bind(this);
         this.createStepComponent          = this.createStepComponent.bind(this);
         this.createComponentsFromStepList = this.createComponentsFromStepList.bind(this);
+this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this);
     }
 
     /**************************************************************
@@ -248,13 +249,12 @@ class Canvas extends React.Component {
         let stepComponentList = [];
 
         // create a list of components based on the json objects
-        console.log(stepList)
         if (stepList.length) {
             stepComponentList = stepList
-                .filter((step) => {
+                .filter((step) => { // only show top-level steps
                     return step.parentId === null;
                 })
-                .map((step) => {
+                .map((step) => {    // create components for each top-level step
                     return this.createStepComponent(step);
                 });
             // update the step list and the step component list
@@ -286,11 +286,30 @@ class Canvas extends React.Component {
                 addStep     = {this.openAddStepModal}
                 editStep    = {this.openEditStepModal}
                 deleteStep  = {this.openDeleteStepModal}
+                getChildrenById = {this.getChildrenById}
                 parentId   = {newStep.parentId}
                 children    = {newStep.children}
+                createChildComponents = {this.createChildComponentsFromIds}
                 id          = {newStep.id} />
         );
     }
+
+    createChildComponentsFromIds(childIdList) {
+        let childObjectList = this.getChildrenById(childIdList);
+        let childComponentList = childObjectList.map((child) => {
+            return this.createStepComponent(child);
+        });
+        return childComponentList;
+    }
+
+    getChildrenById(childIdList) {
+        let childList = this.state.stepList.filter((step) => {
+            return childIdList.includes(step.id);
+        });
+        return childList;
+    }
+
+
 
     /**************************************************************
      * REACT FUNCTIONS
