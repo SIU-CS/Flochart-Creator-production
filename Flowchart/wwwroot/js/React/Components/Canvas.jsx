@@ -33,19 +33,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
     /**************************************************************
      * MODAL FUNCTIONS
      *************************************************************/
-    editOverlay(boolean) {
-        /** Edit Overlay
-         *    Sets the overlayEnabled prop to <boolean> for every component
-         *
-         *  @info: overlayEnabled sets the overlay's z-index so it doesn't interfere with the modal
-         */
-        let newStepComponentList = this.state.stepComponentList;
-        if (Array.isArray(newStepComponentList))
-            newStepComponentList = newStepComponentList.map((step) => {
-                return React.cloneElement(step, {overlayEnabled: boolean})
-            });
-        return newStepComponentList;
-    }
 
     handleTitleChange(event) {
         /** Handle Title Change
@@ -67,7 +54,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
          */
         this.setState({
             addStepModalIsOpen: true,
-            stepComponentList:  this.editOverlay(false),
             parentId:           parentId
         });
     }
@@ -79,7 +65,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
         this.setState({
             addStepModalIsOpen:  false,
             descriptionText:     "",
-            stepComponentList:   this.editOverlay(true),
             titleText:           "",
             parentId:            -1,
             newChildId:          -1
@@ -99,7 +84,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
         }
         this.setState({
             editStepModalIsOpen:  true,
-            stepComponentList:    this.editOverlay(false),
             editStepId:           stepId,
             titleText:            titleText,
             descriptionText:      descriptionText
@@ -113,7 +97,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
         this.setState({
             editStepModalIsOpen:  false,
             descriptionText:      "",
-            stepComponentList:    this.editOverlay(true),
             titleText:            "",
             parentId:             -1,
             newChildId:           -1,
@@ -127,7 +110,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
          */
         this.setState({
             deleteStepModalIsOpen: true,
-            stepComponentList:      this.editOverlay(false),
             deleteStepId:          stepId
         });
     }
@@ -138,7 +120,6 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
          */
         this.setState({
             deleteStepModalIsOpen: false,
-            stepComponentList:      this.editOverlay(true),
             deleteStepId:          -1
         });
     }
