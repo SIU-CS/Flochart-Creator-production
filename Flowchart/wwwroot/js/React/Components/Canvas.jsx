@@ -169,7 +169,8 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
         let newChildId, newStep, newStepList;
 
         newStepList = this.state.stepList;
-        newChildId  = newStepList.length;
+        newChildId  = this.getNewStepId(newStepList.length);
+
         newStep     = {
             title:       this.state.titleText,
             description: this.state.descriptionText,
@@ -203,6 +204,16 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
     /**************************************************************
      * INTERMEDIARY FUNCTIONS
      *************************************************************/
+
+
+    getNewStepId(potentialId) {
+        for (let step of this.state.stepList) {
+            if (step.id === potentialId) {
+                potentialId = this.getNewStepId(potentialId+1);
+            }
+        }
+        return potentialId;
+    }
 
     purgeChildAndParent(stepList) {
         return stepList.map((step) => {
@@ -258,6 +269,8 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
         /** Create Step Component
          *    Takes in a json step object and creates a React component for it
          */
+
+
         return (
             // this is the fingerprint of a step
             <FlowchartStep
