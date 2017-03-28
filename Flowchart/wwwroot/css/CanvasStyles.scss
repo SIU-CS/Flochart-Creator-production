@@ -59,6 +59,7 @@
     width: 250px;
     height: 300px;
     padding: 10px;
+    z-index: -1;
 }
 
 .flowchart-contents:hover {
@@ -96,13 +97,18 @@
     padding: 15px 0px;
 }
 
-.flowchart-step-container {
+.flowchart-step-wrapper{
+    display: inline-block;
+}
+
+.flowchart-step{
     width: 250px;
     height: 300px;
     border: 1px solid black;
     border-radius: 20px;
     display: inline-block;
     margin: 0 10px;
+    z-index: -1;
 }
 
 .add-step-btn {
