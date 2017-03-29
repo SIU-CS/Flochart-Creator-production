@@ -261,8 +261,7 @@ class Canvas extends React.Component {
         else {
             // if there are no steps left, show the new step button
             this.setState({
-                stepComponentList: <AddStepButton handleClick={() => { this.openAddStepModal() }} />,
-                stepList: [],
+                stepList: []
             });
         }
 
@@ -331,7 +330,7 @@ class Canvas extends React.Component {
         else {
             // if no steps are in the props or the state, just show the initial new step button
             this.setState({
-                stepComponentList: <AddStepButton handleClick={() => { this.openAddStepModal() }} />
+                stepList: []
             });
         }
     }
@@ -356,11 +355,14 @@ class Canvas extends React.Component {
     render() {
         return (
             <div className="flowchart-canvas">
+                <div className="flowchart-nav">
                 <button id="save-flowchart-button"
                         className="btn btn-success"
                         onClick={this.sendFlowchartData}>
                     Save Flowchart
                 </button>
+            <AddStepButton handleClick={() => { this.openAddStepModal() }} />
+                </div>
                 {/*************************************************************
                   *  Flowchart Steps
                   *************************************************************/}
