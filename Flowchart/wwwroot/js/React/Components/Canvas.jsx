@@ -359,7 +359,7 @@ class Canvas extends React.Component {
                 <button id="save-flowchart-button"
                         className="btn btn-success"
                         onClick={this.sendFlowchartData}>
-                    Save Flowchart
+                    Save <br/>Flowchart
                 </button>
             <AddStepButton handleClick={() => { this.openAddStepModal() }} />
                 </div>
@@ -379,30 +379,30 @@ class Canvas extends React.Component {
                        contentLabel="Add Step Modal">
                     <form>
                         <div className="form-horizontal">
-                            <h4>Add New Step</h4>
+                            <h4 className="modal-text">Add New Step</h4>
                             <hr />
                             <div className="form-group">
-                                <label className="col-md-2" htmlFor="Title">Title</label>
-                                <div className="col-md-10">
+                                <label className=" modal-text col-md-12" htmlFor="Title">Title</label>
+                                <div className="col-md-12">
                                     <input htmlFor="Title"
                                            id="Title"
-                                           className="form-control"
+                                           className="form-control modal-input"
                                            value={this.state.titleText}
                                            onChange={this.handleTitleChange} />
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label className="col-md-2" htmlFor="Description">Description</label>
-                                <div className="col-md-10">
+                                <label className="col-md-12 modal-text" htmlFor="Description">Description</label>
+                                <div className="col-md-12">
                                     <textarea rows="5"
                                               id="Description"
                                               htmlFor="Description"
-                                              className="form-control"
+                                              className="form-control modal-input"
                                               value={this.state.descriptionText}
                                               onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
-                            <button className="btn btn-success" onClick={this.addStep}>Add Step</button>
+                            <button className="btn btn-success modal-button" onClick={this.addStep}>Add Step</button>
                         </div>
                     </form>
                 </Modal>
@@ -415,30 +415,30 @@ class Canvas extends React.Component {
                        contentLabel="Edit Step Modal">
                     <form>
                         <div className="form-horizontal">
-                            <h4>Edit Step</h4>
+                            <h4 className="modal-text">Edit Step</h4>
                             <hr />
                             <div className="form-group">
-                                <label className="col-md-2" htmlFor="Title">Title</label>
-                                <div className="col-md-10">
+                                <label className="col-md-12 modal-text" htmlFor="Title">Title</label>
+                                <div className="col-md-12">
                                     <input htmlFor="Title"
                                            id="Title"
-                                           className="form-control"
+                                           className="form-control modal-input"
                                            value={this.state.titleText}
                                            onChange={this.handleTitleChange} />
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label className="col-md-2" htmlFor="Description">Description</label>
-                                <div className="col-md-10">
+                                <label className="col-md-12 modal-text" htmlFor="Description">Description</label>
+                                <div className="col-md-12">
                                     <textarea rows="5"
                                               id="Description"
                                               htmlFor="Description"
-                                              className="form-control"
+                                              className="form-control modal-input"
                                               value={this.state.descriptionText}
                                               onChange={this.handleDescriptionChange} />
                                 </div>
                             </div>
-                            <button className="btn btn-success" onClick={this.editStep}>Edit Step</button>
+                            <button className="btn btn-success modal-button" onClick={this.editStep}>Edit Step</button>
                         </div>
                     </form>
                 </Modal>
@@ -450,8 +450,10 @@ class Canvas extends React.Component {
                 <Modal isOpen={this.state.deleteStepModalIsOpen}
                        onRequestClose={this.closeDeleteStepModal}
                        contentLabel="Delete Step Modal">
-                    <button onClick={this.deleteStep} className="btn btn-warning">Delete Step</button>
-                    <button onClick={this.closeDeleteStepModal} className="btn btn-default">Cancel</button>
+                    <h4 className="modal-text">Really Delete Step?</h4>
+                    <hr/>
+                    <button onClick={this.deleteStep} className="btn btn-warning delete-button">Delete Step</button>
+                    <button onClick={this.closeDeleteStepModal} className="btn btn-default delete-cancel-button">Cancel</button>
                 </Modal>
             </div>
         );
