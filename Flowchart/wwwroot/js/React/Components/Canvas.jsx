@@ -1,6 +1,7 @@
 ﻿import AddStepButton from './AddStepButton';
 import Modal from 'react-modal';
 import FlowchartStep from './FlowchartStep'
+import axios from 'axios';
 
 class Canvas extends React.Component {
     constructor() {
@@ -27,7 +28,9 @@ class Canvas extends React.Component {
         this.deleteStep                   = this.deleteStep.bind(this);
         this.createStepComponent          = this.createStepComponent.bind(this);
         this.createComponentsFromStepList = this.createComponentsFromStepList.bind(this);
-this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this);
+        this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this);
+
+        this.sendFlowchartData = this.sendFlowchartData.bind(this);
     }
 
     /**************************************************************
@@ -333,9 +336,31 @@ this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this)
         }
     }
 
+    sendFlowchartData() {
+        let url = window.location.href;
+        url = url.split("/");
+        url = url[url.length-1];
+
+        axios.post('/Flowchart/Edit/'+url, {
+            data: this.state.stepList
+        })
+             .then(function (response) {
+                 console.log("Success");
+                 console.log(response);
+             })
+             .catch(function (error) {
+                 console.log("Error");
+                 console.log(error);
+             });
+    }
     render() {
         return (
             <div className="flowchart-canvas">
+                <button id="save-flowchart-button"
+                        className="btn btn-success"
+                        onClick={this.sendFlowchartData}>
+                    Save Flowchart
+                </button>
                 {/*************************************************************
                   *  Flowchart Steps
                   *************************************************************/}
