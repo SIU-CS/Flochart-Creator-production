@@ -59,6 +59,7 @@
     width: 250px;
     height: 300px;
     padding: 10px;
+    z-index: -1;
 }
 
 .flowchart-contents:hover {
@@ -96,13 +97,20 @@
     padding: 15px 0px;
 }
 
-.flowchart-step-container {
+.flowchart-step-wrapper{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.flowchart-step{
     width: 250px;
     height: 300px;
     border: 1px solid black;
     border-radius: 20px;
     display: inline-block;
     margin: 0 10px;
+    z-index: -1;
 }
 
 .add-step-btn {
@@ -125,4 +133,12 @@
     margin: 48px auto 0;
     max-height: 70vh;
     max-width: 70vw;
+}
+
+#save-flowchart-button {
+    margin: 0px 20px 40px 20px;
+    float: right;
+    padding: 20px;
+    font-size: 200%;
+    background-color: green;
 }

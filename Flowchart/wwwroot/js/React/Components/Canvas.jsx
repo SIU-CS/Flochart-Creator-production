@@ -1,6 +1,7 @@
 ﻿import AddStepButton from './AddStepButton';
 import Modal from 'react-modal';
 import FlowchartStep from './FlowchartStep'
+import axios from 'axios';
 
 class Canvas extends React.Component {
     constructor() {
@@ -27,24 +28,14 @@ class Canvas extends React.Component {
         this.deleteStep                   = this.deleteStep.bind(this);
         this.createStepComponent          = this.createStepComponent.bind(this);
         this.createComponentsFromStepList = this.createComponentsFromStepList.bind(this);
+        this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this);
+
+        this.sendFlowchartData = this.sendFlowchartData.bind(this);
     }
 
     /**************************************************************
      * MODAL FUNCTIONS
      *************************************************************/
-    editOverlay(boolean) {
-        /** Edit Overlay
-         *    Sets the overlayEnabled prop to <boolean> for every component
-         *
-         *  @info: overlayEnabled sets the overlay's z-index so it doesn't interfere with the modal
-         */
-        let newStepComponentList = this.state.stepComponentList;
-        if (Array.isArray(newStepComponentList))
-            newStepComponentList = newStepComponentList.map((step) => {
-                return React.cloneElement(step, {overlayEnabled: boolean})
-            });
-        return newStepComponentList;
-    }
 
     handleTitleChange(event) {
         /** Handle Title Change
@@ -66,7 +57,6 @@ class Canvas extends React.Component {
          */
         this.setState({
             addStepModalIsOpen: true,
-            stepComponentList:  this.editOverlay(false),
             parentId:           parentId
         });
     }
@@ -78,7 +68,6 @@ class Canvas extends React.Component {
         this.setState({
             addStepModalIsOpen:  false,
             descriptionText:     "",
-            stepComponentList:   this.editOverlay(true),
             titleText:           "",
             parentId:            -1,
             newChildId:          -1
@@ -98,7 +87,6 @@ class Canvas extends React.Component {
         }
         this.setState({
             editStepModalIsOpen:  true,
-            stepComponentList:    this.editOverlay(false),
             editStepId:           stepId,
             titleText:            titleText,
             descriptionText:      descriptionText
@@ -112,7 +100,6 @@ class Canvas extends React.Component {
         this.setState({
             editStepModalIsOpen:  false,
             descriptionText:      "",
-            stepComponentList:    this.editOverlay(true),
             titleText:            "",
             parentId:             -1,
             newChildId:           -1,
@@ -126,7 +113,6 @@ class Canvas extends React.Component {
          */
         this.setState({
             deleteStepModalIsOpen: true,
-            stepComponentList:      this.editOverlay(false),
             deleteStepId:          stepId
         });
     }
@@ -137,7 +123,6 @@ class Canvas extends React.Component {
          */
         this.setState({
             deleteStepModalIsOpen: false,
-            stepComponentList:      this.editOverlay(true),
             deleteStepId:          -1
         });
     }
@@ -187,12 +172,14 @@ class Canvas extends React.Component {
         let newChildId, newStep, newStepList;
 
         newStepList = this.state.stepList;
-        newChildId  = newStepList.length;
+        newChildId  = this.getNewStepId(newStepList.length);
+
         newStep     = {
             title:       this.state.titleText,
             description: this.state.descriptionText,
             key:         newChildId,
             children:    [],
+            parentId:    null,
             id:          newChildId
         };
 
@@ -221,12 +208,22 @@ class Canvas extends React.Component {
      * INTERMEDIARY FUNCTIONS
      *************************************************************/
 
+
+    getNewStepId(potentialId) {
+        for (let step of this.state.stepList) {
+            if (step.id === potentialId) {
+                potentialId = this.getNewStepId(potentialId+1);
+            }
+        }
+        return potentialId;
+    }
+
     purgeChildAndParent(stepList) {
         return stepList.map((step) => {
 
             // remove parent id if parent is being deleted
             if (step.parentId === this.state.deleteStepId)
-                step.parentId = "";
+                step.parentId = null;
 
             // remove child id from children if child is being deleted
             let childIndex = step.children.indexOf(this.state.deleteStepId);
@@ -248,9 +245,13 @@ class Canvas extends React.Component {
 
         // create a list of components based on the json objects
         if (stepList.length) {
-            stepComponentList = stepList.map((step) => {
-                return this.createStepComponent(step);
-            });
+            stepComponentList = stepList
+                .filter((step) => { // only show top-level steps
+                    return step.parentId === null;
+                })
+                .map((step) => {    // create components for each top-level step
+                    return this.createStepComponent(step);
+                });
             // update the step list and the step component list
             this.setState({
                 stepList: stepList,
@@ -271,6 +272,8 @@ class Canvas extends React.Component {
         /** Create Step Component
          *    Takes in a json step object and creates a React component for it
          */
+
+
         return (
             // this is the fingerprint of a step
             <FlowchartStep
@@ -279,12 +282,31 @@ class Canvas extends React.Component {
                 key         = {newStep.key}
                 addStep     = {this.openAddStepModal}
                 editStep    = {this.openEditStepModal}
-                deleteStep = {this.openDeleteStepModal}
-                parentId    = {newStep.parentId}
+                deleteStep  = {this.openDeleteStepModal}
+                getChildrenById = {this.getChildrenById}
+                parentId   = {newStep.parentId}
                 children    = {newStep.children}
+                createChildComponents = {this.createChildComponentsFromIds}
                 id          = {newStep.id} />
         );
     }
+
+    createChildComponentsFromIds(childIdList) {
+        let childObjectList = this.getChildrenById(childIdList);
+        let childComponentList = childObjectList.map((child) => {
+            return this.createStepComponent(child);
+        });
+        return childComponentList;
+    }
+
+    getChildrenById(childIdList) {
+        let childList = this.state.stepList.filter((step) => {
+            return childIdList.includes(step.id);
+        });
+        return childList;
+    }
+
+
 
     /**************************************************************
      * REACT FUNCTIONS
@@ -314,9 +336,31 @@ class Canvas extends React.Component {
         }
     }
 
+    sendFlowchartData() {
+        let url = window.location.href;
+        url = url.split("/");
+        url = url[url.length-1];
+
+        axios.post('/Flowchart/Edit/'+url, {
+            data: this.state.stepList
+        })
+             .then(function (response) {
+                 console.log("Success");
+                 console.log(response);
+             })
+             .catch(function (error) {
+                 console.log("Error");
+                 console.log(error);
+             });
+    }
     render() {
         return (
             <div className="flowchart-canvas">
+                <button id="save-flowchart-button"
+                        className="btn btn-success"
+                        onClick={this.sendFlowchartData}>
+                    Save Flowchart
+                </button>
                 {/*************************************************************
                   *  Flowchart Steps
                   *************************************************************/}
