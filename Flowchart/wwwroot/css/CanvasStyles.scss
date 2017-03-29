@@ -115,12 +115,10 @@
 
 .add-step-btn {
     @extend .clickable;
+    margin: 0px 20px 40px 20px;
+    padding: 20px;
+    font-size: 200%;
     background-color: green;
-    height: 150px;
-    width: 150px;
-    color: white;
-    font-weight: 800;
-    font-size: 24px;
 }
 
 .flowchart-canvas,
@@ -136,9 +134,32 @@
 }
 
 #save-flowchart-button {
+    @extend .clickable;
     margin: 0px 20px 40px 20px;
     float: right;
     padding: 20px;
     font-size: 200%;
     background-color: green;
+}
+
+.hor-line {
+    border-bottom: 1px solid black;
+    position: relative;
+    top: 311px;
+    margin: 0 auto;
+}
+
+.bot-vert-line {
+    position: relative;
+    top: 312px;
+    border-left: 1px solid black;
+    margin: 0 auto;
+    width: 0px;
+}
+.top-vert-line {
+    position: relative;
+    top: 0px;
+    border-left: 1px solid black;
+    margin: -14px auto 0 auto;
+    width: 0px;
 }

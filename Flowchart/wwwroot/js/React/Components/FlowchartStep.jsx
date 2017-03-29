@@ -9,6 +9,7 @@ class FlowchartStep extends React.Component {
             parentId: null,
             childComponents: []
         }
+        this.drawLines = this.drawLines.bind(this);
     }
 
     componentDidMount() {
@@ -22,19 +23,49 @@ class FlowchartStep extends React.Component {
             parentId: this.props.parentId,
             childComponents: childComponents,
             children: this.props.children || this.state.children
-        });
+        }, this.drawLines());
     }
 
     componentWillReceiveProps(nextProps) {
         let childComponents = this.props.createChildComponents(nextProps.children);
         this.setState({
             childComponents: childComponents
-        });
+        }, this.drawLines());
+    }
+
+    drawLines() {
+        if (this.state.children.length > 1) {
+            this.setState({
+                horLineWidth: 270*(this.state.children.length-1) + "px",
+                botLineHeight: "12px"
+            });
+        }
+        else if(this.state.children.length === 1) {
+            this.setState({
+                botLineHeight: "12px"
+            });
+        }
+        else{
+            this.setState({
+                horLineWidth: 0,
+                botLineHeight: "0px"
+            });
+        }
+        console.log(this.state.title);
+        console.log(this.props.parentId);
+        if (this.props.parentId !== null) {
+            this.setState({
+                topLineHeight: "12px"
+            });
+        }
     }
 
     render() {
         return (
             <div className="flowchart-step-wrapper">
+                <div className="hor-line" style={{width: this.state.horLineWidth}}></div>
+                <div className="top-vert-line" style={{height: this.state.topLineHeight}}></div>
+                <div className="bot-vert-line" style={{height: this.state.botLineHeight}}></div>
                 <div className="flowchart-step">
                     <div className="flowchart-overlay" >
                         {/* Overlay on top of the step */}
