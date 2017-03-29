@@ -34,25 +34,24 @@ class FlowchartStep extends React.Component {
     }
 
     drawLines() {
-        if (this.state.children.length > 1) {
+        if (this.props.children.length > 1) {
             this.setState({
-                horLineWidth: 270*(this.state.children.length-1) + "px",
+                horLineWidth: 270*(this.props.children.length-1) + "px",
                 botLineHeight: "12px"
             });
         }
-        else if(this.state.children.length === 1) {
+        else if(this.props.children.length === 1) {
             this.setState({
+                horLineWidth: "0px",
                 botLineHeight: "12px"
             });
         }
         else{
             this.setState({
-                horLineWidth: 0,
+                horLineWidth: "0px",
                 botLineHeight: "0px"
             });
         }
-        console.log(this.state.title);
-        console.log(this.props.parentId);
         if (this.props.parentId !== null) {
             this.setState({
                 topLineHeight: "12px"
