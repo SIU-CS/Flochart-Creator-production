@@ -12,11 +12,15 @@ class FlowchartStep extends React.Component {
     }
 
     componentDidMount() {
+        let childComponents = this.state.chlidren;
+        childComponents = this.props.createChildComponents(this.props.children);
+
         this.setState({
             id: this.props.id,
             title: this.props.title,
             description: this.props.description,
             parentId: this.props.parentId,
+            childComponents: childComponents,
             children: this.props.children || this.state.children
         });
     }
