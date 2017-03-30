@@ -1,11 +1,11 @@
-﻿import AddStepButton from './AddStepButton';
-import Modal from 'react-modal';
-import FlowchartStep from './FlowchartStep'
-import FlowchartNav from './FlowchartNav';
-import AddStepModal from './AddStepModal';
-import EditStepModal from './EditStepModal';
+﻿import AddStepButton   from './AddStepButton';
+import Modal           from 'react-modal';
+import FlowchartStep   from './FlowchartStep'
+import FlowchartNav    from './FlowchartNav';
+import AddStepModal    from './AddStepModal';
+import EditStepModal   from './EditStepModal';
 import DeleteStepModal from './DeleteStepModal';
-import axios from 'axios';
+import axios           from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 
@@ -46,6 +46,8 @@ class Canvas extends React.Component {
         /** Handle Title Change
          *    When users edit the title input on the modal form, this function is called
          */
+
+        /* TODO check title length*/
         this.setState({ titleText: event.target.value });
     }
 
@@ -255,6 +257,7 @@ class Canvas extends React.Component {
     }
 
     purgeChildAndParent(stepList) {
+        /* Take care of child/parent relationships after step deletion */
         return stepList.map((step) => {
 
             // remove parent id if parent is being deleted
@@ -280,7 +283,7 @@ class Canvas extends React.Component {
         let stepComponentList = [];
 
         // create a list of components based on the json objects
-        if (stepList.length) {
+        if (stepList.length > 0) {
             stepComponentList = stepList
                 .filter((step) => { // only show top-level steps
                     return step.parentId === null;
@@ -297,7 +300,8 @@ class Canvas extends React.Component {
         else {
             // if there are no steps left, show the new step button
             this.setState({
-                stepList: []
+                stepList: [],
+                stepComponentList: []
             });
         }
 

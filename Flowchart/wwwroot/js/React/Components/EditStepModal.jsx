@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 class EditStepModal extends React.Component {
     render() {
         return (
-            <Modal isOpen={this.prosp.editStepModalIsOpen}
+            <Modal isOpen={this.props.editStepModalIsOpen}
                    onRequestClose={this.props.closeEditStepModal()}
                    contentLabel="Edit Step Modal">
                 <form>
