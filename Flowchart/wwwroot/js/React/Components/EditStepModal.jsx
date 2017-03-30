@@ -1,5 +1,7 @@
 import Modal from 'react-modal';
 class EditStepModal extends React.Component {
+    /* Handles the modal to edit a step*/
+
     render() {
         return (
             <Modal isOpen={this.props.editStepModalIsOpen}

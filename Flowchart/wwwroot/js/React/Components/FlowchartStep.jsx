@@ -1,4 +1,6 @@
 class FlowchartStep extends React.Component {
+    /* The actual step. Also handles rendering of any children.*/
+
     constructor(props) {
         super(props);
         this.state = {
@@ -62,12 +64,17 @@ class FlowchartStep extends React.Component {
     render() {
         return (
             <div className="flowchart-step-wrapper">
+
+                {/* The connecting lines */}
                 <div className="hor-line" style={{width: this.state.horLineWidth}}></div>
                 <div className="top-vert-line" style={{height: this.state.topLineHeight}}></div>
                 <div className="bot-vert-line" style={{height: this.state.botLineHeight}}></div>
+
+                {/* The step itself */}
                 <div className="flowchart-step">
+
+                    {/* Overlay on top of the step */}
                     <div className="flowchart-overlay" >
-                        {/* Overlay on top of the step */}
                         <button onClick={() => this.props.editStep(this.state.id)} className="btn edit-step-btn btn-warning">
                             <span className="glyphicon glyphicon-pencil"></span>
                         </button>
@@ -79,14 +86,16 @@ class FlowchartStep extends React.Component {
                         </button>
                     </div>
 
+                    {/* Actual content of the step */}
                     <div className="flowchart-contents" >
-                        {/* Actual content of the step */}
                         <p className="flowchart-step-title">{this.props.title}</p>
                         <hr />
                         <p className="flowchart-step-description">{this.props.description}</p>
                     </div>
                 </div>
                 <br/><br/>
+
+                {/* Render the children */}
                 {this.state.childComponents}
             </div>
         )

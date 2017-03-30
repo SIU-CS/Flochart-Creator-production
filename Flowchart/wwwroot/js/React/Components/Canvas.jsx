@@ -6,6 +6,8 @@ import AddStepModal    from './AddStepModal';
 import EditStepModal   from './EditStepModal';
 import DeleteStepModal from './DeleteStepModal';
 import axios           from 'axios';
+
+// set axios post header to application/json
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 
@@ -36,102 +38,6 @@ class Canvas extends React.Component {
         this.createComponentsFromStepList = this.createComponentsFromStepList.bind(this);
         this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this);
         this.sendFlowchartData            = this.sendFlowchartData.bind(this);
-    }
-
-    /**************************************************************
-     * MODAL FUNCTIONS
-     *************************************************************/
-
-    handleTitleChange(event) {
-        /** Handle Title Change
-         *    When users edit the title input on the modal form, this function is called
-         */
-
-        /* TODO check title length*/
-        this.setState({ titleText: event.target.value });
-    }
-
-    handleDescriptionChange(event) {
-        /** Handle Description Change
-         *    When users edit the title input on the modal form, this function is called
-         */
-        this.setState({ descriptionText: event.target.value });
-    }
-
-    openAddStepModal(parentId) {
-        /** Open "Add Step" Modal
-         *    Opens the modal form for adding a step
-         */
-        this.setState({
-            addStepModalIsOpen: true,
-            parentId:           parentId
-        });
-    }
-
-    closeAddStepModal() {
-        /** Close "Add Step" Modal
-         *    Closes the modal form for adding a step
-         */
-        this.setState({
-            addStepModalIsOpen:  false,
-            descriptionText:     "",
-            titleText:           "",
-            parentId:            -1,
-            newChildId:          -1
-        });
-    }
-
-    openEditStepModal(stepId) {
-        /** Open "Edit Step" Modal
-         *    Opens the modal form for editting a step
-         */
-        let titleText, descriptionText;
-        for (let step of this.state.stepList) {
-            if (step && step.id === stepId) {
-                titleText = step.title;
-                descriptionText = step.description;
-            }
-        }
-        this.setState({
-            editStepModalIsOpen:  true,
-            editStepId:           stepId,
-            titleText:            titleText,
-            descriptionText:      descriptionText
-        });
-    }
-
-    closeEditStepModal() {
-        /** Close "Edit Step" Modal
-         *    Closes the modal form for editting a step
-         */
-        this.setState({
-            editStepModalIsOpen:  false,
-            descriptionText:      "",
-            titleText:            "",
-            parentId:             -1,
-            newChildId:           -1,
-            editStepId:           -1
-        });
-    }
-
-    openDeleteStepModal(stepId) {
-        /** Open "Delete Step" Modal
-         *    Opens the modal form for deleting a step
-         */
-        this.setState({
-            deleteStepModalIsOpen: true,
-            deleteStepId:          stepId
-        });
-    }
-
-    closeDeleteStepModal() {
-        /** Close "Delete Step" Modal
-         *    Closes the modal form for deleting a step
-         */
-        this.setState({
-            deleteStepModalIsOpen: false,
-            deleteStepId:          -1
-        });
     }
 
     /**************************************************************
@@ -382,6 +288,102 @@ class Canvas extends React.Component {
         }
     }
 
+    /**************************************************************
+     * MODAL FUNCTIONS
+     *************************************************************/
+
+    handleTitleChange(event) {
+        /** Handle Title Change
+         *    When users edit the title input on the modal form, this function is called
+         */
+
+        /* TODO check title length*/
+        this.setState({ titleText: event.target.value });
+    }
+
+    handleDescriptionChange(event) {
+        /** Handle Description Change
+         *    When users edit the title input on the modal form, this function is called
+         */
+        this.setState({ descriptionText: event.target.value });
+    }
+
+    openAddStepModal(parentId) {
+        /** Open "Add Step" Modal
+         *    Opens the modal form for adding a step
+         */
+        this.setState({
+            addStepModalIsOpen: true,
+            parentId:           parentId
+        });
+    }
+
+    closeAddStepModal() {
+        /** Close "Add Step" Modal
+         *    Closes the modal form for adding a step
+         */
+        this.setState({
+            addStepModalIsOpen:  false,
+            descriptionText:     "",
+            titleText:           "",
+            parentId:            -1,
+            newChildId:          -1
+        });
+    }
+
+    openEditStepModal(stepId) {
+        /** Open "Edit Step" Modal
+         *    Opens the modal form for editting a step
+         */
+        let titleText, descriptionText;
+        for (let step of this.state.stepList) {
+            if (step && step.id === stepId) {
+                titleText = step.title;
+                descriptionText = step.description;
+            }
+        }
+        this.setState({
+            editStepModalIsOpen:  true,
+            editStepId:           stepId,
+            titleText:            titleText,
+            descriptionText:      descriptionText
+        });
+    }
+
+    closeEditStepModal() {
+        /** Close "Edit Step" Modal
+         *    Closes the modal form for editting a step
+         */
+        this.setState({
+            editStepModalIsOpen:  false,
+            descriptionText:      "",
+            titleText:            "",
+            parentId:             -1,
+            newChildId:           -1,
+            editStepId:           -1
+        });
+    }
+
+    openDeleteStepModal(stepId) {
+        /** Open "Delete Step" Modal
+         *    Opens the modal form for deleting a step
+         */
+        this.setState({
+            deleteStepModalIsOpen: true,
+            deleteStepId:          stepId
+        });
+    }
+
+    closeDeleteStepModal() {
+        /** Close "Delete Step" Modal
+         *    Closes the modal form for deleting a step
+         */
+        this.setState({
+            deleteStepModalIsOpen: false,
+            deleteStepId:          -1
+        });
+    }
+
     render() {
         return (
             <div className="flowchart-canvas">
@@ -398,7 +400,7 @@ class Canvas extends React.Component {
                   *************************************************************/}
 
                 <AddStepModal addStepModalIsOpen={this.state.addStepModalIsOpen}
-                              closeAddStepModal={() => this.state.closeAddStepModal}
+                              closeAddStepModal={() => this.closeAddStepModal}
                               titleText={this.state.titleText}
                               handleTitleChange={() => this.handleTitleChange}
                               descriptionText={this.state.descriptionText}
