@@ -1,4 +1,4 @@
-#CS 435 Term Project: Flowchart Creator
+# CS 435 Term Project: Flowchart Creator
 
 ## Description
 An application that will allow users to easily create flowcharts. They will be able to create conditionals, loops, and various basic constructs.
