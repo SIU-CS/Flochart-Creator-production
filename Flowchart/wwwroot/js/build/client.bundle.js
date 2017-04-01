@@ -12375,7 +12375,8 @@ var Canvas = function (_React$Component) {
             var url = window.location.href; // get the url for the id
             url = url.split("/"); // make an array, splitting url on '/'
             url = url[url.length - 1]; // get just the id in the url
-            url = "/Flowchart/Edit/" + url;
+            var id = url;
+            url = "/Flowchart/Edit/" + id;
 
             var stepList = this.state.stepList.map(function (step) {
                 var newStep = {
@@ -12394,8 +12395,8 @@ var Canvas = function (_React$Component) {
                 React.createElement(
                     'form',
                     { action: url, method: 'post' },
-                    React.createElement('input', { name: 'id', type: 'text', value: this.state.id }),
-                    React.createElement('input', { name: 'Steps', type: 'text', value: stepList }),
+                    React.createElement('input', { name: 'id', type: 'text', value: id }),
+                    React.createElement('input', { name: 'Steps', type: 'text', value: JSON.stringify(stepList) }),
                     React.createElement(
                         'button',
                         { type: 'submit' },
