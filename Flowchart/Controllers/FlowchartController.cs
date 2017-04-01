@@ -7,6 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using FlowchartCreator.Data;
 using FlowchartCreator.Models;
 using FlowchartCreator.Helpers;
+using Newtonsoft.Json;
+using System.IO;
+using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace FlowchartCreator.Controllers
 {
@@ -82,15 +87,41 @@ namespace FlowchartCreator.Controllers
                     }
                 }
 
+                flowchart.LastModified = DateTime.UtcNow;
+
                 flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
 
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
 
+                string path = @"C:\Users\Taylor\flowchart-" + flowchart.Id + ".txt";
+                byte[] byteArray = Encoding.UTF8.GetBytes(path);
+                MemoryStream stream = new MemoryStream();
+                using(FileStream fs = new FileStream(path, FileMode.CreateNew, FileAccess.ReadWrite))
+                using (TextWriter tw = new StreamWriter(fs))
+                {
+                    tw.WriteLine(flowchart);
+                }
+
                 return RedirectToAction("Edit", new { id = flowchart.Id });
             }
             return View(flowchart);
+        }
+
+        [HttpGet]
+        // GET: Flowcharts/GetJson/5
+        public string GetJson(int? id)
+        {
+            // Note that this will read only the first line of the file and return that line.
+            string path = @"C:\Users\Taylor\flowchart-" + id + ".txt";
+            byte[] byteArray = Encoding.UTF8.GetBytes(path);
+            MemoryStream stream = new MemoryStream();
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (StreamReader sr = new StreamReader(fs))
+            {
+                return JsonConvert.SerializeObject(sr.ReadLine());
+            }
         }
 
         // GET: Flowcharts/Edit/5
@@ -102,48 +133,61 @@ namespace FlowchartCreator.Controllers
             }
 
             var flowchart = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
-            // Comment the line above and uncomment the lines below to use the parser.
-            //var flowchartUrl = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
-            //var flowchart = Parsers.ToObject(flowchartUrl.Url, "xml");
 
             if (flowchart == null)
             {
                 return NotFound();
             }
 
+            return View();
+
             // We have to populate the steps list via the parser.
-            return View(flowchart);
+            //return View(test);
         }
 
         // POST: Flowcharts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Url,CreatedBy,CreatedDate")] Flowchart flowchart)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(FlowchartDataViewModel flowchart)
         {
-            if (id != flowchart.Id)
+            // Note that this deserialization and reserialization isn't necessary at this juncture. It will,
+            // however, be necessary (likely) in later conversions to other types so we have a medium by which 
+            // to translate data.
+            Microsoft.Extensions.Primitives.StringValues stepData;
+            Request.Form.TryGetValue("Steps", out stepData);
+            var steps = JsonConvert.DeserializeObject<IEnumerable<Object>>(stepData);
+
+            List<StepsViewModel> temp_steps = new List<StepsViewModel>();
+            foreach (var step in steps)
             {
-                return NotFound();
+                temp_steps.Add(JsonConvert.DeserializeObject<StepsViewModel>(step.ToString()));
             }
 
-            if (ModelState.IsValid)
+            flowchart.Steps = temp_steps;
+
+            if(ModelState.IsValid)
             {
-                List<StepsViewModel> temp = new List<StepsViewModel>();
-                temp.Add(new StepsViewModel(1, "Test Name", "Test Description", new List<int> { 2, 3 }));
-
-                flowchart.Steps = temp;
-
-                // Now, need to pass data to the parser.
+                string path = @"C:\Users\Taylor\flowchart-" + flowchart.id + ".txt";
+                byte[] byteArray = Encoding.UTF8.GetBytes(path);
+                MemoryStream stream = new MemoryStream();
+                using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (TextWriter tw = new StreamWriter(fs))
+                {
+                    tw.WriteLine(JsonConvert.SerializeObject(flowchart));
+                }
 
                 try
                 {
-                    _context.Update(flowchart);
+                    var fc = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == flowchart.id);
+                    fc.LastModified = DateTime.UtcNow;
+                    _context.Update(fc);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FlowchartExists(flowchart.Id))
+                    if (!FlowchartExists(flowchart.id))
                     {
                         return NotFound();
                     }
@@ -152,9 +196,17 @@ namespace FlowchartCreator.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction("Index");
             }
-            return View(flowchart);
+            else
+            {
+                // So this won't contain their original data but it will redirect them back to the form.
+                // This is temporary until data is placed back into the form. So their changes are lost.
+                Microsoft.Extensions.Primitives.StringValues tId;
+                Request.Form.TryGetValue("id", out tId);
+                return RedirectToAction("Edit", Convert.ToInt32(tId));
+            }
         }
 
         // GET: Flowcharts/Delete/5

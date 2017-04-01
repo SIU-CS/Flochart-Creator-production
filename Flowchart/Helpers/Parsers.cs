@@ -31,8 +31,8 @@ namespace FlowchartCreator.Helpers
                     }
                     tw.WriteLine("  <step>" );
                     tw.WriteLine("      <id>" + steps.id + "</id>");
-                    tw.WriteLine("      <name>" + steps.name + "</name>");
-                    tw.WriteLine("      <description>" + steps.desc + "</description>");
+                    tw.WriteLine("      <name>" + steps.title + "</name>");
+                    tw.WriteLine("      <description>" + steps.description + "</description>");
                     tw.WriteLine("      <children>" + children + "</children>");
                     tw.WriteLine("  </step>");
                 }
@@ -96,6 +96,7 @@ namespace FlowchartCreator.Helpers
                     Convert.ToInt32(step.Element("id")?.Value),
                     step.Element("name")?.Value,
                     step.Element("description")?.Value,
+                    Convert.ToInt32(step.Element("parentId")?.Value),
                     children));
             }
 

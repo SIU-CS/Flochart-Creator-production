@@ -1,6 +1,15 @@
-﻿import AddStepButton from './AddStepButton';
-import Modal from 'react-modal';
-import FlowchartStep from './FlowchartStep'
+﻿import AddStepButton   from './AddStepButton';
+import Modal           from 'react-modal';
+import FlowchartStep   from './FlowchartStep'
+import FlowchartNav    from './FlowchartNav';
+import AddStepModal    from './AddStepModal';
+import EditStepModal   from './EditStepModal';
+import DeleteStepModal from './DeleteStepModal';
+import axios           from 'axios';
+
+// set axios post header to application/json
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 
 class Canvas extends React.Component {
     constructor() {
@@ -27,119 +36,8 @@ class Canvas extends React.Component {
         this.deleteStep                   = this.deleteStep.bind(this);
         this.createStepComponent          = this.createStepComponent.bind(this);
         this.createComponentsFromStepList = this.createComponentsFromStepList.bind(this);
-    }
-
-    /**************************************************************
-     * MODAL FUNCTIONS
-     *************************************************************/
-    editOverlay(boolean) {
-        /** Edit Overlay
-         *    Sets the overlayEnabled prop to <boolean> for every component
-         *
-         *  @info: overlayEnabled sets the overlay's z-index so it doesn't interfere with the modal
-         */
-        let newStepComponentList = this.state.stepComponentList;
-        if (Array.isArray(newStepComponentList))
-            newStepComponentList = newStepComponentList.map((step) => {
-                return React.cloneElement(step, {overlayEnabled: boolean})
-            });
-        return newStepComponentList;
-    }
-
-    handleTitleChange(event) {
-        /** Handle Title Change
-         *    When users edit the title input on the modal form, this function is called
-         */
-        this.setState({ titleText: event.target.value });
-    }
-
-    handleDescriptionChange(event) {
-        /** Handle Description Change
-         *    When users edit the title input on the modal form, this function is called
-         */
-        this.setState({ descriptionText: event.target.value });
-    }
-
-    openAddStepModal(parentId) {
-        /** Open "Add Step" Modal
-         *    Opens the modal form for adding a step
-         */
-        this.setState({
-            addStepModalIsOpen: true,
-            stepComponentList:  this.editOverlay(false),
-            parentId:           parentId
-        });
-    }
-
-    closeAddStepModal() {
-        /** Close "Add Step" Modal
-         *    Closes the modal form for adding a step
-         */
-        this.setState({
-            addStepModalIsOpen:  false,
-            descriptionText:     "",
-            stepComponentList:   this.editOverlay(true),
-            titleText:           "",
-            parentId:            -1,
-            newChildId:          -1
-        });
-    }
-
-    openEditStepModal(stepId) {
-        /** Open "Edit Step" Modal
-         *    Opens the modal form for editting a step
-         */
-        let titleText, descriptionText;
-        for (let step of this.state.stepList) {
-            if (step && step.id === stepId) {
-                titleText = step.title;
-                descriptionText = step.description;
-            }
-        }
-        this.setState({
-            editStepModalIsOpen:  true,
-            stepComponentList:    this.editOverlay(false),
-            editStepId:           stepId,
-            titleText:            titleText,
-            descriptionText:      descriptionText
-        });
-    }
-
-    closeEditStepModal() {
-        /** Close "Edit Step" Modal
-         *    Closes the modal form for editting a step
-         */
-        this.setState({
-            editStepModalIsOpen:  false,
-            descriptionText:      "",
-            stepComponentList:    this.editOverlay(true),
-            titleText:            "",
-            parentId:             -1,
-            newChildId:           -1,
-            editStepId:           -1
-        });
-    }
-
-    openDeleteStepModal(stepId) {
-        /** Open "Delete Step" Modal
-         *    Opens the modal form for deleting a step
-         */
-        this.setState({
-            deleteStepModalIsOpen: true,
-            stepComponentList:      this.editOverlay(false),
-            deleteStepId:          stepId
-        });
-    }
-
-    closeDeleteStepModal() {
-        /** Close "Delete Step" Modal
-         *    Closes the modal form for deleting a step
-         */
-        this.setState({
-            deleteStepModalIsOpen: false,
-            stepComponentList:      this.editOverlay(true),
-            deleteStepId:          -1
-        });
+        this.createChildComponentsFromIds = this.createChildComponentsFromIds.bind(this);
+        this.sendFlowchartData            = this.sendFlowchartData.bind(this);
     }
 
     /**************************************************************
@@ -187,12 +85,14 @@ class Canvas extends React.Component {
         let newChildId, newStep, newStepList;
 
         newStepList = this.state.stepList;
-        newChildId  = newStepList.length;
+        newChildId  = this.getNewStepId(newStepList.length);
+
         newStep     = {
             title:       this.state.titleText,
             description: this.state.descriptionText,
             key:         newChildId,
             children:    [],
+            parentId:    -1,
             id:          newChildId
         };
 
@@ -217,16 +117,74 @@ class Canvas extends React.Component {
         this.closeAddStepModal(); // close the model and show the new step
     }
 
+    sendFlowchartData() {
+        /** sendFlowchartData
+         *
+         * This function makes a post request to /Flowchart/Edit/{id}.
+         * It sends the step list as an array of JSON objects.
+         */
+
+        let url = window.location.href; // get the url for the id
+        url = url.split("/"); // make an array, splitting url on '/'
+        url = url[url.length-1]; // get just the id in the url
+
+        let stepList = this.state.stepList.map((step) => {
+            let newStep = {
+                id: step.id,
+                title: step.title,
+                description: step.description,
+                children: step.children,
+                parentId: step.parentId
+            }
+            return newStep;
+        });
+
+        let objectToSend = {
+            id: this.state.id,
+            Steps: stepList
+        }
+
+        axios.post('/Flowchart/Edit/'+url, { // post
+            data: objectToSend // send step list in "data" JSON object
+        })
+             .then(function (response) {
+                 console.log("Success");
+                 console.log(response);
+             })
+             .catch(function (error) {
+                 console.log("Error");
+                 console.log(error);
+             });
+    }
+
     /**************************************************************
      * INTERMEDIARY FUNCTIONS
      *************************************************************/
 
+    getNewStepId(potentialId) {
+        /* My own "auto-increment" function.
+         * Recursively searches for an id for new steps.
+         *
+         * 1. Start with a seed value: potentialId
+         * 2. Check for any conflicts with the seed value
+         * 3. If a conflict is found, increment seed value and recursivley call the function
+         */
+
+        for (let step of this.state.stepList) {
+            if (step.id === potentialId) {
+                potentialId = this.getNewStepId(potentialId+1);
+            }
+        }
+        return potentialId;
+    }
+
     purgeChildAndParent(stepList) {
+        /* Take care of child/parent relationships after step deletion */
         return stepList.map((step) => {
 
             // remove parent id if parent is being deleted
             if (step.parentId === this.state.deleteStepId)
-                step.parentId = "";
+                step.parentId = -1;
 
             // remove child id from children if child is being deleted
             let childIndex = step.children.indexOf(this.state.deleteStepId);
@@ -247,10 +205,14 @@ class Canvas extends React.Component {
         let stepComponentList = [];
 
         // create a list of components based on the json objects
-        if (stepList.length) {
-            stepComponentList = stepList.map((step) => {
-                return this.createStepComponent(step);
-            });
+        if (stepList.length > 0) {
+            stepComponentList = stepList
+                .filter((step) => { // only show top-level steps
+                    return step.parentId === -1;
+                })
+                .map((step) => {    // create components for each top-level step
+                    return this.createStepComponent(step);
+                });
             // update the step list and the step component list
             this.setState({
                 stepList: stepList,
@@ -260,8 +222,8 @@ class Canvas extends React.Component {
         else {
             // if there are no steps left, show the new step button
             this.setState({
-                stepComponentList: <AddStepButton handleClick={() => { this.openAddStepModal() }} />,
                 stepList: [],
+                stepComponentList: []
             });
         }
 
@@ -279,11 +241,39 @@ class Canvas extends React.Component {
                 key         = {newStep.key}
                 addStep     = {this.openAddStepModal}
                 editStep    = {this.openEditStepModal}
-                deleteStep = {this.openDeleteStepModal}
-                parentId    = {newStep.parentId}
+                deleteStep  = {this.openDeleteStepModal}
+                getChildrenById = {this.getChildrenById}
+                parentId   = {newStep.parentId}
                 children    = {newStep.children}
+                createChildComponents = {this.createChildComponentsFromIds}
                 id          = {newStep.id} />
         );
+    }
+
+    createChildComponentsFromIds(childIdList) {
+        /* Passed down to steps.
+         * Steps can then "call up" to the canvas to create
+         * components for their children.
+         */
+
+        // get all the children objects
+        let childObjectList = this.getChildrenById(childIdList);
+
+        // create components for the objects
+        let childComponentList = childObjectList.map((child) => {
+            return this.createStepComponent(child);
+        });
+        return childComponentList;
+    }
+
+    getChildrenById(childIdList) {
+        /* Get all the steps that match ids in an array */
+
+        let childList = this.state.stepList.filter((step) => { // for all the step objects...
+            // only include those that match an id in the array
+            return childIdList.includes(step.id);
+        });
+        return childList; // return list of step objects
     }
 
     /**************************************************************
@@ -307,106 +297,182 @@ class Canvas extends React.Component {
 
         }
         else {
+
+        let url = window.location.href; // get the url for the id
+        url = url.split("/"); // make an array, splitting url on '/'
+        url = url[url.length-1]; // get just the id in the url
+
+        axios.get('/Flowchart/GetJson/'+url)
+             .then((response) => {
+                 let stepList = JSON.parse(response.data).Steps;
+                 stepList = stepList.map((step) => {
+                     step.key = step.id;
+                     return step;
+                 });
+                 this.setState({
+                     stepList: stepList
+                 }, this.createComponentsFromStepList(stepList));
+             })
+             .catch(function (error) {
+                 console.log("Error");
+                 console.log(error);
+             });
             // if no steps are in the props or the state, just show the initial new step button
-            this.setState({
-                stepComponentList: <AddStepButton handleClick={() => { this.openAddStepModal() }} />
-            });
         }
     }
 
+    /**************************************************************
+     * MODAL FUNCTIONS
+     *************************************************************/
+
+    handleTitleChange(event) {
+        /** Handle Title Change
+         *    When users edit the title input on the modal form, this function is called
+         */
+
+        /* TODO check title length*/
+        this.setState({ titleText: event.target.value });
+    }
+
+    handleDescriptionChange(event) {
+        /** Handle Description Change
+         *    When users edit the title input on the modal form, this function is called
+         */
+        this.setState({ descriptionText: event.target.value });
+    }
+
+    openAddStepModal(parentId) {
+        /** Open "Add Step" Modal
+         *    Opens the modal form for adding a step
+         */
+        this.setState({
+            addStepModalIsOpen: true,
+            parentId:           parentId
+        });
+    }
+
+    closeAddStepModal() {
+        /** Close "Add Step" Modal
+         *    Closes the modal form for adding a step
+         */
+        this.setState({
+            addStepModalIsOpen:  false,
+            descriptionText:     "",
+            titleText:           "",
+            parentId:            -1,
+            newChildId:          -1
+        });
+    }
+
+    openEditStepModal(stepId) {
+        /** Open "Edit Step" Modal
+         *    Opens the modal form for editting a step
+         */
+        let titleText, descriptionText;
+        for (let step of this.state.stepList) {
+            if (step && step.id === stepId) {
+                titleText = step.title;
+                descriptionText = step.description;
+            }
+        }
+        this.setState({
+            editStepModalIsOpen:  true,
+            editStepId:           stepId,
+            titleText:            titleText,
+            descriptionText:      descriptionText
+        });
+    }
+
+    closeEditStepModal() {
+        /** Close "Edit Step" Modal
+         *    Closes the modal form for editting a step
+         */
+        this.setState({
+            editStepModalIsOpen:  false,
+            descriptionText:      "",
+            titleText:            "",
+            parentId:             -1,
+            newChildId:           -1,
+            editStepId:           -1
+        });
+    }
+
+    openDeleteStepModal(stepId) {
+        /** Open "Delete Step" Modal
+         *    Opens the modal form for deleting a step
+         */
+        this.setState({
+            deleteStepModalIsOpen: true,
+            deleteStepId:          stepId
+        });
+    }
+
+    closeDeleteStepModal() {
+        /** Close "Delete Step" Modal
+         *    Closes the modal form for deleting a step
+         */
+        this.setState({
+            deleteStepModalIsOpen: false,
+            deleteStepId:          -1
+        });
+    }
+
     render() {
+
+        let url = window.location.href; // get the url for the id
+        url = url.split("/"); // make an array, splitting url on '/'
+        url = url[url.length-1]; // get just the id in the url
+        let id = url;
+        url = "/Flowchart/Edit/"+id;
+
+        let stepList = this.state.stepList.map((step) => {
+            let newStep = {
+                id: step.id,
+                title: step.title,
+                description: step.description,
+                children: step.children,
+                parentId: step.parentId
+            }
+            return newStep;
+        });
+
         return (
             <div className="flowchart-canvas">
+                <FlowchartNav openAddStepModal={() => this.openAddStepModal}
+                              sendFlowchartData={() => this.sendFlowchartData}
+                              url={url}
+                              id={id}
+                              stepList={JSON.stringify(stepList)}/>
+
                 {/*************************************************************
                   *  Flowchart Steps
                   *************************************************************/}
                 {this.state.stepComponentList}
 
-
-
                 {/*************************************************************
-                  *  Add Step Modal
+                  *  Modals
                   *************************************************************/}
 
-                <Modal isOpen={this.state.addStepModalIsOpen}
-                       onRequestClose={this.closeAddStepModal}
-                       contentLabel="Add Step Modal">
-                    <form>
-                        <div className="form-horizontal">
-                            <h4>Add New Step</h4>
-                            <hr />
-                            <div className="form-group">
-                                <label className="col-md-2" htmlFor="Title">Title</label>
-                                <div className="col-md-10">
-                                    <input htmlFor="Title"
-                                           id="Title"
-                                           className="form-control"
-                                           value={this.state.titleText}
-                                           onChange={this.handleTitleChange} />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label className="col-md-2" htmlFor="Description">Description</label>
-                                <div className="col-md-10">
-                                    <textarea rows="5"
-                                              id="Description"
-                                              htmlFor="Description"
-                                              className="form-control"
-                                              value={this.state.descriptionText}
-                                              onChange={this.handleDescriptionChange} />
-                                </div>
-                            </div>
-                            <button className="btn btn-success" onClick={this.addStep}>Add Step</button>
-                        </div>
-                    </form>
-                </Modal>
+                <AddStepModal addStepModalIsOpen={this.state.addStepModalIsOpen}
+                              closeAddStepModal={() => this.closeAddStepModal}
+                              titleText={this.state.titleText}
+                              handleTitleChange={() => this.handleTitleChange}
+                              descriptionText={this.state.descriptionText}
+                              handleDescriptionChange={() => this.handleDescriptionChange}
+                              addStep={() => this.addStep} />
 
-                {/*************************************************************
-                  *  Edit Step Modal
-                  *************************************************************/}
-                <Modal isOpen={this.state.editStepModalIsOpen}
-                       onRequestClose={this.closeEditStepModal}
-                       contentLabel="Edit Step Modal">
-                    <form>
-                        <div className="form-horizontal">
-                            <h4>Edit Step</h4>
-                            <hr />
-                            <div className="form-group">
-                                <label className="col-md-2" htmlFor="Title">Title</label>
-                                <div className="col-md-10">
-                                    <input htmlFor="Title"
-                                           id="Title"
-                                           className="form-control"
-                                           value={this.state.titleText}
-                                           onChange={this.handleTitleChange} />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label className="col-md-2" htmlFor="Description">Description</label>
-                                <div className="col-md-10">
-                                    <textarea rows="5"
-                                              id="Description"
-                                              htmlFor="Description"
-                                              className="form-control"
-                                              value={this.state.descriptionText}
-                                              onChange={this.handleDescriptionChange} />
-                                </div>
-                            </div>
-                            <button className="btn btn-success" onClick={this.editStep}>Edit Step</button>
-                        </div>
-                    </form>
-                </Modal>
+                <EditStepModal editStepModalIsOpen={this.state.editStepModalIsOpen}
+                               closeEditStepModal={() => this.closeEditStepModal}
+                               handleTitleChange={() => this.handleTitleChange}
+                               handleDescriptionChange={() => this.handleDescriptionChange}
+                               editStep={() => this.editStep}
+                               titleText={this.state.titleText}
+                               descriptionText={this.state.descriptionText} />
 
-                {/*************************************************************
-                  *  Delete Step Modal
-                  *************************************************************/}
-
-                <Modal isOpen={this.state.deleteStepModalIsOpen}
-                       onRequestClose={this.closeDeleteStepModal}
-                       contentLabel="Delete Step Modal">
-                    <button onClick={this.deleteStep} className="btn btn-warning">Delete Step</button>
-                    <button onClick={this.closeDeleteStepModal} className="btn btn-default">Cancel</button>
-                </Modal>
+                <DeleteStepModal deleteStepModalIsOpen={this.state.deleteStepModalIsOpen}
+                                 deleteStep={() => this.deleteStep}
+                                 closeDeleteStepModal={() => this.closeDeleteStepModal}
+                                 closeDeleteStepModal={() => this.closeDeleteStepModal} />
             </div>
         );
     }
