@@ -10,6 +10,8 @@ using FlowchartCreator.Helpers;
 using Newtonsoft.Json;
 using System.IO;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace FlowchartCreator.Controllers
 {
@@ -143,7 +145,6 @@ namespace FlowchartCreator.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [FromBody]string flowchart)
         {
-            var result = Request.Body;
             string path = "C:\flowchart-" + id + ".txt";
             using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {

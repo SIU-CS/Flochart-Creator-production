@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using FlowchartCreator.Data;
 using FlowchartCreator.Models;
 using FlowchartCreator.Services;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace FlowchartCreator
 {
@@ -60,7 +62,11 @@ namespace FlowchartCreator
             services.AddReact();
             //
 
-            services.AddMvc();
+            services.AddMvc()
+                            .AddJsonOptions(jsonOptions =>
+                            {
+                                jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -108,8 +114,7 @@ namespace FlowchartCreator
 
             app.UseIdentity();
 
-            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
+            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
