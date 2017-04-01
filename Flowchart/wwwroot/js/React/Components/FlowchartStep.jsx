@@ -39,24 +39,24 @@ class FlowchartStep extends React.Component {
         if (this.props.children.length > 1) {
             this.setState({
                 horLineWidth: 270*(this.props.children.length-1) + "px",
-                botLineHeight: "12px"
+                botLine: "1px solid black"
             });
         }
         else if(this.props.children.length === 1) {
             this.setState({
                 horLineWidth: "0px",
-                botLineHeight: "12px"
+                botLine: "1px solid black"
             });
         }
         else{
             this.setState({
                 horLineWidth: "0px",
-                botLineHeight: "0px"
+                botLine: "0px solid black"
             });
         }
         if (this.props.parentId !== -1) {
             this.setState({
-                topLineHeight: "12px"
+                topLine: "1px solid black"
             });
         }
     }
@@ -67,8 +67,8 @@ class FlowchartStep extends React.Component {
 
                 {/* The connecting lines */}
                 <div className="hor-line" style={{width: this.state.horLineWidth}}></div>
-                <div className="top-vert-line" style={{height: this.state.topLineHeight}}></div>
-                <div className="bot-vert-line" style={{height: this.state.botLineHeight}}></div>
+                <div className="top-vert-line" style={{borderLeft: this.state.topLine}}></div>
+                <div className="bot-vert-line" style={{borderLeft: this.state.botLine}}></div>
 
                 {/* The step itself */}
                 <div className="flowchart-step">
