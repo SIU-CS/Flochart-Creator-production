@@ -297,6 +297,20 @@ class Canvas extends React.Component {
 
         }
         else {
+
+        let url = window.location.href; // get the url for the id
+        url = url.split("/"); // make an array, splitting url on '/'
+        url = url[url.length-1]; // get just the id in the url
+
+        axios.get('/Flowchart/GetJson/'+url)
+             .then(function (response) {
+                 console.log("Success");
+                 console.log(response);
+             })
+             .catch(function (error) {
+                 console.log("Error");
+                 console.log(error);
+             });
             // if no steps are in the props or the state, just show the initial new step button
             this.setState({
                 stepList: []

@@ -12233,6 +12233,18 @@ var Canvas = function (_React$Component) {
                 // if there is a step list stored in state,  render the components
                 this.createComponentsFromStepList(this.state.stepList);
             } else {
+
+                var url = window.location.href; // get the url for the id
+                url = url.split("/"); // make an array, splitting url on '/'
+                url = url[url.length - 1]; // get just the id in the url
+
+                _axios2.default.get('/Flowchart/GetJson/' + url).then(function (response) {
+                    console.log("Success");
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log("Error");
+                    console.log(error);
+                });
                 // if no steps are in the props or the state, just show the initial new step button
                 this.setState({
                     stepList: []
