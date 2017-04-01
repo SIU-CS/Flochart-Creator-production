@@ -8,7 +8,7 @@ class FlowchartStep extends React.Component {
             title: "",
             description: "",
             children: [],
-            parentId: null,
+            parentId: -1,
             childComponents: []
         }
         this.drawLines = this.drawLines.bind(this);
@@ -54,7 +54,7 @@ class FlowchartStep extends React.Component {
                 botLineHeight: "0px"
             });
         }
-        if (this.props.parentId !== null) {
+        if (this.props.parentId !== -1) {
             this.setState({
                 topLineHeight: "12px"
             });
