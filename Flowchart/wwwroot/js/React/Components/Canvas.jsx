@@ -128,8 +128,23 @@ class Canvas extends React.Component {
         url = url.split("/"); // make an array, splitting url on '/'
         url = url[url.length-1]; // get just the id in the url
 
+        let stepList = this.state.stepList.map((step) => {
+            let newStep = {
+                id: step.id,
+                title: step.title,
+                description: step.description,
+                children: step.children
+            }
+            return newStep;
+        });
+
+        let objectToSend = {
+            id: this.state.id,
+            Steps: stepList
+        }
+
         axios.post('/Flowchart/Edit/'+url, { // post
-            data: this.state.stepList // send step list in "data" JSON object
+            data: objectToSend // send step list in "data" JSON object
         })
              .then(function (response) {
                  console.log("Success");
