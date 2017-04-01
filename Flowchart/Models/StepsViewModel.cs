@@ -7,11 +7,12 @@ namespace FlowchartCreator.Models
 {
     public class StepsViewModel
     {
-        public StepsViewModel(int id, string name, string desc, List<int> children)
+        public StepsViewModel(int id, string name, string description, int parentId, List<int> children)
         {
             this.id = id;
             this.title = name;
             this.description = description;
+            this.parentId = parentId;
             this.children = children;
         }
 

@@ -96,6 +96,7 @@ namespace FlowchartCreator.Helpers
                     Convert.ToInt32(step.Element("id")?.Value),
                     step.Element("name")?.Value,
                     step.Element("description")?.Value,
+                    Convert.ToInt32(step.Element("parentId")?.Value),
                     children));
             }
 
