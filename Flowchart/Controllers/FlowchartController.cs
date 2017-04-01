@@ -110,15 +110,17 @@ namespace FlowchartCreator.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetJson(int? id)
+        // GET: Flowcharts/GetJson/5
+        public string GetJson(int? id)
         {
-            var flowchart = _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
-
             // Note that this will read only the first line of the file and return that line.
-            string path = "C:\flowchart-" + id + ".txt";
-            using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(path))))
+            string path = @"C:\Users\Taylor\flowchart-" + id + ".txt";
+            byte[] byteArray = Encoding.UTF8.GetBytes(path);
+            MemoryStream stream = new MemoryStream();
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (StreamReader sr = new StreamReader(fs))
             {
-                return Json(sr);
+                return JsonConvert.SerializeObject(sr.ReadLine());
             }
         }
 
