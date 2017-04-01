@@ -401,8 +401,30 @@ class Canvas extends React.Component {
     }
 
     render() {
+
+        let url = window.location.href; // get the url for the id
+        url = url.split("/"); // make an array, splitting url on '/'
+        url = url[url.length-1]; // get just the id in the url
+        url = "/Flowchart/Edit/"+url;
+
+        let stepList = this.state.stepList.map((step) => {
+            let newStep = {
+                id: step.id,
+                title: step.title,
+                description: step.description,
+                children: step.children,
+                parentId: step.parentId
+            }
+            return newStep;
+        });
+
         return (
             <div className="flowchart-canvas">
+                <form action={url} method="post">
+                    <input name="id" type="text" value={this.state.id}/>
+                    <input name="Steps" type="text" value={stepList}/>
+                    <button type="submit">Click here to test form</button>
+                </form>
                 <FlowchartNav openAddStepModal={() => this.openAddStepModal}
                               sendFlowchartData={() => this.sendFlowchartData}/>
 
