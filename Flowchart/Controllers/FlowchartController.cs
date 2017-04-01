@@ -93,8 +93,11 @@ namespace FlowchartCreator.Controllers
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
 
-                string path = "C:\flowchart-" + flowchart.Id + ".txt";
-                using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
+                string path = @"C:\Users\Taylor\flowchart-" + flowchart.Id + ".txt";
+                byte[] byteArray = Encoding.UTF8.GetBytes(path);
+                MemoryStream stream = new MemoryStream();
+                using(FileStream fs = new FileStream(path, FileMode.CreateNew, FileAccess.ReadWrite))
+                using (TextWriter tw = new StreamWriter(fs))
                 {
                     tw.WriteLine(flowchart);
                 }
@@ -126,7 +129,7 @@ namespace FlowchartCreator.Controllers
             string path = "C:\flowchart-" + id + ".txt";
             using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {
-                return (Json(sr.ReadLine()));
+                return View(Json(sr.ReadLine()));
             }
 
             // We have to populate the steps list via the parser.
