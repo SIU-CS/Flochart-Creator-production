@@ -11,13 +11,13 @@ namespace FlowchartCreator.Models
         {
             this.id = id;
             this.title = name;
-            this.desc = desc;
+            this.description = desc;
             this.children = children;
         }
 
         public int id { get; set; }
         public string title { get; set; }
-        public string desc { get; set; }
+        public string description { get; set; }
         public int parentId { get; set; }
         public List<int> children { get; set; }
     }
