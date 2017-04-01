@@ -133,7 +133,8 @@ class Canvas extends React.Component {
                 id: step.id,
                 title: step.title,
                 description: step.description,
-                children: step.children
+                children: step.children,
+                parentId: step.parentId
             }
             return newStep;
         });
