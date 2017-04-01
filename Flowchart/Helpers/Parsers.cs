@@ -31,7 +31,7 @@ namespace FlowchartCreator.Helpers
                     }
                     tw.WriteLine("  <step>" );
                     tw.WriteLine("      <id>" + steps.id + "</id>");
-                    tw.WriteLine("      <name>" + steps.name + "</name>");
+                    tw.WriteLine("      <name>" + steps.title + "</name>");
                     tw.WriteLine("      <description>" + steps.desc + "</description>");
                     tw.WriteLine("      <children>" + children + "</children>");
                     tw.WriteLine("  </step>");

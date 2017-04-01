@@ -143,9 +143,9 @@ namespace FlowchartCreator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [FromBody]string flowchart)
+        public async Task<IActionResult> Edit([FromBody]FlowchartDataViewModel flowchart)
         {
-            string path = "C:\flowchart-" + id + ".txt";
+            string path = "C:\flowchart-" + flowchart.id + ".txt";
             using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {
                 tw.WriteLine(flowchart);
