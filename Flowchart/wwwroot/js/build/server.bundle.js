@@ -12001,7 +12001,7 @@ var Canvas = function (_React$Component) {
                 description: this.state.descriptionText,
                 key: newChildId,
                 children: [],
-                parentId: null,
+                parentId: -1,
                 id: newChildId
             };
 
@@ -12117,7 +12117,7 @@ var Canvas = function (_React$Component) {
             return stepList.map(function (step) {
 
                 // remove parent id if parent is being deleted
-                if (step.parentId === _this5.state.deleteStepId) step.parentId = null;
+                if (step.parentId === _this5.state.deleteStepId) step.parentId = -1;
 
                 // remove child id from children if child is being deleted
                 var childIndex = step.children.indexOf(_this5.state.deleteStepId);
@@ -12143,7 +12143,7 @@ var Canvas = function (_React$Component) {
             if (stepList.length > 0) {
                 stepComponentList = stepList.filter(function (step) {
                     // only show top-level steps
-                    return step.parentId === null;
+                    return step.parentId === -1;
                 }).map(function (step) {
                     // create components for each top-level step
                     return _this6.createStepComponent(step);
@@ -12793,7 +12793,7 @@ var FlowchartStep = function (_React$Component) {
             title: "",
             description: "",
             children: [],
-            parentId: null,
+            parentId: -1,
             childComponents: []
         };
         _this.drawLines = _this.drawLines.bind(_this);
@@ -12842,7 +12842,7 @@ var FlowchartStep = function (_React$Component) {
                     botLineHeight: "0px"
                 });
             }
-            if (this.props.parentId !== null) {
+            if (this.props.parentId !== -1) {
                 this.setState({
                     topLineHeight: "12px"
                 });
