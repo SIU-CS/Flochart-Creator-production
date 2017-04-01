@@ -10,6 +10,6 @@ namespace FlowchartCreator.Models
     {
         public int id { get; set; }
 
-        public IEnumerable<StepsViewModel> Steps { get; set; }
+        public virtual IEnumerable<StepsViewModel> Steps { get; set; }
     }
 }

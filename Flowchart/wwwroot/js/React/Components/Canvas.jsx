@@ -92,7 +92,7 @@ class Canvas extends React.Component {
             description: this.state.descriptionText,
             key:         newChildId,
             children:    [],
-            parentId:    null,
+            parentId:    -1,
             id:          newChildId
         };
 
@@ -184,7 +184,7 @@ class Canvas extends React.Component {
 
             // remove parent id if parent is being deleted
             if (step.parentId === this.state.deleteStepId)
-                step.parentId = null;
+                step.parentId = -1;
 
             // remove child id from children if child is being deleted
             let childIndex = step.children.indexOf(this.state.deleteStepId);
@@ -208,7 +208,7 @@ class Canvas extends React.Component {
         if (stepList.length > 0) {
             stepComponentList = stepList
                 .filter((step) => { // only show top-level steps
-                    return step.parentId === null;
+                    return step.parentId === -1;
                 })
                 .map((step) => {    // create components for each top-level step
                     return this.createStepComponent(step);

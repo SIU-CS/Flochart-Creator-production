@@ -143,8 +143,17 @@ namespace FlowchartCreator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([FromBody]FlowchartDataViewModel flowchart)
+        public async Task<IActionResult> Edit(FlowchartDataViewModel flowchart)
         {
+            Microsoft.Extensions.Primitives.StringValues data;
+            var test = Request.Form.TryGetValue("Steps", out data);
+            var steps = JsonConvert.DeserializeObject<IEnumerable<Object>>(data);
+
+            foreach (var step in steps)
+            {
+                var myStep = JsonConvert.DeserializeObject<StepsViewModel>(step.ToString());
+            }
+
             string path = "C:\flowchart-" + flowchart.id + ".txt";
             using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {
