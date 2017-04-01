@@ -140,9 +140,10 @@ namespace FlowchartCreator.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, string flowchart)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [FromBody]string flowchart)
         {
+            var result = Request.Body;
             string path = "C:\flowchart-" + id + ".txt";
             using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {
