@@ -12140,6 +12140,7 @@ var Canvas = function (_React$Component) {
             var stepComponentList = [];
 
             // create a list of components based on the json objects
+            console.log(stepList);
             if (stepList.length > 0) {
                 stepComponentList = stepList.filter(function (step) {
                     // only show top-level steps
@@ -12222,6 +12223,8 @@ var Canvas = function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this8 = this;
+
             /** React Function
              *    Sets canvas to a "new step" button, or adds steps from
              *    either props or state
@@ -12239,16 +12242,19 @@ var Canvas = function (_React$Component) {
                 url = url[url.length - 1]; // get just the id in the url
 
                 _axios2.default.get('/Flowchart/GetJson/' + url).then(function (response) {
-                    console.log("Success");
-                    console.log(response);
+                    var stepList = JSON.parse(response.data).Steps;
+                    stepList = stepList.map(function (step) {
+                        step.key = step.id;
+                        return step;
+                    });
+                    _this8.setState({
+                        stepList: stepList
+                    }, _this8.createComponentsFromStepList(stepList));
                 }).catch(function (error) {
                     console.log("Error");
                     console.log(error);
                 });
                 // if no steps are in the props or the state, just show the initial new step button
-                this.setState({
-                    stepList: []
-                });
             }
         }
 
@@ -12382,7 +12388,7 @@ var Canvas = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this8 = this;
+            var _this9 = this;
 
             var url = window.location.href; // get the url for the id
             url = url.split("/"); // make an array, splitting url on '/'
@@ -12404,63 +12410,55 @@ var Canvas = function (_React$Component) {
             return React.createElement(
                 'div',
                 { className: 'flowchart-canvas' },
-                React.createElement(
-                    'form',
-                    { action: url, method: 'post' },
-                    React.createElement('input', { name: 'id', type: 'text', value: id }),
-                    React.createElement('input', { name: 'Steps', type: 'text', value: JSON.stringify(stepList) }),
-                    React.createElement(
-                        'button',
-                        { type: 'submit' },
-                        'Click here to test form'
-                    )
-                ),
                 React.createElement(_FlowchartNav2.default, { openAddStepModal: function openAddStepModal() {
-                        return _this8.openAddStepModal;
+                        return _this9.openAddStepModal;
                     },
                     sendFlowchartData: function sendFlowchartData() {
-                        return _this8.sendFlowchartData;
-                    } }),
+                        return _this9.sendFlowchartData;
+                    },
+                    url: url,
+                    id: id,
+                    stepList: JSON.stringify(stepList) }),
                 this.state.stepComponentList,
                 React.createElement(_AddStepModal2.default, { addStepModalIsOpen: this.state.addStepModalIsOpen,
                     closeAddStepModal: function closeAddStepModal() {
-                        return _this8.closeAddStepModal;
+                        return _this9.closeAddStepModal;
                     },
                     titleText: this.state.titleText,
                     handleTitleChange: function handleTitleChange() {
-                        return _this8.handleTitleChange;
+                        return _this9.handleTitleChange;
                     },
                     descriptionText: this.state.descriptionText,
                     handleDescriptionChange: function handleDescriptionChange() {
-                        return _this8.handleDescriptionChange;
+                        return _this9.handleDescriptionChange;
                     },
                     addStep: function addStep() {
-                        return _this8.addStep;
+                        return _this9.addStep;
                     } }),
                 React.createElement(_EditStepModal2.default, { editStepModalIsOpen: this.state.editStepModalIsOpen,
                     closeEditStepModal: function closeEditStepModal() {
-                        return _this8.closeEditStepModal;
+                        return _this9.closeEditStepModal;
                     },
                     handleTitleChange: function handleTitleChange() {
-                        return _this8.handleTitleChange;
+                        return _this9.handleTitleChange;
                     },
                     handleDescriptionChange: function handleDescriptionChange() {
-                        return _this8.handleDescriptionChange;
+                        return _this9.handleDescriptionChange;
                     },
                     editStep: function editStep() {
-                        return _this8.editStep;
+                        return _this9.editStep;
                     },
                     titleText: this.state.titleText,
                     descriptionText: this.state.descriptionText }),
                 React.createElement(_DeleteStepModal2.default, _defineProperty({ deleteStepModalIsOpen: this.state.deleteStepModalIsOpen,
                     deleteStep: function deleteStep() {
-                        return _this8.deleteStep;
+                        return _this9.deleteStep;
                     },
                     closeDeleteStepModal: function closeDeleteStepModal() {
-                        return _this8.closeDeleteStepModal;
+                        return _this9.closeDeleteStepModal;
                     }
                 }, 'closeDeleteStepModal', function closeDeleteStepModal() {
-                    return _this8.closeDeleteStepModal;
+                    return _this9.closeDeleteStepModal;
                 }))
             );
         }
@@ -12753,13 +12751,19 @@ var FlowchartNav = function (_React$Component) {
                 "div",
                 { className: "flowchart-nav" },
                 React.createElement(
-                    "button",
-                    { id: "save-flowchart-button",
-                        className: "btn btn-success",
-                        onClick: this.props.sendFlowchartData() },
-                    "Save ",
-                    React.createElement("br", null),
-                    "Flowchart"
+                    "form",
+                    { action: this.props.url, method: "post" },
+                    React.createElement("input", { name: "id", type: "hidden", value: this.props.id }),
+                    React.createElement("input", { name: "Steps", type: "hidden", value: this.props.stepList }),
+                    React.createElement(
+                        "button",
+                        { id: "save-flowchart-button",
+                            className: "btn btn-success",
+                            type: "submit" },
+                        "Save ",
+                        React.createElement("br", null),
+                        "Flowchart"
+                    )
                 ),
                 React.createElement(_AddStepButton2.default, { handleClick: this.props.openAddStepModal() })
             );
@@ -12841,22 +12845,22 @@ var FlowchartStep = function (_React$Component) {
             if (this.props.children.length > 1) {
                 this.setState({
                     horLineWidth: 270 * (this.props.children.length - 1) + "px",
-                    botLineHeight: "12px"
+                    botLine: "1px solid black"
                 });
             } else if (this.props.children.length === 1) {
                 this.setState({
                     horLineWidth: "0px",
-                    botLineHeight: "12px"
+                    botLine: "1px solid black"
                 });
             } else {
                 this.setState({
                     horLineWidth: "0px",
-                    botLineHeight: "0px"
+                    botLine: "0px solid black"
                 });
             }
             if (this.props.parentId !== -1) {
                 this.setState({
-                    topLineHeight: "12px"
+                    topLine: "1px solid black"
                 });
             }
         }
@@ -12869,8 +12873,8 @@ var FlowchartStep = function (_React$Component) {
                 "div",
                 { className: "flowchart-step-wrapper" },
                 React.createElement("div", { className: "hor-line", style: { width: this.state.horLineWidth } }),
-                React.createElement("div", { className: "top-vert-line", style: { height: this.state.topLineHeight } }),
-                React.createElement("div", { className: "bot-vert-line", style: { height: this.state.botLineHeight } }),
+                React.createElement("div", { className: "top-vert-line", style: { borderLeft: this.state.topLine } }),
+                React.createElement("div", { className: "bot-vert-line", style: { borderLeft: this.state.botLine } }),
                 React.createElement(
                     "div",
                     { className: "flowchart-step" },
@@ -12936,7 +12940,7 @@ exports = module.exports = __webpack_require__(119)();
 
 
 // module
-exports.push([module.i, "/****************************************\n* Generics\n*****************************************/\n.material-shadow, .clickable, .btn, .add-step-btn, #save-flowchart-button {\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }\n\n.clickable:hover, .btn:hover, .add-step-btn:hover, #save-flowchart-button:hover {\n  cursor: pointer;\n  transform: scale(1.01);\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n  transition-duration: .5s;\n  transition-property: all; }\n\n/****************************************\n* Bootstrap Overrides\n*****************************************/\n/****************************************\n* Specifics\n*****************************************/\n.overlay-btn, .edit-step-btn, .add-child-btn, .delete-step-btn {\n  margin: 10px;\n  display: none;\n  -webkit-transition: all .5s;\n  transition: all .5s;\n  font-size: 200%;\n  padding-top: 10px; }\n\n.flowchart-contents {\n  position: absolute;\n  margin-top: -300px;\n  width: 250px;\n  height: 300px;\n  padding: 10px;\n  z-index: -1; }\n\n.flowchart-contents:hover {\n  opacity: .6; }\n\n.flowchart-overlay {\n  text-align: center;\n  border-radius: 20px;\n  background-color: transparent;\n  padding: 45% 10px;\n  position: relative;\n  width: 250px;\n  height: 300px;\n  -webkit-transition: all .5s;\n  transition: all .5s; }\n\n.flowchart-overlay:hover {\n  background-color: rgba(0, 0, 0, 0.6); }\n\n.flowchart-overlay:hover .overlay-btn, .flowchart-overlay:hover .edit-step-btn, .flowchart-overlay:hover .add-child-btn, .flowchart-overlay:hover .delete-step-btn {\n  display: block;\n  float: left; }\n\n.flowchart-step-title {\n  font-size: 200%;\n  text-align: center;\n  padding-top: 10px; }\n\n.flowchart-step-description {\n  padding: 15px 0px; }\n\n.flowchart-step-wrapper {\n  display: inline-block;\n  vertical-align: top;\n  text-align: center; }\n\n.flowchart-step {\n  width: 250px;\n  height: 300px;\n  border: 1px solid black;\n  border-radius: 20px;\n  display: inline-block;\n  margin: 0 10px;\n  z-index: -1; }\n\n.add-step-btn {\n  margin: 0px 20px 40px 20px;\n  padding: 20px;\n  font-size: 200%;\n  background-color: green; }\n  @media screen and (max-width: 450px) {\n    .add-step-btn {\n      width: 100px;\n      font-size: 100%; } }\n\n.flowchart-canvas,\n#flowchart-canvas {\n  min-height: 75vh;\n  white-space: nowrap; }\n\n.ReactModal__Content--after-open {\n  margin: 48px auto 0;\n  max-height: 70vh;\n  max-width: 70vw;\n  text-align: center; }\n\n.modal-input {\n  height: 200%;\n  width: 50vw;\n  font-size: 200%;\n  margin: 15px auto; }\n\n.modal-text {\n  font-size: 200%; }\n\n.modal-button, .delete-button, .delete-cancel-button {\n  font-size: 200%; }\n\n.delete-button, .delete-cancel-button {\n  height: 200px;\n  width: 200px;\n  margin: 40px; }\n\n#save-flowchart-button {\n  margin: 0px 20px 40px 20px;\n  float: right;\n  padding: 20px;\n  font-size: 200%;\n  background-color: green; }\n  @media screen and (max-width: 450px) {\n    #save-flowchart-button {\n      width: 100px;\n      font-size: 100%; } }\n\n.hor-line {\n  border-bottom: 1px solid black;\n  position: relative;\n  top: 311px;\n  margin: 0 auto; }\n\n.bot-vert-line {\n  position: relative;\n  top: 312px;\n  border-left: 1px solid black;\n  margin: 0 auto;\n  width: 0px; }\n\n.top-vert-line {\n  position: relative;\n  top: 0px;\n  border-left: 1px solid black;\n  margin: -14px auto 0 auto;\n  width: 0px; }\n", ""]);
+exports.push([module.i, "/****************************************\n* Generics\n*****************************************/\n.material-shadow, .clickable, .btn, .add-step-btn, #save-flowchart-button {\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }\n\n.clickable:hover, .btn:hover, .add-step-btn:hover, #save-flowchart-button:hover {\n  cursor: pointer;\n  transform: scale(1.01);\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n  transition-duration: .5s;\n  transition-property: all; }\n\n/****************************************\n* Bootstrap Overrides\n*****************************************/\n/****************************************\n* Specifics\n*****************************************/\n.overlay-btn, .edit-step-btn, .add-child-btn, .delete-step-btn {\n  margin: 10px;\n  display: none;\n  -webkit-transition: all .5s;\n  transition: all .5s;\n  font-size: 200%;\n  padding-top: 10px; }\n\n.flowchart-contents {\n  position: absolute;\n  margin-top: -300px;\n  width: 250px;\n  height: 300px;\n  padding: 10px;\n  z-index: -1; }\n\n.flowchart-contents:hover {\n  opacity: .6; }\n\n.flowchart-overlay {\n  text-align: center;\n  border-radius: 20px;\n  background-color: transparent;\n  padding: 45% 10px;\n  position: relative;\n  width: 250px;\n  height: 300px;\n  -webkit-transition: all .5s;\n  transition: all .5s; }\n\n.flowchart-overlay:hover {\n  background-color: rgba(0, 0, 0, 0.6); }\n\n.flowchart-overlay:hover .overlay-btn, .flowchart-overlay:hover .edit-step-btn, .flowchart-overlay:hover .add-child-btn, .flowchart-overlay:hover .delete-step-btn {\n  display: block;\n  float: left; }\n\n.flowchart-step-title {\n  font-size: 200%;\n  text-align: center;\n  padding-top: 10px; }\n\n.flowchart-step-description {\n  padding: 15px 0px; }\n\n.flowchart-step-wrapper {\n  display: inline-block;\n  vertical-align: top;\n  text-align: center; }\n\n.flowchart-step {\n  width: 250px;\n  height: 300px;\n  border: 1px solid black;\n  border-radius: 20px;\n  display: inline-block;\n  margin: 0 10px;\n  z-index: -1; }\n\n.add-step-btn {\n  margin: 0px 20px 40px 20px;\n  padding: 20px;\n  font-size: 200%;\n  background-color: green; }\n  @media screen and (max-width: 450px) {\n    .add-step-btn {\n      width: 100px;\n      font-size: 100%; } }\n\n.flowchart-canvas,\n#flowchart-canvas {\n  min-height: 75vh;\n  white-space: nowrap; }\n\n.ReactModal__Content--after-open {\n  margin: 48px auto 0;\n  max-height: 70vh;\n  max-width: 70vw;\n  text-align: center; }\n\n.modal-input {\n  height: 200%;\n  width: 50vw;\n  font-size: 200%;\n  margin: 15px auto; }\n\n.modal-text {\n  font-size: 200%; }\n\n.modal-button, .delete-button, .delete-cancel-button {\n  font-size: 200%; }\n\n.delete-button, .delete-cancel-button {\n  height: 200px;\n  width: 200px;\n  margin: 40px; }\n\n#save-flowchart-button {\n  margin: 0px 20px 40px 20px;\n  float: right;\n  padding: 20px;\n  font-size: 200%;\n  background-color: green; }\n  @media screen and (max-width: 450px) {\n    #save-flowchart-button {\n      width: 100px;\n      font-size: 100%; } }\n\n.hor-line {\n  border-bottom: 1px solid black;\n  position: relative;\n  top: 311px;\n  margin: 0 auto; }\n\n.bot-vert-line {\n  position: relative;\n  top: 312px;\n  border-left: 0px solid black;\n  margin: 0 auto;\n  width: 0px;\n  height: 12px; }\n\n.top-vert-line {\n  position: relative;\n  top: 0px;\n  border-left: 0px solid black;\n  margin: -14px auto -12px auto;\n  width: 0px;\n  height: 12px; }\n", ""]);
 
 // exports
 

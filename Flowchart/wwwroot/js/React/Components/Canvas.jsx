@@ -303,18 +303,21 @@ class Canvas extends React.Component {
         url = url[url.length-1]; // get just the id in the url
 
         axios.get('/Flowchart/GetJson/'+url)
-             .then(function (response) {
-                 console.log("Success");
-                 console.log(response);
+             .then((response) => {
+                 let stepList = JSON.parse(response.data).Steps;
+                 stepList = stepList.map((step) => {
+                     step.key = step.id;
+                     return step;
+                 });
+                 this.setState({
+                     stepList: stepList
+                 }, this.createComponentsFromStepList(stepList));
              })
              .catch(function (error) {
                  console.log("Error");
                  console.log(error);
              });
             // if no steps are in the props or the state, just show the initial new step button
-            this.setState({
-                stepList: []
-            });
         }
     }
 
@@ -435,13 +438,11 @@ class Canvas extends React.Component {
 
         return (
             <div className="flowchart-canvas">
-                <form action={url} method="post">
-                    <input name="id" type="text" value={id}/>
-                    <input name="Steps" type="text" value={JSON.stringify(stepList)}/>
-                    <button type="submit">Click here to test form</button>
-                </form>
                 <FlowchartNav openAddStepModal={() => this.openAddStepModal}
-                              sendFlowchartData={() => this.sendFlowchartData}/>
+                              sendFlowchartData={() => this.sendFlowchartData}
+                              url={url}
+                              id={id}
+                              stepList={JSON.stringify(stepList)}/>
 
                 {/*************************************************************
                   *  Flowchart Steps
