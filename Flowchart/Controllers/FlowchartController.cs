@@ -109,6 +109,19 @@ namespace FlowchartCreator.Controllers
             return View(flowchart);
         }
 
+        [HttpGet]
+        public JsonResult GetJson(int? id)
+        {
+            var flowchart = _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
+
+            // Note that this will read only the first line of the file and return that line.
+            string path = "C:\flowchart-" + id + ".txt";
+            using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(path))))
+            {
+                return Json(sr);
+            }
+        }
+
         // GET: Flowcharts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -118,21 +131,13 @@ namespace FlowchartCreator.Controllers
             }
 
             var flowchart = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
-            // Comment the line above and uncomment the lines below to use the parser.
-            //var flowchartUrl = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
-            //var flowchart = Parsers.ToObject(flowchartUrl.Url, "xml");
 
             if (flowchart == null)
             {
                 return NotFound();
             }
 
-            // Note that this will read only the first line of the file and return that line.
-            string path = "C:\flowchart-" + id + ".txt";
-            using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(path))))
-            {
-                return View(Json(sr.ReadLine()));
-            }
+            return View();
 
             // We have to populate the steps list via the parser.
             //return View(test);
