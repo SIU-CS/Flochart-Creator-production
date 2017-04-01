@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using FlowchartCreator.Data;
 using FlowchartCreator.Models;
 using FlowchartCreator.Helpers;
+using Newtonsoft.Json;
+using System.IO;
+using System.Text;
 
 namespace FlowchartCreator.Controllers
 {
@@ -82,6 +85,8 @@ namespace FlowchartCreator.Controllers
                     }
                 }
 
+                flowchart.LastModified = DateTime.UtcNow;
+
                 flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
 
@@ -111,8 +116,17 @@ namespace FlowchartCreator.Controllers
                 return NotFound();
             }
 
+            // Note that this will read only the first line of the file and return that line.
+            string path = "C:\flowchart-" + id + ".txt";
+            byte[] byteArray = Encoding.UTF8.GetBytes(path);
+            MemoryStream stream = new MemoryStream(byteArray);
+            using (StreamReader sr = new StreamReader(stream))
+            {
+                return (Json(sr.ReadLine()));
+            }
+
             // We have to populate the steps list via the parser.
-            return View(flowchart);
+            //return View(test);
         }
 
         // POST: Flowcharts/Edit/5
@@ -120,41 +134,48 @@ namespace FlowchartCreator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Url,CreatedBy,CreatedDate")] Flowchart flowchart)
+        public async Task<IActionResult> Edit(int id, string flowchart)
         {
-            if (id != flowchart.Id)
+            string path = "C:\flowchart-" + id + ".txt";
+            using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {
-                return NotFound();
+                tw.WriteLine(flowchart);
             }
 
-            if (ModelState.IsValid)
-            {
-                List<StepsViewModel> temp = new List<StepsViewModel>();
-                temp.Add(new StepsViewModel(1, "Test Name", "Test Description", new List<int> { 2, 3 }));
+            // Note that this will return to index whether it works or not.
+            return RedirectToAction("Index");
 
-                flowchart.Steps = temp;
+            //if (id != flowchart.Id)
+            //{
+            //    return NotFound();
+            //}
 
-                // Now, need to pass data to the parser.
+            //if (ModelState.IsValid)
+            //{
 
-                try
-                {
-                    _context.Update(flowchart);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FlowchartExists(flowchart.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            return View(flowchart);
+            //    flowchart.Steps = temp;
+
+            //    // Now, need to pass data to the parser.
+
+            //    try
+            //    {
+            //        _context.Update(flowchart);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!FlowchartExists(flowchart.Id))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction("Index");
+            //}
+            //return View(flowchart);
         }
 
         // GET: Flowcharts/Delete/5
