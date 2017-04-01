@@ -93,6 +93,12 @@ namespace FlowchartCreator.Controllers
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
 
+                string path = "C:\flowchart-" + flowchart.Id + ".txt";
+                using (TextWriter tw = new StreamWriter(new MemoryStream(Encoding.UTF8.GetBytes(path))))
+                {
+                    tw.WriteLine(flowchart);
+                }
+
                 return RedirectToAction("Edit", new { id = flowchart.Id });
             }
             return View(flowchart);
@@ -118,9 +124,7 @@ namespace FlowchartCreator.Controllers
 
             // Note that this will read only the first line of the file and return that line.
             string path = "C:\flowchart-" + id + ".txt";
-            byte[] byteArray = Encoding.UTF8.GetBytes(path);
-            MemoryStream stream = new MemoryStream(byteArray);
-            using (StreamReader sr = new StreamReader(stream))
+            using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(path))))
             {
                 return (Json(sr.ReadLine()));
             }
