@@ -38,25 +38,36 @@ class FlowchartStep extends React.Component {
     drawLines() {
         if (this.props.children.length > 1) {
             this.setState({
-                horLineWidth: 270*(this.props.children.length-1) + "px",
-                botLine: "1px solid black"
+                botLine: "2px solid black"
             });
         }
         else if(this.props.children.length === 1) {
             this.setState({
-                horLineWidth: "0px",
-                botLine: "1px solid black"
+                botLine: "2px solid black"
             });
         }
         else{
             this.setState({
-                horLineWidth: "0px",
+                horLine: "0px solid black",
                 botLine: "0px solid black"
             });
         }
         if (this.props.parentId !== -1) {
             this.setState({
-                topLine: "1px solid black"
+                topLine: "2px solid black",
+                horLine: "2px solid black"
+            });
+        }
+        if (this.props.isLeftChild) {
+            this.setState({
+                horLineOffset: '50%',
+                horLineMaxWidth: '50%'
+            });
+        }
+        else if (this.props.isRightChild) {
+            this.setState({
+                horLineOffset: '-50%',
+                horLineFloat: 'left'
             });
         }
     }
@@ -66,7 +77,11 @@ class FlowchartStep extends React.Component {
             <div className="flowchart-step-wrapper">
 
                 {/* The connecting lines */}
-                <div className="hor-line" style={{width: this.state.horLineWidth}}></div>
+            <div className="hor-line"
+                 style={{marginLeft: this.state.horLineOffset,
+                         maxWidth: this.state.horLineMaxWidth,
+                         borderTop: this.state.horLine}}>
+            </div>
                 <div className="top-vert-line" style={{borderLeft: this.state.topLine}}></div>
                 <div className="bot-vert-line" style={{borderLeft: this.state.botLine}}></div>
 

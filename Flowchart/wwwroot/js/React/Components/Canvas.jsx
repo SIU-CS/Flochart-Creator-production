@@ -229,24 +229,26 @@ class Canvas extends React.Component {
 
     }
 
-    createStepComponent(newStep) {
+    createStepComponent(newStep, isLeftChild, isRightChild) {
         /** Create Step Component
          *    Takes in a json step object and creates a React component for it
          */
         return (
             // this is the fingerprint of a step
             <FlowchartStep
-                title       = {newStep.title}
-                description = {newStep.description}
-                key         = {newStep.key}
-                addStep     = {this.openAddStepModal}
-                editStep    = {this.openEditStepModal}
-                deleteStep  = {this.openDeleteStepModal}
-                getChildrenById = {this.getChildrenById}
-                parentId   = {newStep.parentId}
-                children    = {newStep.children}
+                title                 = {newStep.title}
+                description           = {newStep.description}
+                key                   = {newStep.key}
+                addStep               = {this.openAddStepModal}
+                editStep              = {this.openEditStepModal}
+                deleteStep            = {this.openDeleteStepModal}
+                getChildrenById       = {this.getChildrenById}
+                parentId              = {newStep.parentId}
+                isRightChild          = {isRightChild}
+                isLeftChild           = {isLeftChild}
+                children              = {newStep.children}
                 createChildComponents = {this.createChildComponentsFromIds}
-                id          = {newStep.id} />
+                id                    = {newStep.id} />
         );
     }
 
@@ -260,9 +262,19 @@ class Canvas extends React.Component {
         let childObjectList = this.getChildrenById(childIdList);
 
         // create components for the objects
-        let childComponentList = childObjectList.map((child) => {
-            return this.createStepComponent(child);
-        });
+        let i = 0;
+        let childComponentList = [];
+        for (let child of childObjectList) {
+            console.log("i="+i)
+            console.log("length="+childIdList.length)
+            if (i === 0)
+                childComponentList.push(this.createStepComponent(child, true, false));
+            else if (i === childIdList.length-1)
+                childComponentList.push(this.createStepComponent(child, false, true));
+            else
+                childComponentList.push(this.createStepComponent(child, false, false));
+            i++;
+        }
         return childComponentList;
     }
 
