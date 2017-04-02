@@ -12426,6 +12426,7 @@ var Canvas = function (_React$Component) {
             /** Close "Delete Step" Modal
              *    Closes the modal form for deleting a step
              */
+            this.createComponentsFromStepList(this.state.stepList);
             this.setState({
                 deleteStepModalIsOpen: false,
                 deleteStepId: -1
@@ -12435,12 +12436,6 @@ var Canvas = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _this8 = this;
-
-            var url = window.location.href; // get the url for the id
-            url = url.split("/"); // make an array, splitting url on '/'
-            url = url[url.length - 1]; // get just the id in the url
-            var id = url;
-            url = "/Flowchart/Edit/" + id;
 
             var stepList = this.state.stepList.map(function (step) {
                 var newStep = {
@@ -12462,8 +12457,6 @@ var Canvas = function (_React$Component) {
                     sendFlowchartData: function sendFlowchartData() {
                         return _this8.sendFlowchartData;
                     },
-                    url: url,
-                    id: id,
                     stepList: JSON.stringify(stepList) }),
                 this.state.stepComponentList,
                 React.createElement(_AddStepModal2.default, { addStepModalIsOpen: this.state.addStepModalIsOpen,
@@ -12807,13 +12800,18 @@ var FlowchartNav = function (_React$Component) {
     _createClass(FlowchartNav, [{
         key: "render",
         value: function render() {
+            var url = window.location.href; // get the url for the id
+            url = url.split("/"); // make an array, splitting url on '/'
+            url = url[url.length - 1]; // get just the id in the url
+            var id = url;
+            url = "/Flowchart/Edit/" + id;
             return React.createElement(
                 "div",
                 { className: "flowchart-nav" },
                 React.createElement(
                     "form",
-                    { action: this.props.url, method: "post" },
-                    React.createElement("input", { name: "id", type: "hidden", value: this.props.id }),
+                    { action: url, method: "post" },
+                    React.createElement("input", { name: "id", type: "hidden", value: id }),
                     React.createElement("input", { name: "Steps", type: "hidden", value: this.props.stepList }),
                     React.createElement(
                         "button",

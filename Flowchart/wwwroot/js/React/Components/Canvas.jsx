@@ -445,13 +445,6 @@ class Canvas extends React.Component {
     }
 
     render() {
-
-        let url = window.location.href; // get the url for the id
-        url = url.split("/"); // make an array, splitting url on '/'
-        url = url[url.length-1]; // get just the id in the url
-        let id = url;
-        url = "/Flowchart/Edit/"+id;
-
         let stepList = this.state.stepList.map((step) => {
             let newStep = {
                 id: step.id,
@@ -467,8 +460,6 @@ class Canvas extends React.Component {
             <div className="flowchart-canvas">
                 <FlowchartNav openAddStepModal={() => this.openAddStepModal}
                               sendFlowchartData={() => this.sendFlowchartData}
-                              url={url}
-                              id={id}
                               stepList={JSON.stringify(stepList)}/>
 
                 {/*************************************************************
