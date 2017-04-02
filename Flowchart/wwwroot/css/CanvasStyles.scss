@@ -96,6 +96,7 @@
 .flowchart-step-description {
     padding: 15px 0px;
     white-space: normal;
+    word-wrap: break-word;
 }
 
 .flowchart-step-wrapper{
@@ -199,4 +200,8 @@
     margin: -1px auto -27px auto;
     width: 0px;
     height: 27px;
+}
+
+.modal-error {
+    color: orange;
 }

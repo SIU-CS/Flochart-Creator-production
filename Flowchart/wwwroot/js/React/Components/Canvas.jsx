@@ -357,8 +357,16 @@ class Canvas extends React.Component {
         /** Handle Description Change
          *    When users edit the title input on the modal form, this function is called
          */
-        this.setState({ descriptionText: event.target.value });
+
+        if (event.target.value.length < 270) {
+            this.setState({ descriptionText: event.target.value,
+                            descError: ""});
+        }
+        else {
+            this.setState({ descError: "Hey now, descriptions shouldn't be that long"});
+        }
     }
+
 
     openAddStepModal(parentId) {
         /** Open "Add Step" Modal
@@ -478,7 +486,8 @@ class Canvas extends React.Component {
                               handleTitleChange={() => this.handleTitleChange}
                               descriptionText={this.state.descriptionText}
                               handleDescriptionChange={() => this.handleDescriptionChange}
-                              error={this.state.titleError}
+                              titleError={this.state.titleError}
+                              descError={this.state.descError}
                               addStep={() => this.addStep} />
 
                 <EditStepModal editStepModalIsOpen={this.state.editStepModalIsOpen}
@@ -487,7 +496,8 @@ class Canvas extends React.Component {
                                handleDescriptionChange={() => this.handleDescriptionChange}
                                editStep={() => this.editStep}
                                titleText={this.state.titleText}
-                               error={this.state.titleError}
+                               titleError={this.state.titleError}
+                               descError={this.state.descError}
                                descriptionText={this.state.descriptionText} />
 
                 <DeleteStepModal deleteStepModalIsOpen={this.state.deleteStepModalIsOpen}
