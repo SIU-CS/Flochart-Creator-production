@@ -382,6 +382,9 @@ class Canvas extends React.Component {
         /** Close "Add Step" Modal
          *    Closes the modal form for adding a step
          */
+
+        // make sure steps render their horizontal lines appropriately after addition
+        this.createComponentsFromStepList(this.state.stepList);
         this.setState({
             addStepModalIsOpen:  false,
             descriptionText:     "",
@@ -414,6 +417,10 @@ class Canvas extends React.Component {
         /** Close "Edit Step" Modal
          *    Closes the modal form for editting a step
          */
+
+        // make sure steps render their horizontal lines appropriately after edit
+        this.createComponentsFromStepList(this.state.stepList);
+
         this.setState({
             editStepModalIsOpen:  false,
             descriptionText:      "",
