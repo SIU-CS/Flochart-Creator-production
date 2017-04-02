@@ -267,10 +267,12 @@ class Canvas extends React.Component {
         for (let child of childObjectList) {
             console.log("i="+i)
             console.log("length="+childIdList.length)
-            if (i === 0)
+            if (i === 0 && childObjectList.length > 1)
                 childComponentList.push(this.createStepComponent(child, true, false));
-            else if (i === childIdList.length-1)
+            else if (i === childIdList.length-1 && childObjectList.length > 1)
                 childComponentList.push(this.createStepComponent(child, false, true));
+            else if (childObjectList.length === 1)
+                childComponentList.push(this.createStepComponent(child, true, true));
             else
                 childComponentList.push(this.createStepComponent(child, false, false));
             i++;

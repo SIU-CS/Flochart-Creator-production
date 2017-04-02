@@ -58,7 +58,12 @@ class FlowchartStep extends React.Component {
                 horLine: "2px solid black"
             });
         }
-        if (this.props.isLeftChild) {
+        if (this.props.isLeftChild && this.props.isRightChild ) {
+            this.setState({
+                horLineMaxWidth: '0%'
+            });
+        }
+        else if (this.props.isLeftChild) {
             this.setState({
                 horLineOffset: '50%',
                 horLineMaxWidth: '50%'
