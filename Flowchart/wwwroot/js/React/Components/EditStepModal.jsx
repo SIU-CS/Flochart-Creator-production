@@ -22,6 +22,9 @@ class EditStepModal extends React.Component {
                                        className="form-control modal-input"
                                        value={this.props.titleText}
                                        onChange={this.props.handleTitleChange()} />
+                                    <div className="modal-error">
+                                        {this.props.error}
+                                    </div>
                             </div>
                         </div>
                         <div className="form-group">
