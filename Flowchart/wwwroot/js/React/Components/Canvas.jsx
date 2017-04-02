@@ -438,6 +438,10 @@ class Canvas extends React.Component {
         /** Close "Delete Step" Modal
          *    Closes the modal form for deleting a step
          */
+
+        // make sure steps render their horizontal lines appropriately after deletion
+        this.createComponentsFromStepList(this.state.stepList);
+
         this.setState({
             deleteStepModalIsOpen: false,
             deleteStepId:          -1
