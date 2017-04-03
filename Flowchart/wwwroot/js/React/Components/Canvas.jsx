@@ -229,24 +229,26 @@ class Canvas extends React.Component {
 
     }
 
-    createStepComponent(newStep) {
+    createStepComponent(newStep, isLeftChild, isRightChild) {
         /** Create Step Component
          *    Takes in a json step object and creates a React component for it
          */
         return (
             // this is the fingerprint of a step
             <FlowchartStep
-                title       = {newStep.title}
-                description = {newStep.description}
-                key         = {newStep.key}
-                addStep     = {this.openAddStepModal}
-                editStep    = {this.openEditStepModal}
-                deleteStep  = {this.openDeleteStepModal}
-                getChildrenById = {this.getChildrenById}
-                parentId   = {newStep.parentId}
-                children    = {newStep.children}
+                title                 = {newStep.title}
+                description           = {newStep.description}
+                key                   = {newStep.key}
+                addStep               = {this.openAddStepModal}
+                editStep              = {this.openEditStepModal}
+                deleteStep            = {this.openDeleteStepModal}
+                getChildrenById       = {this.getChildrenById}
+                parentId              = {newStep.parentId}
+                isRightChild          = {isRightChild}
+                isLeftChild           = {isLeftChild}
+                children              = {newStep.children}
                 createChildComponents = {this.createChildComponentsFromIds}
-                id          = {newStep.id} />
+                id                    = {newStep.id} />
         );
     }
 
@@ -260,9 +262,21 @@ class Canvas extends React.Component {
         let childObjectList = this.getChildrenById(childIdList);
 
         // create components for the objects
-        let childComponentList = childObjectList.map((child) => {
-            return this.createStepComponent(child);
-        });
+        let i = 0;
+        let childComponentList = [];
+        for (let child of childObjectList) {
+            console.log("i="+i)
+            console.log("length="+childIdList.length)
+            if (i === 0 && childObjectList.length > 1)
+                childComponentList.push(this.createStepComponent(child, true, false));
+            else if (i === childIdList.length-1 && childObjectList.length > 1)
+                childComponentList.push(this.createStepComponent(child, false, true));
+            else if (childObjectList.length === 1)
+                childComponentList.push(this.createStepComponent(child, true, true));
+            else
+                childComponentList.push(this.createStepComponent(child, false, false));
+            i++;
+        }
         return childComponentList;
     }
 
@@ -330,16 +344,29 @@ class Canvas extends React.Component {
          *    When users edit the title input on the modal form, this function is called
          */
 
-        /* TODO check title length*/
-        this.setState({ titleText: event.target.value });
+        if (event.target.value.length < 20) {
+            this.setState({ titleText: event.target.value,
+                            titleError: ""});
+        }
+        else {
+            this.setState({ titleError: "Hey now, titles shouldn't be that long"});
+        }
     }
 
     handleDescriptionChange(event) {
         /** Handle Description Change
          *    When users edit the title input on the modal form, this function is called
          */
-        this.setState({ descriptionText: event.target.value });
+
+        if (event.target.value.length < 270) {
+            this.setState({ descriptionText: event.target.value,
+                            descError: ""});
+        }
+        else {
+            this.setState({ descError: "Hey now, descriptions shouldn't be that long"});
+        }
     }
+
 
     openAddStepModal(parentId) {
         /** Open "Add Step" Modal
@@ -355,6 +382,9 @@ class Canvas extends React.Component {
         /** Close "Add Step" Modal
          *    Closes the modal form for adding a step
          */
+
+        // make sure steps render their horizontal lines appropriately after addition
+        this.createComponentsFromStepList(this.state.stepList);
         this.setState({
             addStepModalIsOpen:  false,
             descriptionText:     "",
@@ -387,6 +417,10 @@ class Canvas extends React.Component {
         /** Close "Edit Step" Modal
          *    Closes the modal form for editting a step
          */
+
+        // make sure steps render their horizontal lines appropriately after edit
+        this.createComponentsFromStepList(this.state.stepList);
+
         this.setState({
             editStepModalIsOpen:  false,
             descriptionText:      "",
@@ -411,6 +445,10 @@ class Canvas extends React.Component {
         /** Close "Delete Step" Modal
          *    Closes the modal form for deleting a step
          */
+
+        // make sure steps render their horizontal lines appropriately after deletion
+        this.createComponentsFromStepList(this.state.stepList);
+
         this.setState({
             deleteStepModalIsOpen: false,
             deleteStepId:          -1
@@ -418,13 +456,6 @@ class Canvas extends React.Component {
     }
 
     render() {
-
-        let url = window.location.href; // get the url for the id
-        url = url.split("/"); // make an array, splitting url on '/'
-        url = url[url.length-1]; // get just the id in the url
-        let id = url;
-        url = "/Flowchart/Edit/"+id;
-
         let stepList = this.state.stepList.map((step) => {
             let newStep = {
                 id: step.id,
@@ -440,8 +471,6 @@ class Canvas extends React.Component {
             <div className="flowchart-canvas">
                 <FlowchartNav openAddStepModal={() => this.openAddStepModal}
                               sendFlowchartData={() => this.sendFlowchartData}
-                              url={url}
-                              id={id}
                               stepList={JSON.stringify(stepList)}/>
 
                 {/*************************************************************
@@ -459,6 +488,8 @@ class Canvas extends React.Component {
                               handleTitleChange={() => this.handleTitleChange}
                               descriptionText={this.state.descriptionText}
                               handleDescriptionChange={() => this.handleDescriptionChange}
+                              titleError={this.state.titleError}
+                              descError={this.state.descError}
                               addStep={() => this.addStep} />
 
                 <EditStepModal editStepModalIsOpen={this.state.editStepModalIsOpen}
@@ -467,6 +498,8 @@ class Canvas extends React.Component {
                                handleDescriptionChange={() => this.handleDescriptionChange}
                                editStep={() => this.editStep}
                                titleText={this.state.titleText}
+                               titleError={this.state.titleError}
+                               descError={this.state.descError}
                                descriptionText={this.state.descriptionText} />
 
                 <DeleteStepModal deleteStepModalIsOpen={this.state.deleteStepModalIsOpen}

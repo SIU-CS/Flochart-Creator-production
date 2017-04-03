@@ -33,7 +33,7 @@
 *****************************************/
 
 .overlay-btn {
-    margin: 10px;
+    margin: 9px;
     display: none;
     -webkit-transition: all .5s;
     transition: all .5s;
@@ -95,6 +95,8 @@
 
 .flowchart-step-description {
     padding: 15px 0px;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .flowchart-step-wrapper{
@@ -177,25 +179,29 @@
 }
 
 .hor-line {
-    border-bottom: 1px solid black;
+    width: 100%;
     position: relative;
-    top: 311px;
-    margin: 0 auto;
+    border-top: 0px solid black;
+    margin: 0 auto
 }
 
 .bot-vert-line {
     position: relative;
-    top: 312px;
+    top: 326px;
     border-left: 0px solid black;
     margin: 0 auto;
     width: 0px;
-    height: 12px;
+    height: 27px;
 }
 .top-vert-line {
     position: relative;
     top: 0px;
     border-left: 0px solid black;
-    margin: -14px auto -12px auto;
+    margin: -1px auto -27px auto;
     width: 0px;
-    height: 12px;
+    height: 27px;
+}
+
+.modal-error {
+    color: orange;
 }

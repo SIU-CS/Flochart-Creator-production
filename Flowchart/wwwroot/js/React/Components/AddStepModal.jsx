@@ -13,6 +13,9 @@ class AddStepModal extends React.Component {
                             <hr />
                             <div className="form-group">
                                 <label className=" modal-text col-md-12" htmlFor="Title">Title</label>
+                                <div className="modal-error">
+                                    {this.props.titleError}
+                                </div>
                                 <div className="col-md-12">
                                     <input htmlFor="Title"
                                            id="Title"
@@ -23,6 +26,9 @@ class AddStepModal extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label className="col-md-12 modal-text" htmlFor="Description">Description</label>
+                                <div className="modal-error">
+                                    {this.props.descError}
+                                </div>
                                 <div className="col-md-12">
                                     <textarea rows="5"
                                               id="Description"
