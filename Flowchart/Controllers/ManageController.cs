@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Options;
 using FlowchartCreator.Models;
 using FlowchartCreator.Models.ManageViewModels;
 using FlowchartCreator.Services;
+using FlowchartCreator.Data;
 
 namespace FlowchartCreator.Controllers
 {
@@ -48,9 +48,16 @@ namespace FlowchartCreator.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : "";
+
+            ViewData["ErrorMessage"] = 
+                message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
+            ViewData["PasswordErrorMessage"] =
+                message == ManageMessageId.IncorrectPassword ? "That password does not match our records!"
                 : "";
 
             var user = await GetCurrentUserAsync();
@@ -360,12 +367,81 @@ namespace FlowchartCreator.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            IncorrectPassword,
             Error
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+        /// <summary>
+        /// Deletes a user including all of their roles and logins.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ActionResult> DeleteUser(string password)
+        {
+            var user = await GetCurrentUserAsync();
+            var id = user?.Id;
+
+            if (id == null)
+                return NotFound();
+
+            if (!await _userManager.CheckPasswordAsync(user, password))
+                return RedirectToAction("Index", "Manage", new { Message = ManageMessageId.IncorrectPassword });
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var logins = user.Logins;
+
+                    foreach (var login in logins.ToList())
+                    {
+                        await _userManager.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey);
+                    }
+
+                    var rolesForUser = await _userManager.GetRolesAsync(user);
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var role in rolesForUser.ToList())
+                        {
+                            var result = await _userManager.RemoveFromRoleAsync(user, role);
+                        }
+                    }
+
+                    // Below is the following code that will remove all flowcharts associated with the user.
+                    //using (FlowchartDbContext _context = new FlowchartDbContext())
+                    //{
+                    //    var query = from flowcharts in _context.Flowcharts
+                    //                where flowcharts.CreatedBy.Equals(User.Identity.Name)
+                    //                select flowcharts;
+
+                    //    foreach (var flowchart in query)
+                    //    {
+                    //        // Need to access the URL and delete the hard copy as well.
+                    //        _context.Remove(flowchart);
+                    //    }
+                    //}
+
+                    await _signInManager.SignOutAsync();
+                    await _userManager.DeleteAsync(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                catch (Exception e)
+                {
+                    // Return with the specific error handled.
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
 
         #endregion
