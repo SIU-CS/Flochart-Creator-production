@@ -12944,6 +12944,11 @@ var FlowchartStep = function (_React$Component) {
                     horLineOffset: '-50%',
                     horLineFloat: 'left'
                 });
+            } else {
+                this.setState({
+                    horLineOffset: '0px',
+                    horLineFloat: 'left'
+                });
             }
         }
     }, {
