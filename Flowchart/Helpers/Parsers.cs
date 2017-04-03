@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace FlowchartCreator.Helpers
 {
@@ -112,6 +113,29 @@ namespace FlowchartCreator.Helpers
         /// <returns>Flowchart object containing XML data.</returns>
         private static Flowchart FromJson(string url)
         {
+            var json = File.ReadAllText("JSON.json");
+            var objects = JArray.Parse(json); //Parses it as an array
+            Flowchart flowchart = new Flowchart();
+            foreach (JObject root in objects)
+            {
+                foreach (KeyValuePair<String, JToken> app in root)
+                {
+                    flowchart.Id = Convert.ToInt32(app.Key);
+                    flowchart.Name = (String)app.Value["name"];
+
+                    var selectSteps = from s in app.Value.["flowchart"]
+                                      select s;
+
+                    List<StepsViewModel> temp = new List<StepsViewModel>();
+                    foreach (var step in selectSteps)
+                    {
+                        
+                        
+                    }
+
+
+                }
+            }
             return new Flowchart();
         }
     }
