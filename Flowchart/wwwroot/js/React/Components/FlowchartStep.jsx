@@ -75,6 +75,12 @@ class FlowchartStep extends React.Component {
                 horLineFloat: 'left'
             });
         }
+        else {
+            this.setState({
+                horLineOffset: '0px',
+                horLineFloat: 'left'
+            });
+        }
     }
 
     render() {
