@@ -74,7 +74,7 @@ class Canvas extends React.Component {
         /** Delete Step
          *    Main driver for delete step form. Called on "Delete Step" form submit
          */
-        event.preventDefault();
+        event.preventDefault(); // don't submit, run this function instead
         if (this.state.deleteStepId > -1) {
             // remove step from steplist
             let newStepList = this.state.stepList.filter((step) => {
@@ -93,7 +93,7 @@ class Canvas extends React.Component {
         /** Add New Step
          *    Main driver for add step form. Called on "Add Step" form submit
          */
-        event.preventDefault();
+        event.preventDefault(); // don't submit, run this function instead
         let newChildId, newStep, newStepList;
 
         newStepList = this.state.stepList;
@@ -330,14 +330,14 @@ class Canvas extends React.Component {
 
         axios.get('/Flowchart/GetJson/'+url)
              .then((response) => {
-                 let stepList = JSON.parse(response.data).Steps;
+                 let stepList = JSON.parse(response.data).Steps; // get the steps into an array
                  stepList = stepList.map((step) => {
                      step.key = step.id;
                      return step;
                  });
                  this.setState({
                      stepList: stepList
-                 }, this.createComponentsFromStepList(stepList));
+                 }, this.createComponentsFromStepList(stepList)); // make components for the JSON objects
              })
              .catch(function (error) {
                  console.log("Error");
