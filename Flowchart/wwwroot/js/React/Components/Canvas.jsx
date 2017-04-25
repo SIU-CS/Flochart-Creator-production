@@ -27,6 +27,9 @@ class Canvas extends React.Component {
             titleText:             "",    // placeholder for new step's title
             descriptionText:       ""     // placeholder for new step's descrtiption
         }
+
+        /* Any function that needs access to the class's 'this' needs to be bound to it.
+         * This includes any functions that alter the state.*/
         this.openAddStepModal             = this.openAddStepModal.bind(this);
         this.closeAddStepModal            = this.closeAddStepModal.bind(this);
         this.openEditStepModal            = this.openEditStepModal.bind(this);
