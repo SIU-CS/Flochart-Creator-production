@@ -4,11 +4,11 @@ class FlowchartStep extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: "",
-            title: "",
-            description: "",
-            children: [],
-            parentId: -1,
+            id:              "",
+            title:           "",
+            description:     "",
+            children:        [],
+            parentId:        -1,
             childComponents: []
         }
         this.drawLines = this.drawLines.bind(this);
@@ -16,19 +16,20 @@ class FlowchartStep extends React.Component {
 
     componentDidMount() {
         let childComponents = this.state.chlidren;
-        childComponents = this.props.createChildComponents(this.props.children);
+        childComponents     = this.props.createChildComponents(this.props.children);
 
         this.setState({
-            id: this.props.id,
-            title: this.props.title,
-            description: this.props.description,
-            parentId: this.props.parentId,
+            id:              this.props.id,
+            title:           this.props.title,
+            description:     this.props.description,
+            parentId:        this.props.parentId,
             childComponents: childComponents,
-            children: this.props.children || this.state.children
+            children:        this.props.children || this.state.children
         }, this.drawLines());
     }
 
     componentWillReceiveProps(nextProps) {
+        /* update the children when new steps are passed down the from the canvas*/
         let childComponents = this.props.createChildComponents(nextProps.children);
         this.setState({
             childComponents: childComponents
@@ -113,7 +114,7 @@ class FlowchartStep extends React.Component {
                 {/* The step itself */}
                 <div className="flowchart-step">
 
-                    {/* Overlay on top of the step */}
+                    {/* Overlay on top of the step with Modal buttons*/}
                     <div className="flowchart-overlay" >
                         <button onClick={() => this.props.editStep(this.state.id)} className="btn edit-step-btn btn-warning">
                             <span className="glyphicon glyphicon-pencil"></span>
