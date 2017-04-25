@@ -52,9 +52,14 @@ class Canvas extends React.Component {
      *************************************************************/
 
     editStep(event) {
-        event.preventDefault();
+        /** Edit Step
+         *    Main driver for edit step form. Called on "Edit Step" form submit
+         */
+        event.preventDefault(); // don't submit, run this function instead
         let newStepList = this.state.stepList;
+
         newStepList = newStepList.map((step) => {
+            /* the new step information stored in state is assigned here*/
             if (step.id === this.state.editStepId) {
                 step.title = this.state.titleText;
                 step.description = this.state.descriptionText;
