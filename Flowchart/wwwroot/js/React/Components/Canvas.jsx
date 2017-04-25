@@ -1,4 +1,8 @@
-﻿import AddStepButton   from './AddStepButton';
+﻿/**
+   Main component. Handles all state management, step rendering,
+   and add/edit/delete Modals
+ */
+import AddStepButton   from './AddStepButton';
 import Modal           from 'react-modal';
 import FlowchartStep   from './FlowchartStep'
 import FlowchartNav    from './FlowchartNav';
