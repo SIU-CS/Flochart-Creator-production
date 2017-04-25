@@ -1,6 +1,6 @@
-class FlowchartStep extends React.Component {
-    /* The actual step. Also handles rendering of any children.*/
+/* The actual step component itself. Also renders any children.*/
 
+class FlowchartStep extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
