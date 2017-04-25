@@ -1,4 +1,5 @@
 /* Handles the modal to add a step.
+   All modal-related functions are passed into props by the Canvas*/
 import Modal from 'react-modal';
 class AddStepModal extends React.Component {
 
