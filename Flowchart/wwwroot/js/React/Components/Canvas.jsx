@@ -137,11 +137,11 @@ class Canvas extends React.Component {
 
         let stepList = this.state.stepList.map((step) => {
             let newStep = {
-                id: step.id,
-                title: step.title,
+                id:          step.id,
+                title:       step.title,
                 description: step.description,
-                children: step.children,
-                parentId: step.parentId
+                children:    step.children,
+                parentId:    step.parentId
             }
             return newStep;
         });
@@ -320,8 +320,8 @@ class Canvas extends React.Component {
         else {
 
         let url = window.location.href; // get the url for the id
-        url = url.split("/"); // make an array, splitting url on '/'
-        url = url[url.length-1]; // get just the id in the url
+        url     = url.split("/");       // make an array, splitting url on '/'
+        url     = url[url.length-1];    // get just the id in the url
 
         axios.get('/Flowchart/GetJson/'+url)
              .then((response) => {
@@ -429,12 +429,12 @@ class Canvas extends React.Component {
         this.createComponentsFromStepList(this.state.stepList);
 
         this.setState({
-            editStepModalIsOpen:  false,
+            editStepModalIsOpen: false,
             descriptionText:      "",
             titleText:            "",
             parentId:             -1,
             newChildId:           -1,
-            editStepId:           -1
+            editStepId:          -1
         });
     }
 
@@ -465,11 +465,11 @@ class Canvas extends React.Component {
     render() {
         let stepList = this.state.stepList.map((step) => {
             let newStep = {
-                id: step.id,
-                title: step.title,
+                id:          step.id,
+                title:       step.title,
                 description: step.description,
-                children: step.children,
-                parentId: step.parentId
+                children:    step.children,
+                parentId:    step.parentId
             }
             return newStep;
         });
