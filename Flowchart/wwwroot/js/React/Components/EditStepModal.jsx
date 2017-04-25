@@ -1,6 +1,6 @@
+/* Handles the modal to edit a step
 import Modal from 'react-modal';
 class EditStepModal extends React.Component {
-    /* Handles the modal to edit a step*/
 
     render() {
         return (

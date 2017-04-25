@@ -1,5 +1,6 @@
+/* The button to add a new top-level step*/
+
 class AddStepButton extends React.Component {
-    /* The button to add a new top-level step*/
 
     render() {
         return (
