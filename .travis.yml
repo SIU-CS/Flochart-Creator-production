@@ -5,4 +5,4 @@ dotnet: 1.0.1
 dist: trusty
 solution: FlowchartCreator.sln
 script:
- - ./build.sh --quiet verify
+ - sudo ./build.sh --quiet verify
