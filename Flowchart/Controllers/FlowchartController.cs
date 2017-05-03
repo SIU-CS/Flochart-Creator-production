@@ -72,8 +72,8 @@ namespace FlowchartCreator.Controllers
             if (ModelState.IsValid)
             {
                 // Continues to generate URLs until a unique one is identified.
-                bool continue = true;
-                while (continue)
+                bool cont = true;
+                while (cont)
                 {
                     string genUrl = Generators.Url();
                     var dupeUrl = (from url in _context.Flowcharts
@@ -83,7 +83,7 @@ namespace FlowchartCreator.Controllers
                     if (!dupeUrl)
                     {
                         flowchart.Url = genUrl;
-                        continue = false;
+                        cont = false;
                     }
                 }
 
