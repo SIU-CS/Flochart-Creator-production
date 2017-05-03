@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,8 +15,10 @@ namespace FlowchartCreator.Models
         [StringLength(20, ErrorMessage = "The flowchart name must be between 1 and 20 characters.", MinimumLength = 1)]
         public string Name { get; set; }
 
+        // The URL where the flowchart is being stored.
         public string Url { get; set; }
 
+        // Who initially created the flowchart.
         public string CreatedBy { get; set; }
 
         /// Michael: This needs to be mapped to a particular username from 
@@ -26,8 +28,10 @@ namespace FlowchartCreator.Models
         /// The latter is probably the better way to go eventually.
         public DateTime CreatedDate { get; set; }
 
+        // The last date in which a user modified a flowchart.
         public DateTime LastModified { get; set; }
 
+        // The list of steps for each flowchart. This is generated dynamically from a file.
         [NotMapped]
         public virtual IEnumerable<StepsViewModel> Steps { get; set; }
     }

@@ -57,7 +57,7 @@ namespace FlowchartCreator
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add react services.
+            // Add react services prior to the AddMvc function.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
             //
