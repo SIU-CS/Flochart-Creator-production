@@ -62,9 +62,8 @@ namespace FlowchartCreator.Controllers
 
             var user = await GetCurrentUserAsync();
             if (user == null)
-            {
                 return View("Error");
-            }
+                
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),
@@ -110,15 +109,13 @@ namespace FlowchartCreator.Controllers
         public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
+                
             // Generate the token and send it
             var user = await GetCurrentUserAsync();
             if (user == null)
-            {
                 return View("Error");
-            }
+                
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
             await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
             return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
@@ -163,9 +160,8 @@ namespace FlowchartCreator.Controllers
         {
             var user = await GetCurrentUserAsync();
             if (user == null)
-            {
                 return View("Error");
-            }
+                
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
             // Send an SMS to verify the phone number
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
@@ -178,9 +174,8 @@ namespace FlowchartCreator.Controllers
         public async Task<IActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
+                
             var user = await GetCurrentUserAsync();
             if (user != null)
             {
@@ -230,9 +225,8 @@ namespace FlowchartCreator.Controllers
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
+                
             var user = await GetCurrentUserAsync();
             if (user != null)
             {
@@ -264,9 +258,7 @@ namespace FlowchartCreator.Controllers
         public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
             var user = await GetCurrentUserAsync();
             if (user != null)
@@ -329,9 +321,8 @@ namespace FlowchartCreator.Controllers
         {
             var user = await GetCurrentUserAsync();
             if (user == null)
-            {
                 return View("Error");
-            }
+                
             var info = await _signInManager.GetExternalLoginInfoAsync(await _userManager.GetUserIdAsync(user));
             if (info == null)
             {
@@ -387,7 +378,7 @@ namespace FlowchartCreator.Controllers
 
             if (id == null)
                 return NotFound();
-
+                
             if (!await _userManager.CheckPasswordAsync(user, password))
                 return RedirectToAction("Index", "Manage", new { Message = ManageMessageId.IncorrectPassword });
 
@@ -397,6 +388,7 @@ namespace FlowchartCreator.Controllers
                 {
                     var logins = user.Logins;
 
+                    // Delete all logins.
                     foreach (var login in logins.ToList())
                     {
                         await _userManager.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey);
@@ -404,6 +396,7 @@ namespace FlowchartCreator.Controllers
 
                     var rolesForUser = await _userManager.GetRolesAsync(user);
 
+                    // Delete all roles.
                     if (rolesForUser.Count() > 0)
                     {
                         foreach (var role in rolesForUser.ToList())
@@ -412,7 +405,7 @@ namespace FlowchartCreator.Controllers
                         }
                     }
 
-                    // Below is the following code that will remove all flowcharts associated with the user.
+                    // Delete all flowcharts associated to the user.
                     //using (FlowchartDbContext _context = new FlowchartDbContext())
                     //{
                     //    var query = from flowcharts in _context.Flowcharts
@@ -426,6 +419,7 @@ namespace FlowchartCreator.Controllers
                     //    }
                     //}
 
+                    // Sign the user out and delete them.
                     await _signInManager.SignOutAsync();
                     await _userManager.DeleteAsync(user);
 
