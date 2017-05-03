@@ -15,12 +15,14 @@ using Microsoft.AspNetCore.Http.Internal;
 
 namespace FlowchartCreator.Controllers
 {
-    // DEBUG: Comment/Uncomment this to require authentication to access this controller's components.
+    // Comment/Uncomment this to require authentication to access this controller's components.
     //[Authorize]
     public class FlowchartController : Controller
     {
+        // Database object.
         private readonly FlowchartDbContext _context;
 
+        // Create the appropriate database context.
         public FlowchartController(FlowchartDbContext context)
         {
             _context = context;
@@ -28,7 +30,7 @@ namespace FlowchartCreator.Controllers
 
         // GET: Flowcharts
         /// <summary>
-        /// List the User's flowcharts here. 
+        /// Lists the User's flowcharts. 
         /// </summary>
         /// <returns></returns>
         public async Task<IActionResult> Index()
@@ -44,16 +46,13 @@ namespace FlowchartCreator.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var flowchart = await _context.Flowcharts
                 .SingleOrDefaultAsync(m => m.Id == id);
+                
             if (flowchart == null)
-            {
                 return NotFound();
-            }
 
             return View(flowchart);
         }
@@ -64,9 +63,8 @@ namespace FlowchartCreator.Controllers
             return View();
         }
 
-        // POST: Flowcharts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Adds the flowchart to the database and creates a flowchart file. It then sends the user 
+        // to the edit page to actually make the flowchart itself.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Flowchart flowchart)
@@ -76,11 +74,11 @@ namespace FlowchartCreator.Controllers
                 while (true)
                 {
                     string genUrl = Generators.Url();
-                    var duplicateUrl = (from url in _context.Flowcharts
+                    var dupeUrl = (from url in _context.Flowcharts
                                 where url.Url.Equals(genUrl)
                                 select url).Any();
 
-                    if (!duplicateUrl)
+                    if (!dupeUrl)
                     {
                         flowchart.Url = genUrl;
                         break;
@@ -88,13 +86,13 @@ namespace FlowchartCreator.Controllers
                 }
 
                 flowchart.LastModified = DateTime.UtcNow;
-
                 flowchart.CreatedBy = HttpContext.User.Identity.Name;
                 flowchart.CreatedDate = DateTime.UtcNow;
-
                 _context.Add(flowchart);
                 await _context.SaveChangesAsync();
 
+                // Temporarily saves it locally to the following location.
+                // This should have been offloaded to another class by now... :|
                 string path = @"C:\Users\Taylor\flowchart-" + flowchart.Id + ".txt";
                 byte[] byteArray = Encoding.UTF8.GetBytes(path);
                 MemoryStream stream = new MemoryStream();
@@ -109,8 +107,10 @@ namespace FlowchartCreator.Controllers
             return View(flowchart);
         }
 
+        
+        // This is a middleware function that allows the front-end to parse the files stored on the back-
+        // end within an object for display and manipulation.
         [HttpGet]
-        // GET: Flowcharts/GetJson/5
         public string GetJson(int? id)
         {
             // Note that this will read only the first line of the file and return that line.
@@ -128,28 +128,18 @@ namespace FlowchartCreator.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var flowchart = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
 
             if (flowchart == null)
-            {
                 return NotFound();
-            }
 
             return View();
-
-            // We have to populate the steps list via the parser.
-            //return View(test);
         }
 
         // POST: Flowcharts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(FlowchartDataViewModel flowchart)
         {
             // Note that this deserialization and reserialization isn't necessary at this juncture. It will,
@@ -167,6 +157,7 @@ namespace FlowchartCreator.Controllers
 
             flowchart.Steps = temp_steps;
 
+            // If the model data is good and the file exists, save the flowchart data to a file.
             if(ModelState.IsValid)
             {
                 string path = @"C:\Users\Taylor\flowchart-" + flowchart.id + ".txt";
@@ -188,13 +179,9 @@ namespace FlowchartCreator.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!FlowchartExists(flowchart.id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
 
                 return RedirectToAction("Index");
@@ -210,19 +197,16 @@ namespace FlowchartCreator.Controllers
         }
 
         // GET: Flowcharts/Delete/5
+        // Deletes a flowchart from the database. It does not, however, delete the flowchart file.
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var flowchart = await _context.Flowcharts
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (flowchart == null)
-            {
                 return NotFound();
-            }
 
             return View(flowchart);
         }
