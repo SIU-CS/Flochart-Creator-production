@@ -149,13 +149,13 @@ namespace FlowchartCreator.Controllers
             Request.Form.TryGetValue("Steps", out stepData);
             var steps = JsonConvert.DeserializeObject<IEnumerable<Object>>(stepData);
 
-            List<StepsViewModel> temp_steps = new List<StepsViewModel>();
+            List<StepsViewModel> tSteps = new List<StepsViewModel>();
             foreach (var step in steps)
             {
-                temp_steps.Add(JsonConvert.DeserializeObject<StepsViewModel>(step.ToString()));
+                tSteps.Add(JsonConvert.DeserializeObject<StepsViewModel>(step.ToString()));
             }
 
-            flowchart.Steps = temp_steps;
+            flowchart.Steps = tSteps;
 
             // If the model data is good and the file exists, save the flowchart data to a file.
             if(ModelState.IsValid)
