@@ -157,7 +157,7 @@ namespace FlowchartCreator.Controllers
 
             flowchart.Steps = tSteps;
 
-            // If the model data is good and the file exists, save the flowchart data to a file.
+            // If the model data is good and the file exists, save the flowchart data to a file on a single line.
             if(ModelState.IsValid)
             {
                 string path = @"C:\Users\Taylor\flowchart-" + flowchart.id + ".txt";
