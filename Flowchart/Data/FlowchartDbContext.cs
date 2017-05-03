@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlowchartCreator.Data
 {
+
+    // Creates the flowchart database.
     public class FlowchartDbContext : DbContext
     {
-        //public FlowchartDbContext()
-        //{
-        //}
-
         public FlowchartDbContext(DbContextOptions<FlowchartDbContext> options)
             : base(options)
         {
