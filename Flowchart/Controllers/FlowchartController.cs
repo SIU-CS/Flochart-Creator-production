@@ -71,7 +71,9 @@ namespace FlowchartCreator.Controllers
         {
             if (ModelState.IsValid)
             {
-                while (true)
+                // Continues to generate URLs until a unique one is identified.
+                bool continue = true;
+                while (continue)
                 {
                     string genUrl = Generators.Url();
                     var dupeUrl = (from url in _context.Flowcharts
@@ -81,7 +83,7 @@ namespace FlowchartCreator.Controllers
                     if (!dupeUrl)
                     {
                         flowchart.Url = genUrl;
-                        break;
+                        continue = false;
                     }
                 }
 
@@ -104,6 +106,7 @@ namespace FlowchartCreator.Controllers
 
                 return RedirectToAction("Edit", new { id = flowchart.Id });
             }
+            
             return View(flowchart);
         }
 
@@ -172,7 +175,7 @@ namespace FlowchartCreator.Controllers
                 try
                 {
                     var fc = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == flowchart.id);
-                    fc.LastModified = DateTime.UtcNow;
+                    fc.LastModified = DateTime.UtcNow;  // Note that this time will need to be adjusted for local.
                     _context.Update(fc);
                     await _context.SaveChangesAsync();
                 }
@@ -192,6 +195,7 @@ namespace FlowchartCreator.Controllers
                 // This is temporary until data is placed back into the form. So their changes are lost.
                 Microsoft.Extensions.Primitives.StringValues tId;
                 Request.Form.TryGetValue("id", out tId);
+                
                 return RedirectToAction("Edit", Convert.ToInt32(tId));
             }
         }
@@ -219,6 +223,7 @@ namespace FlowchartCreator.Controllers
             var flowchart = await _context.Flowcharts.SingleOrDefaultAsync(m => m.Id == id);
             _context.Flowcharts.Remove(flowchart);
             await _context.SaveChangesAsync();
+            
             return RedirectToAction("Index");
         }
 
