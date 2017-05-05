@@ -1,4 +1,8 @@
-﻿import AddStepButton   from './AddStepButton';
+﻿/**
+   Main component. Handles all state management, step rendering,
+   and add/edit/delete Modals
+ */
+import AddStepButton   from './AddStepButton';
 import Modal           from 'react-modal';
 import FlowchartStep   from './FlowchartStep'
 import FlowchartNav    from './FlowchartNav';
@@ -23,6 +27,9 @@ class Canvas extends React.Component {
             titleText:             "",    // placeholder for new step's title
             descriptionText:       ""     // placeholder for new step's descrtiption
         }
+
+        /* Any function that needs access to the class's 'this' needs to be bound to it.
+         * This includes any functions that alter the state.*/
         this.openAddStepModal             = this.openAddStepModal.bind(this);
         this.closeAddStepModal            = this.closeAddStepModal.bind(this);
         this.openEditStepModal            = this.openEditStepModal.bind(this);
@@ -45,9 +52,14 @@ class Canvas extends React.Component {
      *************************************************************/
 
     editStep(event) {
-        event.preventDefault();
+        /** Edit Step
+         *    Main driver for edit step form. Called on "Edit Step" form submit
+         */
+        event.preventDefault(); // don't submit, run this function instead
         let newStepList = this.state.stepList;
+
         newStepList = newStepList.map((step) => {
+            /* the new step information stored in state is assigned here*/
             if (step.id === this.state.editStepId) {
                 step.title = this.state.titleText;
                 step.description = this.state.descriptionText;
@@ -62,7 +74,7 @@ class Canvas extends React.Component {
         /** Delete Step
          *    Main driver for delete step form. Called on "Delete Step" form submit
          */
-        event.preventDefault();
+        event.preventDefault(); // don't submit, run this function instead
         if (this.state.deleteStepId > -1) {
             // remove step from steplist
             let newStepList = this.state.stepList.filter((step) => {
@@ -81,7 +93,7 @@ class Canvas extends React.Component {
         /** Add New Step
          *    Main driver for add step form. Called on "Add Step" form submit
          */
-        event.preventDefault();
+        event.preventDefault(); // don't submit, run this function instead
         let newChildId, newStep, newStepList;
 
         newStepList = this.state.stepList;
@@ -130,11 +142,11 @@ class Canvas extends React.Component {
 
         let stepList = this.state.stepList.map((step) => {
             let newStep = {
-                id: step.id,
-                title: step.title,
+                id:          step.id,
+                title:       step.title,
                 description: step.description,
-                children: step.children,
-                parentId: step.parentId
+                children:    step.children,
+                parentId:    step.parentId
             }
             return newStep;
         });
@@ -264,9 +276,8 @@ class Canvas extends React.Component {
         // create components for the objects
         let i = 0;
         let childComponentList = [];
+
         for (let child of childObjectList) {
-            console.log("i="+i)
-            console.log("length="+childIdList.length)
             if (i === 0 && childObjectList.length > 1)
                 childComponentList.push(this.createStepComponent(child, true, false));
             else if (i === childIdList.length-1 && childObjectList.length > 1)
@@ -313,19 +324,19 @@ class Canvas extends React.Component {
         else {
 
         let url = window.location.href; // get the url for the id
-        url = url.split("/"); // make an array, splitting url on '/'
-        url = url[url.length-1]; // get just the id in the url
+        url     = url.split("/");       // make an array, splitting url on '/'
+        url     = url[url.length-1];    // get just the id in the url
 
         axios.get('/Flowchart/GetJson/'+url)
              .then((response) => {
-                 let stepList = JSON.parse(response.data).Steps;
+                 let stepList = JSON.parse(response.data).Steps; // get the steps into an array
                  stepList = stepList.map((step) => {
                      step.key = step.id;
                      return step;
                  });
                  this.setState({
                      stepList: stepList
-                 }, this.createComponentsFromStepList(stepList));
+                 }, this.createComponentsFromStepList(stepList)); // make components for the JSON objects
              })
              .catch(function (error) {
                  console.log("Error");
@@ -422,12 +433,12 @@ class Canvas extends React.Component {
         this.createComponentsFromStepList(this.state.stepList);
 
         this.setState({
-            editStepModalIsOpen:  false,
+            editStepModalIsOpen: false,
             descriptionText:      "",
             titleText:            "",
             parentId:             -1,
             newChildId:           -1,
-            editStepId:           -1
+            editStepId:          -1
         });
     }
 
@@ -458,11 +469,11 @@ class Canvas extends React.Component {
     render() {
         let stepList = this.state.stepList.map((step) => {
             let newStep = {
-                id: step.id,
-                title: step.title,
+                id:          step.id,
+                title:       step.title,
                 description: step.description,
-                children: step.children,
-                parentId: step.parentId
+                children:    step.children,
+                parentId:    step.parentId
             }
             return newStep;
         });

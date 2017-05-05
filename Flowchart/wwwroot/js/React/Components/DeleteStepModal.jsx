@@ -1,7 +1,9 @@
+/* Handles the modal to delete a step
+   All modal-related functions are passed into props by the Canvas*/
+
 import Modal from 'react-modal';
 
 class DeleteStepModal extends React.Component {
-    /* Handles the modal to delete a step*/
     render() {
         return (
             <Modal isOpen={this.props.deleteStepModalIsOpen}
